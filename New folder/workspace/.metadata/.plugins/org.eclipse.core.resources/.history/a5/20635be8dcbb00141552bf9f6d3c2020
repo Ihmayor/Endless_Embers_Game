@@ -1,0 +1,9 @@
+package game.version1;
+
+
+
+public interface ButtonAction {
+	
+	public void perform();
+
+}

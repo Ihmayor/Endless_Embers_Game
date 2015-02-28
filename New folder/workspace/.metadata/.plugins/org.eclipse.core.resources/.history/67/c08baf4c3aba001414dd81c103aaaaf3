@@ -1,0 +1,84 @@
+package algorithm1;
+
+public class TreeNode {
+
+	private int [] keysInNode = new int [4];
+	private int index = 0;
+	private int depth;
+	
+	private TreeNode parent = null,child1 = null,child2=null,child3=null,child4=null,child5=null; //Pointers to children and parent
+	
+	
+	TreeNode (int key)
+	{
+	keysInNode[index] = key;
+	index++;
+	}
+	
+	public void setChild1(TreeNode child) {child1 = child;}
+	public void setChild2(TreeNode child) {child2 = child;}
+	public void setChild3(TreeNode child) {child3 = child;}
+	public void setChild4(TreeNode child) {child4 = child;}
+	public void setChild5(TreeNode child) {child5 = child;}
+	public void setParent(TreeNode parent){this.parent = parent;}
+	
+	public TreeNode getChild1() {return child1;}
+	public TreeNode getChild2() {return child2;}
+	public TreeNode getChild3() {return child3;}
+	public TreeNode getChild4() {return child4;}
+	public TreeNode getChild5() {return child5;}
+	
+	public TreeNode getParent(){return parent;}
+	
+	public void addKey(int key){
+	for (int i = 0; i <= index; i++){
+		if (keysInNode[i] > key)
+		{
+			int temp = keysInNode[i];
+			keysInNode[i] = key;
+			
+			for (int c = i++; c <=index; c++)
+			{
+			int swap1 = keysInNode[c];
+			keysInNode[c] = temp;
+			temp = swap1;
+			}
+			index++;
+			break;
+			}
+		else{
+		keysInNode[index] = key;
+		index++;
+		break;
+		}
+		}
+	}
+	
+	public int getIndex(){return index;}
+	
+	public int[] getKeysInNode(){return keysInNode;}
+	
+	public void updateDepth(int newDepth){depth = newDepth;}
+	
+	public int getDepth (){return depth;}
+	
+	public int[] pop(){
+		int sizeOfLastHalf = 2;
+		int[] poppedArray = new int [sizeOfLastHalf];
+		for (int i = 0; i < sizeOfLastHalf; i++)
+		{
+			poppedArray[i] = keysInNode[i+2];
+			keysInNode[i+sizeOfLastHalf] = 0;
+		}
+		
+		return poppedArray;
+	}
+	
+	//This is where you store the amount of keys per node
+	//Make sure everything is at its limit
+	//Check depth
+	//Other info.
+	//I'll use an array to store the key values and re-adjust the array accordingly
+	//To Order it properly
+	//Essentially a mini-sorted list implemented into the node.
+}

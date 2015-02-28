@@ -1,0 +1,5 @@
+package game.version1;
+
+public class FloorOneMap extends Map{
+
+}

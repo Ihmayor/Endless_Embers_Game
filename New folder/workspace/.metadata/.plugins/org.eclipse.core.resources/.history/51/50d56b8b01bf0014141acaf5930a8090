@@ -1,0 +1,36 @@
+package MonsterRelated;
+
+import mapRelated.BasicMap;
+
+public class Creature {
+	
+	protected int x,y;
+	protected char [][] entityArray;
+	
+	protected void setEntityArray(char[][] entityArray){this.entityArray = entityArray;}
+	
+	protected boolean search(char name){
+			boolean found = false;
+			for (int row = 0; row < BasicMap.widthByTiles; row++)
+			{
+				for (int column = 0; column < BasicMap.heightByTiles; column++)
+				{
+					
+				}
+			}
+			
+			return found;
+		}
+	
+	public int[] getPosition(){
+		int[] position = new int[2];
+		position[0] = x;
+		position[1] = y;
+		return position;
+	}
+
+
+	
+	
+
+}

@@ -1,0 +1,9 @@
+package testSlick2D;
+
+
+
+public interface ButtonAction {
+	
+	public void perform();
+
+}

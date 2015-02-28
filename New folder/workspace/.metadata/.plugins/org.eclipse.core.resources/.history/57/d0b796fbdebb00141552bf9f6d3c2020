@@ -1,0 +1,16 @@
+package mapRelated;
+
+import org.newdawn.slick.tiled.TiledMap;
+
+public class Map {
+
+	private TiledMap map;
+	public Map(String tmxLocation){
+		map = new TiledMap(tmxLocation);
+	}
+	
+	public void render()
+	{
+		map.render();
+	}
+}

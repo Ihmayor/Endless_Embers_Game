@@ -1,0 +1,11 @@
+package testSlick2D;
+
+import java.util.List;
+
+
+
+public interface ButtonAction {
+	
+	public void perform();
+
+}

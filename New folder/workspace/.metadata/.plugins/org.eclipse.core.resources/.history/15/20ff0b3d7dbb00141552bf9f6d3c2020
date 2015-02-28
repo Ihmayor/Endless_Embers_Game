@@ -1,0 +1,205 @@
+package gameTemplate;
+
+//Nice little reminder: Ctrl+Shift+o is the shortcut for importing files from slick2D Library or from another package
+
+import org.newdawn.slick.Animation;
+import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.tiled.TiledMap;
+
+
+/*
+ ============================
+ THIS BASIC TEMPLATE CONTAINS:
+ - Loading a Map made from Tiled program. 
+ - Working with player keyboard input and moving the character around
+ - Has a Glitchy collision detection system setup.
+ 
+ 
+ To Do:
+ - Change Keyboard Functions to Num_Pad Key Equivalents
+ - Combine with State Based Game System.
+ - Implement Interpolaration for Tile-Only Movement.
+ - Implement A Game Loop to simulate Turn-Based Movement with Monster.
+ - Re-factor Input into a Separate Class
+ - Initialize Character Animations + Store info in separate class 
+ */
+
+public class BasicGameTemplate extends BasicGame{
+
+	//Basic Map Variables
+	private TiledMap map;
+	private boolean [][] collisionArray;
+	private char [][] entityArray;
+	private int widthByTiles = 35;
+	private int heightByTiles = 16;
+	private int current_x = 4, current_y = 5;
+	//Basic Sprite Variables
+	private SpriteSheet sheet;
+	private Animation currentSprite, up, down,left,right;
+
+	//Limited Vision Effect
+	private Image shadow;		
+	
+	//Current Position of Player
+	private float x = current_x*32,y = current_y*32;
+
+	
+	public BasicGameTemplate(String title) {
+		super(title);
+	}
+
+	@Override
+	public void init(GameContainer gc) throws SlickException {
+	
+		map = new TiledMap("res/Images/secondTestMap.tmx");
+		sheet = new SpriteSheet("res/Images/dummySheet.png", 32,32);
+		shadow = new Image("res/Images/evenLargerShadow.png");
+		collisionArray = new boolean[widthByTiles][heightByTiles];
+		entityArray = new char[widthByTiles][heightByTiles];
+		
+		entityArray[current_x][current_y] = 'P';
+		initCollisionArray();
+
+		//Load Sprite Images for Player
+				Image [] upSprite = {sheet.getSubImage(4,0),sheet.getSubImage(5, 0)};
+				Image [] downSprite = {sheet.getSubImage(0,0), sheet.getSubImage(1,0)};
+				Image [] rightSprite = {sheet.getSubImage(6,0), sheet.getSubImage(7,0)};
+				Image [] leftSprite = {sheet.getSubImage(2,0),sheet.getSubImage(3,0)} ;
+				
+
+			//Set the duration of Animation in Milliseconds	
+				int [] duration = {200,200};
+				
+			//Initialize Animations
+				up = new Animation(upSprite, duration, false);
+				down = new Animation (downSprite, duration, false);
+				left = new Animation(leftSprite, duration, false);
+				right = new Animation (rightSprite,duration,false);
+				
+				currentSprite = down;
+	}
+	
+	
+	
+	//Initializes the Collision Array by reading the TMX files and reading all the tiles that have
+	//The 'blocked' property set true
+	//Note: In tiled you must manually set the tile to have the blocked property to true.
+	private void initCollisionArray (){
+		for (int c = 0; c < widthByTiles; c++){
+			for (int r = 0; r < heightByTiles; r ++)
+			{
+				int tileID = map.getTileId(c, r, 0);
+				if (r == 0 & c == 0)
+				{
+				System.out.println(tileID);
+				}
+                String value = map.getTileProperty(tileID, "blocked", "false");
+                if ("true".equals(value))
+                {
+                    collisionArray[c][r] = true;
+                }
+			}
+		}
+	}
+	
+	//Method takes the given future position of player's character
+	//Converts that to find closest tile.
+	//Checks if that tile has the blocked property
+	private boolean hasCollision (float x, float y)
+	{
+		int SIZE = 32;
+		int xBlock = (int)x / SIZE;
+	    int yBlock = (int)y / SIZE;
+	    
+	    //Just a test conditional code.
+	    if (collisionArray[xBlock][yBlock])
+	    {
+	    	System.out.println("Player has been blocked");
+	    }
+	    return collisionArray[xBlock][yBlock];
+	}
+
+	@Override
+	public void render(GameContainer gc, Graphics g) throws SlickException {
+		gc.setShowFPS(false); // Gets rid o that pesky FPS counter.
+		
+		map.render(0,0);//Loads the map starting at 0,0 to match screen.
+		currentSprite.draw((int) x, (int) y);//Draw what the Current sprite should look like.
+		//g.drawImage(shadow,(int)x-1110, (int)y-850); //Draw Shadow with a particular offset for the spotlight.
+		g.drawString("Testing Drawing Strings For Now", 500, 450);//Just a test to see what strings look like.
+
+	}
+
+	private long previousTime = 0;
+	public boolean delayUpdate(long delta){
+		return false;
+	}
+	@Override
+	public void update(GameContainer gc, int delt) throws SlickException {
+		long tmp = System.currentTimeMillis();
+		long delta = tmp-previousTime;
+		previousTime = tmp;
+		
+
+		delayUpdate(delta);
+		Input input = gc.getInput(); // Get the input class.
+		int SIZE = 32;//Amount of pixels per tile.
+		float fdelta=delta*0.1f;//Takes the time and turns to a float.
+	///USING KEYBOARD FUNCTIONS BECAUSE MY NUM-PAD is M.I.A
+		if (input.isKeyDown(Input.KEY_UP))
+		{
+		
+			currentSprite = up;
+			//Conditional branch checks that one: Not out of bounds of screen
+			//two: If the top pixel of a tile is passable and if the bottom pixel of a tile is passable.
+			if (y > 0 & (!(hasCollision(x, y - fdelta) || hasCollision(x+SIZE-1, y - fdelta))))
+			{
+			//Adjust position of the sprite.
+			currentSprite.update((long)fdelta);
+			
+			y -= fdelta;
+			}
+			
+		}
+		
+		else if (input.isKeyDown(Input.KEY_DOWN)){
+			currentSprite = down;
+			System.out.println("y-value:"+y);
+			if (y <= 475 &(!(hasCollision(x, y + SIZE + fdelta) || hasCollision(x+SIZE-1, y + SIZE + fdelta))))
+			{
+			currentSprite.update((long)fdelta);
+			y += delta *0.1f;	
+			}
+				
+			}
+		else if (input.isKeyDown(Input.KEY_LEFT)){
+			currentSprite = left;
+			if (x > 0 &(!(hasCollision(x, y + SIZE + fdelta) || hasCollision(x+SIZE-1, y + SIZE + fdelta))))
+			{
+			currentSprite.update(delta);
+			x -= delta *0.1f;	
+			}
+			
+		}
+		else if (input.isKeyDown(Input.KEY_RIGHT)){
+			currentSprite = right;
+			System.out.println("x-value:"+x);
+			if (x <= 1080 &(!(hasCollision(x + SIZE + fdelta, y) || hasCollision(x + SIZE + fdelta, y+SIZE-1))))
+			{
+			currentSprite.update(delta);
+			x += delta *0.1f;	
+			}
+			
+		}
+		else if (input.isKeyDown(Input.KEY_D)){
+		//wILL use in place of pass key.
+			System.out.println("Pass key has been pressed");
+		}
+	}
+}

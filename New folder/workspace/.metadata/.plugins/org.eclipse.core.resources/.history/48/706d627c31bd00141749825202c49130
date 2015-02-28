@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="35" height="16" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="clifveg2" tilewidth="32" tileheight="32">
+  <image source="../../../../Pictures/SENG 301/Resource Folder/clifveg2.bmp" trans="5555ff" width="640" height="480"/>
+ </tileset>
+ <tileset firstgid="301" name="tilea2" tilewidth="32" tileheight="32">
+  <image source="../../../../Pictures/SENG 301/tilea2.png" width="512" height="384"/>
+  <tile id="54">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="55">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="56">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="70">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="71">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="73">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="86">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="87">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="493" name="32x32" tilewidth="32" tileheight="32">
+  <image source="../../../../Pictures/SENG 301/Resource Folder/32x32.bmp" width="2048" height="2272"/>
+  <tile id="0">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 2" width="35" height="16">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC82U3QnAIAyE7awlE7S4gB2y47QPLZSQn4uE6sOhoIYvl8NtKWWdQPuznoqI7V9p9aw6ZJx7Nfhbr56lCAsp9yVfRrDUBF8q+Bbx5cuDsFi9WJLywmci+eKpZ4ZI/iO9IRwaP8ISzWcmi+dz73w8f/9kycjLzCzZ+fFYsnrtZUH/jqiiLI1xjdJx6wLOBzz/wAgAAA==
+  </data>
+ </layer>
+</map>

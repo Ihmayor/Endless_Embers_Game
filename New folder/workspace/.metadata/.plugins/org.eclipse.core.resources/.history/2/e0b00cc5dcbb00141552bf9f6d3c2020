@@ -1,0 +1,7 @@
+package game.version1;
+
+import mapRelated.Map;
+
+public class FloorOneMap extends Map{
+
+}

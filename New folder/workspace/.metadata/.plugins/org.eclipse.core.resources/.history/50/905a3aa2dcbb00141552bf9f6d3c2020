@@ -1,0 +1,5 @@
+package testSlick2D;
+
+public class FloorOneMap extends Map{
+
+}

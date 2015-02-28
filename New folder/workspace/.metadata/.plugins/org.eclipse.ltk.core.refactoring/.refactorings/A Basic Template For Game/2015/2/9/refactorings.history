@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 7 elements to &apos;res&apos;&#x0D;&#x0A;- Original project: &apos;A Basic Template For Game&apos;&#x0D;&#x0A;- Destination element: &apos;res&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     tilea2.png&#x0D;&#x0A;     evenLargerShadow.png&#x0D;&#x0A;     testMap..txt&#x0D;&#x0A;     largerShadow.png&#x0D;&#x0A;     dummySheet.png&#x0D;&#x0A;     secondTestMap.tmx&#x0D;&#x0A;     testMap.tmx" description="Copy files" element1="res/Images/tilea2.png" element2="res/Images/evenLargerShadow.png" element3="res/Images/testMap..txt" element4="res/Images/largerShadow.png" element5="res/Images/dummySheet.png" element6="res/Images/secondTestMap.tmx" element7="res/Images/testMap.tmx" files="7" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1424751900672" target="/Slick2dProject/res" units="0" version="1.0"/>
+</session>

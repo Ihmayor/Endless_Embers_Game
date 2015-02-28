@@ -1,0 +1,28 @@
+package gameTemplate;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.SlickException;
+
+public class Driver {
+
+	public static void main(String[] args)
+	{
+	int screenWidth = 1120; // Set screen width to 35 tiles long (35*32px)
+	int screenHeight = 512; // Set screen height to 16 tile long (16*32px)
+		
+		try
+		{
+			AppGameContainer appgc;
+			appgc = new AppGameContainer(new BasicGameTemplate("Basic Game Template"),screenWidth,screenHeight,false);
+			appgc.start();
+		}
+		catch (SlickException ex)
+		{
+			Logger.getLogger(BasicGameTemplate.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+}

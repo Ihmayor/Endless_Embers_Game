@@ -1,0 +1,12 @@
+package testSlick2D;
+
+import java.awt.List;
+import java.util.ArrayList;
+
+public interface ButtonAction {
+	
+	private final List <ButtonAction> actions = new ArrayList <ButtonAction>();
+	
+	public void perform();
+
+}
