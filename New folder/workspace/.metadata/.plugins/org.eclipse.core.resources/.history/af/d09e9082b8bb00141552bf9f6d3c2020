@@ -1,9 +1,0 @@
-package testSlick2D;
-
-public interface ButtonAction {
-	
-	private final List<ButtonAction> actions = new ArrayList <ButtonAction()>;
-	
-	public void perform();
-
-}

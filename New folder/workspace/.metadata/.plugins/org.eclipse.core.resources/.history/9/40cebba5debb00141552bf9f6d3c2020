@@ -1,9 +1,0 @@
-package mapRelated;
-
-public class Map {
-
-	
-	public Map(){
-		
-	}
-}
