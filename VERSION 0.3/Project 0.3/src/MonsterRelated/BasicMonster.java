@@ -9,10 +9,10 @@ import org.newdawn.slick.Image;
 
 
 public class BasicMonster extends Creature{
-	private boolean isActiveState = false;
-	private String name;
-	private Image monster;
-	
+	protected boolean isActiveState = false;
+	protected String name;
+	protected Image monster;
+	protected double monsterSightRange;
 	public String getName(){return name;}
 	
 	public BasicMonster(BasicMap map, Image monster)
@@ -20,6 +20,7 @@ public class BasicMonster extends Creature{
 		super.x = 7*32;
 		super.y = 10*32;
 		super.name = "M";
+		monsterSightRange = 2;
 		this.monster = monster;
 	}
 	
@@ -35,19 +36,25 @@ public class BasicMonster extends Creature{
 	
 	public void update(int [] playerPosition)
 	{
-		if (search("P"))
-			isActiveState = true;
-		else 
-			isActiveState = false;
-		
+		isActiveState = monsterSees(playerPosition);
 		if (isActiveState){
-			x = findClosestSpot(getPosition(), playerPosition)[0];
-			y = findClosestSpot(getPosition(),playerPosition)[1];
+//			x = findClosestSpot(getPosition(), playerPosition)[0];
+//			y = findClosestSpot(getPosition(),playerPosition)[1];
 			super.setPosition(playerPosition, "P");
 		}
 		else
-			wander(playerPosition, "P");
+			System.out.println("Test Else branch Monster Update!");
+//			wander(playerPosition, "P");
 	}
+	
+	private boolean monsterSees(int[] playerPosition){
+		double distance = Math.sqrt((double)( (playerPosition[0]- x)^2+(playerPosition[1]-y)^2));
+		if (distance < monsterSightRange)
+			return true;
+		else
+			return false;
+	}
+	
 	
 	private void wander(int [] playerPosition, String otherName){
 	Random gen = new Random();
