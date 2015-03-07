@@ -106,6 +106,7 @@ public class Player extends Creature{
 			if (!(map.hasCollision(x - movementSpeed*SIZE, y - movementSpeed*SIZE))){
 				y -= movementSpeed*SIZE;
 				x -= movementSpeed * SIZE;
+				map.isStairs(x, y);
 				}
 		 }
 
@@ -114,6 +115,7 @@ public class Player extends Creature{
 			
 			if (!(map.hasCollision(x, y - movementSpeed*SIZE)))
 				y -= movementSpeed*SIZE;
+				map.isStairs(x, y);
 		}
 		
 		
@@ -121,7 +123,8 @@ public class Player extends Creature{
 				if (!(map.hasCollision(x + movementSpeed*SIZE, y - movementSpeed*SIZE)))	
 				{
 					y -= movementSpeed*SIZE;
-					x += movementSpeed * SIZE;		
+					x += movementSpeed * SIZE;
+					map.isStairs(x, y);
 				}
 		}
 
@@ -131,6 +134,7 @@ public class Player extends Creature{
 			
 			if (!(map.hasCollision(x - movementSpeed*SIZE, y)))
 				x -= movementSpeed * SIZE;
+				map.isStairs(x, y);	
 			
 		}
 		else if (input.isKeyPressed(Input.KEY_NUMPAD5)||input.isKeyPressed(Input.KEY_I))
@@ -142,6 +146,7 @@ public class Player extends Creature{
 			
 			if (!(map.hasCollision(x + movementSpeed*SIZE, y)))
 				x += movementSpeed * SIZE;
+				map.isStairs(x, y);
 		}	
 		
 		
@@ -149,7 +154,8 @@ public class Player extends Creature{
 				if (!(map.hasCollision(x-movementSpeed*SIZE,  y+movementSpeed*SIZE)))
 					{
 					x -= movementSpeed * SIZE;
-					y += movementSpeed*SIZE;		
+					y += movementSpeed*SIZE;
+					map.isStairs(x, y);
 					}
 				}
 		else if (input.isKeyPressed(Input.KEY_DOWN)||input.isKeyPressed(Input.KEY_K)){
@@ -157,6 +163,7 @@ public class Player extends Creature{
 			
 			if (!(map.hasCollision(x, y + movementSpeed*SIZE)))
 				y += movementSpeed * SIZE;
+				map.isStairs(x, y);
 			
 		}
 
@@ -164,7 +171,8 @@ public class Player extends Creature{
 				if (!(map.hasCollision(x-movementSpeed*SIZE,  y+movementSpeed*SIZE)))
 					{
 					x += movementSpeed * SIZE;
-					y += movementSpeed*SIZE;		
+					y += movementSpeed*SIZE;
+					map.isStairs(x, y);
 					}
 			
 				}
