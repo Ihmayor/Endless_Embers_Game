@@ -21,25 +21,27 @@ public class Player extends Creature{
 	private final StateBasedGame sbg;
 	private BasicMap map;
 	
-	public final String name = "P";
 	
 	//Basic Sprite Variables
-		private SpriteSheet sheet;
+	private SpriteSheet sheet;
 		private Animation currentSprite, up, down,left,right;
 
-		//Limited Vision Effect
-		private Image shadow;		
+	//Limited Vision Effect
+	private Image shadow;		
 	
 	
 	
 		
 		
 	public Player(GameContainer gc, StateBasedGame sbg, BasicMap map,int x, int y) throws SlickException{
+		//Constructor used to 
 		super(x,y);
+		//Variables for the usage outside functions
 		this.gc = gc;
 		this.sbg = sbg;
 		this.map = map;
-		super.name = this.name;
+		//Initialize Variables
+		name = "P";
 		sheet = new SpriteSheet("res/player/template2.png", 32,32);
 		shadow = new Image("res/player/largerShadow.png");
 		loadPlayerSprite(sheet);
@@ -81,7 +83,7 @@ public class Player extends Creature{
 	public void render(Graphics g){
 	this.g = g;
 	currentSprite.draw((int) x, (int) y);//Draw what the Current sprite should look like.
-	g.drawImage(shadow,(int)x-1110, (int)y-850); //Draw Shadow with a particular offset for the spotlight
+//	g.drawImage(shadow,(int)x-1110, (int)y-850); //Draw Shadow with a particular offset for the spotlight
 	}
 	
 	
@@ -95,13 +97,10 @@ public class Player extends Creature{
 	
 	public void update(long delta){
 		int movementSpeed = 1;
-		final int SIZE = BasicMap.TILESIZE;
-
+		final int SIZE = BasicMap.TILESIZE;//Variable used to shorten variable names
 		int newX = 0;
 		int newY = 0;
-		
-//	if (search("M"))
-//			System.out.println("Interaction with Monster");
+
 		Input input = gc.getInput();
 		 
 		if (input.isKeyPressed(Input.KEY_NUMPAD7)||input.isKeyPressed(Input.KEY_7)){
@@ -113,15 +112,18 @@ public class Player extends Creature{
 				updatePosition(newX,newY);
 				x = newX;
 				y = newY;
+				map.isStairs(x,y);
 				}
 		 }
 
-		else if (input.isKeyPressed(Input.KEY_UP)||input.isKeyPressed(Input.KEY_8)){
+		else if (input.isKeyPressed(Input.KEY_UP)||input.isKeyPressed(Input.KEY_8)
+				||input.isKeyPressed(Input.KEY_NUMPAD8)){
 			currentSprite = up;
 			newY = y - movementSpeed*SIZE;
-			if (!(map.hasCollision(x, newY))&&!isTaken(x/SIZE,newY/SIZE)){
+			if (!(map.hasCollision(x, newY))&&!isTaken(x,newY)){
 				updatePosition(x,newY);
 				y = newY;
+				map.isStairs(x,y);
 			}
 		}
 		
@@ -130,22 +132,24 @@ public class Player extends Creature{
 			currentSprite = right;
 			newX = x + movementSpeed*SIZE;
 			newY = y - movementSpeed*SIZE;
-				if (!(map.hasCollision(newX, newY))&&!isTaken(newX/SIZE, newY/SIZE))	
+				if (!(map.hasCollision(newX, newY))&&!isTaken(newX, newY))	
 				{
 					updatePosition(newX,newY);
 					y = newY;
-					x = newX;		
+					x = newX;	
+					map.isStairs(x,y);
 				}
 		}
 
 		
-		else if (input.isKeyPressed(Input.KEY_LEFT)||input.isKeyPressed(Input.KEY_U)){
+		else if (input.isKeyPressed(Input.KEY_LEFT)||input.isKeyPressed(Input.KEY_U)
+				||input.isKeyPressed(Input.KEY_NUMPAD4)){
 			currentSprite = left;
 			newX = x-movementSpeed*SIZE;
-			if (!(map.hasCollision(newX, y))&&!isTaken(newX/SIZE, y/SIZE)){
+			if (!(map.hasCollision(newX, y))&&!isTaken(newX, y)){
 				updatePosition(newX,y);
 				x = newX;
-
+				map.isStairs(x,y);
 			}
 			
 		}
@@ -155,12 +159,15 @@ public class Player extends Creature{
 			currentSprite = down;
 			}
 		
-		else if (input.isKeyPressed(Input.KEY_RIGHT)||input.isKeyPressed(Input.KEY_O)){
+		else if (input.isKeyPressed(Input.KEY_RIGHT)||input.isKeyPressed(Input.KEY_O)||
+				input.isKeyPressed(Input.KEY_NUMPAD6)){
 			currentSprite = right;
 			newX = x + movementSpeed*SIZE;
-			if (!(map.hasCollision(newX, y))&& !isTaken(newX/SIZE, y/SIZE)){
+			if (!(map.hasCollision(newX, y))&& !isTaken(newX, y)){
 				updatePosition(newX,y);
 				x = newX;
+				map.isStairs(x,y);
+
 			}
 		}	
 		
@@ -169,19 +176,22 @@ public class Player extends Creature{
 				currentSprite = left;
 				newX = x-movementSpeed*SIZE;
 				newY = y +movementSpeed*SIZE;
-				if (!(map.hasCollision(newX,  newY))&&!isTaken(newX/SIZE, newY/SIZE))
+				if (!(map.hasCollision(newX,  newY))&&!isTaken(newX, newY))
 					{
 					updatePosition(newX,newY);
 					x = newX;
 					y = newY;
+					map.isStairs(x,y);
 					}
 				}
-		else if (input.isKeyPressed(Input.KEY_DOWN)||input.isKeyPressed(Input.KEY_K)){
+		else if (input.isKeyPressed(Input.KEY_DOWN)||input.isKeyPressed(Input.KEY_K)||
+				input.isKeyPressed(Input.KEY_NUMPAD2)){
 			currentSprite = down;
 			newY = y +movementSpeed*SIZE;
-			if (!(map.hasCollision(x, newY))&&!isTaken(x/SIZE, newY/SIZE)){
+			if (!(map.hasCollision(x, newY))&&!isTaken(x, newY)){
 				updatePosition(x,newY);
 				y = newY;
+				map.isStairs(x,y);
 				}
 			
 		}
@@ -190,17 +200,32 @@ public class Player extends Creature{
 			currentSprite = right;
 			newX = x-movementSpeed*SIZE;
 			newY = y+movementSpeed*SIZE;
-				if (!(map.hasCollision(newX,newY))&& !isTaken(newX/SIZE, newY/SIZE))
+				if (!(map.hasCollision(newX,newY))&& !isTaken(newX, newY))
 					{
 					updatePosition(newX,newY);
 					x = newX;
 					y = newY;
-
+					map.isStairs(x,y);
 					}
 			
 				}
 		 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

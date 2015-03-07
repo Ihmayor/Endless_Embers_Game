@@ -15,16 +15,15 @@ public class BasicMonster extends Creature{
 	protected Image monsterImage;
 	protected double monsterSightRange;
 	protected char direction;
-	public String getName(){return name;}
 	
 	private int counter;
 	
-	//////////TEST ONLY
+	//////////For TEST ONLY////////////////
 	public BasicMonster(int x, int y, int counter){
 		super(x,y);
 		this.counter = counter;
 	}
-	
+	///////////////////////////////////
 	
 	
 	
@@ -61,21 +60,20 @@ public class BasicMonster extends Creature{
 			PrintingTests.printEntityArray(entityArray);}
 
 		
-//		System.out.println("Player's X: "+playerPosition[0]/32+" Player's Y: "+playerPosition[1]/32);
-		isActiveState = monsterSees(playerPosition);
+		isActiveState = search("P");
 		if (isActiveState){
 //			x = findClosestSpot(getPosition(), playerPosition)[0];
 //			y = findClosestSpot(getPosition(),playerPosition)[1];
-			wander(playerPosition,4*BasicMap.TILESIZE,7*BasicMap.TILESIZE);
-//			updatePosition(x,y);
+//Supposed to use more intelligent wander.
+			wander(playerPosition,7*BasicMap.TILESIZE,9*BasicMap.TILESIZE);
+			System.out.println("Monster Is active");
 		}
 		else{
-			wander(playerPosition,4*BasicMap.TILESIZE,7*BasicMap.TILESIZE);
-//			wander(playerPosition, "P");
+			wander(playerPosition,7*BasicMap.TILESIZE,9*BasicMap.TILESIZE);
 		}
 	}
 		
-	
+	///More advanced version of search
 	private boolean monsterSees(int[] playerPosition){
 		double distance = Math.sqrt((double)( (playerPosition[0]- x)^2+(playerPosition[1]-y)^2));
 		if (distance < monsterSightRange)
@@ -86,13 +84,12 @@ public class BasicMonster extends Creature{
 	
 	
 
-	
+	/////////////Movement Methods///////////////
+	////////////////////////////////////////////////////////////
 	private void wander(int [] playerPosition, int pathStart, int pathEnd){
 	
 	int newX1 = x+BasicMap.TILESIZE;
-	int newX2 = x-BasicMap.TILESIZE;
-//	System.out.println("Counter inside Monster: "+counter);
-	
+	int newX2 = x-BasicMap.TILESIZE;	
 	if ((newX2>= 0 || newX1<=1080)&&counter >= 500){
 		System.out.println("Direction: "+direction);
 		
@@ -101,12 +98,12 @@ public class BasicMonster extends Creature{
 			direction = 'L';
 
 		//move rightwards	
-		if (direction == 'R'&&x <= pathEnd&&!isTaken(newX1/BasicMap.TILESIZE,y/32)){
+		if (direction == 'R'&&x <= pathEnd&&!isTaken(newX1,y)){
 			updatePosition(newX1,y);
 			x = newX1;
 			}
 		//move leftwards
-		else if (direction == 'L' && x >= pathStart&&!isTaken(newX2/BasicMap.TILESIZE,y/32)){
+		else if (direction == 'L' && x >= pathStart&&!isTaken(newX2,y)){
 				updatePosition(newX2,y);
 				x = newX2;
 				//Change Direction

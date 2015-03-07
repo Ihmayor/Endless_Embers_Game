@@ -9,11 +9,17 @@ public class Creature {
 	protected String [][] entityArray;
 	protected String name;
 	
+	protected int healthPoints;
+	protected int experiencePoints;
+	
+	
+	
 	public Creature (int x,int y){
 		this.x = x;
 		this.y = y;
 	}
 	public String[][]getEntityArray(){return entityArray;}
+	public String getName(){return name;}
 
 	public void setEntityArray(String[][] entityArray){this.entityArray = entityArray;}
 	
@@ -32,15 +38,17 @@ public class Creature {
 		entityArray[x/BasicMap.TILESIZE][y/BasicMap.TILESIZE] = name;
 		this.x = x;
 		this.y = y;
-		
 	}
 
-	protected boolean isTaken(int xTile, int yTile){
+	protected boolean isTaken(int x, int y){
+		int xTile = x/BasicMap.TILESIZE;
+		int yTile = y/BasicMap.TILESIZE;
 		boolean isTaken = false;
 		if (entityArray[xTile][yTile] != " ")
 			isTaken = true;
 		return isTaken;
 	}
+	
 
 	protected boolean search(String name){
 			boolean found = false;
@@ -51,7 +59,6 @@ public class Creature {
 					//If within bounds of the map.
 					if (row >= 0 && row < BasicMap.heightByTiles && column >= 0 && column <= BasicMap.widthByTiles)
 					{
-//						System.out.println("COLUMN: "+column+" ROW: "+row);
 						if (entityArray[row][column]!= null&&entityArray[row][column].equals(name))
 						{
 							found = true;
@@ -60,8 +67,7 @@ public class Creature {
 					}
 					
 				}	
-			}
-			
+			}	
 			return found;
 	}
 	

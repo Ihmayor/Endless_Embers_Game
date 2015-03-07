@@ -25,6 +25,9 @@ public class Game extends BasicGameState {
 	private String[][] entityArray;
 	private BasicMonster monster;
 	
+	public static String statusUpdate;
+	
+	
 	private long prevTime;
 	
 	public static final int ID = 1;
@@ -33,14 +36,15 @@ public class Game extends BasicGameState {
 			throws SlickException {
 	this.game = stateGame;
 	prevTime = 0;
-	floorOne = new BasicMap("res/map/floor1.tmx");	
+	floorOne = new BasicMap("res/map/singleTilePassageWay.tmx");	
 	SpriteSheet monsterSheet = new SpriteSheet("res/player/dummySheet.png",32,32); 
 	Image monsterImage = monsterSheet.getSubImage(0, 0);
 	player = new Player(gc, stateGame,floorOne, 4*32, 5*32);
-	monster = new BasicMonster(floorOne, monsterImage, 7*32, 10*32);
+	monster = new BasicMonster(floorOne, monsterImage, 7*32, 11*32);
 	initEntityArray();
 	player.setEntityArray(entityArray);
 	monster.setEntityArray(entityArray);
+	statusUpdate = "Game is Now In Session";
 	}
 
 	private void initEntityArray (){
@@ -53,7 +57,7 @@ public class Game extends BasicGameState {
 				entityArray[i][c] = " ";
 			}
 		}
-		entityArray[((Creature)player).getPosition()[0]/32][((Creature)player).getPosition()[1]/32] = player.name;
+		entityArray[((Creature)player).getPosition()[0]/32][((Creature)player).getPosition()[1]/32] = player.getName();
 		entityArray[monster.getPosition()[0]/32][monster.getPosition()[1]/32] = monster.getName();
 	}
 	
@@ -64,7 +68,7 @@ public class Game extends BasicGameState {
 		monster.render(g);
 		player.render(g);
 		g.setColor(Color.white);
-	    g.drawString("GAME IS NOW IN SESSION", 100, 490);
+	    g.drawString(statusUpdate, 100, 490);
 	    g.drawString("Press Q to quit", 400, 490);
 	}
 	

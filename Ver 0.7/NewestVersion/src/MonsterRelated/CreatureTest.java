@@ -108,7 +108,7 @@ public class CreatureTest {
 		c.updatePosition(9*32, 9*32);
 		c2.updatePosition(5*32, 1*32);
 		
-		assertEquals(true, c2.isTaken(9, 9)); //C2 knows where the update position of c
+		assertEquals(true, c2.isTaken(9*32, 9*32)); //C2 knows where the update position of c
 		assertArrayEquals(c.getEntityArray(), c2.getEntityArray());//They both have the same array
 		
 	}
@@ -128,8 +128,8 @@ public class CreatureTest {
 		c.setEntityArray(testEntity);
 		
 		//The entity array should know there is something in the array.
-		assertEquals(false, c.isTaken(4,5));
-		assertEquals(true,c.isTaken(3,5));
+		assertEquals(false, c.isTaken(4*32,5*32));
+		assertEquals(true,c.isTaken(3*32,5*32));
 	}
 	
 	@Test
@@ -149,10 +149,10 @@ public class CreatureTest {
 		c.setEntityArray(testEntity);
 		c2.setEntityArray(testEntity);
 		//The entity array should know there is something in the array.
-		assertEquals(false, c.isTaken(4,5));
-		assertEquals(true,c.isTaken(5,5));
-		assertEquals(false, c2.isTaken(2, 6));
-		assertEquals(true, c.isTaken(3,5));
+		assertEquals(false, c.isTaken(4*32,5*32));
+		assertEquals(true,c.isTaken(5*32,5*32));
+		assertEquals(false, c2.isTaken(2*32, 6*32));
+		assertEquals(true, c.isTaken(3*32,5*32));
 	}
 
 }
