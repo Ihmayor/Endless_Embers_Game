@@ -33,18 +33,13 @@
     <property name="blocked" value="true"/>
    </properties>
   </tile>
-  <tile id="22">
-   <properties>
-    <property name="stairs" value="true"/>
-   </properties>
-  </tile>
  </tileset>
  <layer name="Tile Layer 1" width="35" height="16">
   <properties>
    <property name="blocked" value="false"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2USw6AIAxEq16iJtz/di6ACxgTTQj2B1TjwsWsoOXRaZsngPyyEqPjbAVZZR7trkW9LGGQJRIxT9SFy5mUnJ4sYZDliqXekGKwYkEHj6T/aixlLZ4SNW/WWATaj94e5+YflTvhrJPEwvV5q0caS4/3HiyarH2kzRjF4rlfOZaSZ5nv71p9kHZK646raxA/pO0XqR19CADJwAgAAA==
+   H4sIAAAAAAAAC+2USw7AIAhE6S1o4v1v14V6gaZJmxjDT8Smiy5mpeCTAeoGUF9WYXSd7SCrzaPdtcjLkiZZMhGzoi5czqLkjGRJkyxPLPWGFIMdCwZ4JP1XY2lrsUrUvFljEWg/vD3OzT8qd9JdJ4mF6/NRjzQWj/cRLJqsfaTNGMUSuV85Foqnfdfqg7RTRndcz5I/pOMXqRMBKW5qwAgAAA==
   </data>
  </layer>
 </map>
