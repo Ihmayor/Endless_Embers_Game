@@ -1,8 +1,11 @@
 package playerRelated;
 
+import gameStates.Game;
 import mapRelated.BasicMap;
+import monsterRelated.Creature;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -10,8 +13,10 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
-import MonsterRelated.Creature;
+import combatRelated.CombatManager;
 
 public class Player extends Creature{
 	
@@ -21,6 +26,13 @@ public class Player extends Creature{
 	private final StateBasedGame sbg;
 	private BasicMap map;
 	
+	private int experiencePoints = 0;
+	private int pointsNextLevel = 1000;
+	private int playerLevel = 1;
+	private int damageIncrease = 0;
+	
+	private int criticalHitLimit= 30;
+	private int missFactor = 5;
 	
 	//Basic Sprite Variables
 	private SpriteSheet sheet;
@@ -83,7 +95,7 @@ public class Player extends Creature{
 	public void render(Graphics g){
 	this.g = g;
 	currentSprite.draw((int) x, (int) y);//Draw what the Current sprite should look like.
-//	g.drawImage(shadow,(int)x-1110, (int)y-850); //Draw Shadow with a particular offset for the spotlight
+	g.drawImage(shadow,(int)x-1110, (int)y-850); //Draw Shadow with a particular offset for the spotlight
 	}
 	
 	
@@ -91,23 +103,76 @@ public class Player extends Creature{
 		this.map = map;//Just In case we're loading new floors.
 	}	
 	
-	public boolean delayUpdate(long delta){
-		return false;
+	public void delayUpdate(){
+		for (int i = 0; i <= 4000; i++);
 	}
 	
 	public void update(long delta){
-		int movementSpeed = 1;
-		final int SIZE = BasicMap.TILESIZE;//Variable used to shorten variable names
-		int newX = 0;
-		int newY = 0;
-
+		if (alive == false){
+			Game.statusUpdate = "Your player be dead";
+			delayUpdate();
+			sbg.enterState(Game.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));		
+			}
+		
 		Input input = gc.getInput();
 		 
 		if (input.isKeyPressed(Input.KEY_NUMPAD7)||input.isKeyPressed(Input.KEY_7)){
+			 moveDiagonalUpLeft();
+		 }
+
+		else if (input.isKeyPressed(Input.KEY_UP)||input.isKeyPressed(Input.KEY_8)
+				||input.isKeyPressed(Input.KEY_NUMPAD8)){
+				moveUp();
+		}
+		
+		
+		else if (input.isKeyPressed(Input.KEY_NUMPAD9)||input.isKeyPressed(Input.KEY_9)){
+				moveDiagonalUpRight();
+		}
+
+		
+		else if (input.isKeyPressed(Input.KEY_LEFT)||input.isKeyPressed(Input.KEY_U)
+				||input.isKeyPressed(Input.KEY_NUMPAD4)){
+				moveLeft();
+			
+			
+		}
+		
+		else if (input.isKeyPressed(Input.KEY_NUMPAD5)||input.isKeyPressed(Input.KEY_I))
+			{
+			moveNowhere();
+			}
+		
+		else if (input.isKeyPressed(Input.KEY_RIGHT)||input.isKeyPressed(Input.KEY_O)||
+				input.isKeyPressed(Input.KEY_NUMPAD6)){
+			moveRight();
+			}
+		
+		
+		else if (input.isKeyPressed(Input.KEY_NUMPAD1)||input.isKeyPressed(Input.KEY_J)){
+				moveDiagonalDownLeft();
+				}
+		else if (input.isKeyPressed(Input.KEY_DOWN)||input.isKeyPressed(Input.KEY_K)||
+				input.isKeyPressed(Input.KEY_NUMPAD2)){
+			moveDown();
+		}
+
+		else if (input.isKeyPressed(Input.KEY_NUMPAD3)||input.isKeyPressed(Input.KEY_L)){
+			moveDiagonalDownRight();
+		}
+		 
+	}
+
+	
+////////////METHODS DEALING WITH MOVEMENT//////////////////////
+	
+	private void moveDiagonalUpLeft(){
 			 currentSprite = left;
-			 newX = x-movementSpeed*SIZE;
-			 newY = y-movementSpeed*SIZE;
-			if (!(map.hasCollision(newX, newY))&& !(isTaken(newX/SIZE, newY/SIZE)))
+			int newX = x-BasicMap.TILESIZE;
+			int newY = y-BasicMap.TILESIZE;
+			if (isTaken(newX, newY))
+				attack(newX,newY);
+			else if (!(map.hasCollision(newX, newY)))
 				{
 				updatePosition(newX,newY);
 				x = newX;
@@ -115,12 +180,12 @@ public class Player extends Creature{
 				map.isStairs(x,y);
 				}
 		 }
-
-		else if (input.isKeyPressed(Input.KEY_UP)||input.isKeyPressed(Input.KEY_8)
-				||input.isKeyPressed(Input.KEY_NUMPAD8)){
+	private void moveUp(){
 			currentSprite = up;
-			newY = y - movementSpeed*SIZE;
-			if (!(map.hasCollision(x, newY))&&!isTaken(x,newY)){
+			int newY = y - BasicMap.TILESIZE;
+			if (isTaken(x,newY))
+				attack(x, newY);
+			else if (!(map.hasCollision(x, newY))){
 				updatePosition(x,newY);
 				y = newY;
 				map.isStairs(x,y);
@@ -128,11 +193,14 @@ public class Player extends Creature{
 		}
 		
 		
-		else if (input.isKeyPressed(Input.KEY_NUMPAD9)||input.isKeyPressed(Input.KEY_9)){
+	private void moveDiagonalUpRight(){
 			currentSprite = right;
-			newX = x + movementSpeed*SIZE;
-			newY = y - movementSpeed*SIZE;
-				if (!(map.hasCollision(newX, newY))&&!isTaken(newX, newY))	
+			int newX = x + BasicMap.TILESIZE;
+			int newY = y - BasicMap.TILESIZE;
+			
+			if (isTaken(newX, newY))
+				attack(newX, newY);
+			else if (!(map.hasCollision(newX, newY)))	
 				{
 					updatePosition(newX,newY);
 					y = newY;
@@ -141,12 +209,12 @@ public class Player extends Creature{
 				}
 		}
 
-		
-		else if (input.isKeyPressed(Input.KEY_LEFT)||input.isKeyPressed(Input.KEY_U)
-				||input.isKeyPressed(Input.KEY_NUMPAD4)){
+	private void moveLeft(){	
 			currentSprite = left;
-			newX = x-movementSpeed*SIZE;
-			if (!(map.hasCollision(newX, y))&&!isTaken(newX, y)){
+			int newX = x-BasicMap.TILESIZE;
+			if (isTaken(newX, y))
+				attack(newX,y);
+			else if (!(map.hasCollision(newX, y))){
 				updatePosition(newX,y);
 				x = newX;
 				map.isStairs(x,y);
@@ -154,16 +222,17 @@ public class Player extends Creature{
 			
 		}
 		
-		else if (input.isKeyPressed(Input.KEY_NUMPAD5)||input.isKeyPressed(Input.KEY_I))
+	private void moveNowhere()
 			{
 			currentSprite = down;
 			}
 		
-		else if (input.isKeyPressed(Input.KEY_RIGHT)||input.isKeyPressed(Input.KEY_O)||
-				input.isKeyPressed(Input.KEY_NUMPAD6)){
+	private void moveRight(){
 			currentSprite = right;
-			newX = x + movementSpeed*SIZE;
-			if (!(map.hasCollision(newX, y))&& !isTaken(newX, y)){
+			int newX = x + BasicMap.TILESIZE;
+			if  (isTaken(newX, y))
+				attack(newX,y);
+			else if (!(map.hasCollision(newX, y))){
 				updatePosition(newX,y);
 				x = newX;
 				map.isStairs(x,y);
@@ -172,11 +241,13 @@ public class Player extends Creature{
 		}	
 		
 		
-		else if (input.isKeyPressed(Input.KEY_NUMPAD1)||input.isKeyPressed(Input.KEY_J)){
+	private void moveDiagonalDownLeft(){
 				currentSprite = left;
-				newX = x-movementSpeed*SIZE;
-				newY = y +movementSpeed*SIZE;
-				if (!(map.hasCollision(newX,  newY))&&!isTaken(newX, newY))
+				int newX = x-BasicMap.TILESIZE;
+				int newY = y +BasicMap.TILESIZE;
+				if (isTaken(newX, newY))
+					attack(newX, newY);
+				else if (!(map.hasCollision(newX,  newY)))
 					{
 					updatePosition(newX,newY);
 					x = newX;
@@ -184,11 +255,13 @@ public class Player extends Creature{
 					map.isStairs(x,y);
 					}
 				}
-		else if (input.isKeyPressed(Input.KEY_DOWN)||input.isKeyPressed(Input.KEY_K)||
-				input.isKeyPressed(Input.KEY_NUMPAD2)){
+				
+	private void moveDown(){
 			currentSprite = down;
-			newY = y +movementSpeed*SIZE;
-			if (!(map.hasCollision(x, newY))&&!isTaken(x, newY)){
+			int newY = y +BasicMap.TILESIZE;
+			if (isTaken(x, newY))
+				attack (x, newY);
+			else if (!(map.hasCollision(x, newY))){
 				updatePosition(x,newY);
 				y = newY;
 				map.isStairs(x,y);
@@ -196,11 +269,14 @@ public class Player extends Creature{
 			
 		}
 
-		else if (input.isKeyPressed(Input.KEY_NUMPAD3)||input.isKeyPressed(Input.KEY_L)){
+	private void moveDiagonalDownRight(){
 			currentSprite = right;
-			newX = x-movementSpeed*SIZE;
-			newY = y+movementSpeed*SIZE;
-				if (!(map.hasCollision(newX,newY))&& !isTaken(newX, newY))
+			int newX = x+BasicMap.TILESIZE;
+			int newY = y+BasicMap.TILESIZE;
+				if (isTaken(newX, newY)){
+					attack(newX, newY);
+				}
+				else if (!(map.hasCollision(newX,newY)))
 					{
 					updatePosition(newX,newY);
 					x = newX;
@@ -208,18 +284,29 @@ public class Player extends Creature{
 					map.isStairs(x,y);
 					}
 			
-				}
-		 
+			}
+	
+///////////METHOD DEALING WITH LEVELING UP////////////////////
+	private void updateExperiencePoints(int points){
+		experiencePoints += points;
+		if (experiencePoints >= pointsNextLevel){
+			playerLevel++;
+			//Increase Maximum Health & Heal Up Completely
+			maxHealthPoints += playerLevel*maxHealthPoints/3;
+			healthPoints = maxHealthPoints;
+			//Decrease Experience Points used up
+			//Increase amount needed to next level
+			experiencePoints = pointsNextLevel-experiencePoints;
+			pointsNextLevel = experiencePoints*playerLevel;
+		}
 	}
+		
+///////////METHODS DEALING WITH COMBAT///////////////////	
 	
+	private void attack(int monsterX, int monsterY){
+	CombatManager.attackLoop(this,criticalHitLimit, missFactor, monsterX, monsterY);	
 	
-	
-	
-	
-	
-	
-	
-	
+	}
 	
 	
 	
@@ -230,8 +317,9 @@ public class Player extends Creature{
 	
 	
 	//ALL CODE BELOW WAS CREATED IN ATTEMPT TO SMOOTH OUT MOVEMENT
-	//WILL FIGURE OUT LATER. NOT PART OF THE ITERATION TASK LIST THIS WEEK
-	//Yeah...
+	
+	///////////THAT STILL NEEDS TO BE IMPLEMENTED.
+	
 	private float getDistanceX(int current_x, int target_x)
 	{
 		float distance_x = Math.abs(current_x-target_x);

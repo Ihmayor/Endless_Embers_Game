@@ -1,6 +1,7 @@
-package MonsterRelated;
+package monsterRelated;
 
-import java.util.Arrays;
+import gameStates.Game;
+
 import java.util.Random;
 
 import mapRelated.BasicMap;
@@ -15,6 +16,8 @@ public class BasicMonster extends Creature{
 	protected Image monsterImage;
 	protected double monsterSightRange;
 	protected char direction;
+	public static int damageLimit = 20;//This can be overridden by its children later. Just watch for it.
+	
 	
 	private int counter;
 	
@@ -66,7 +69,7 @@ public class BasicMonster extends Creature{
 //			y = findClosestSpot(getPosition(),playerPosition)[1];
 //Supposed to use more intelligent wander.
 			wander(playerPosition,7*BasicMap.TILESIZE,9*BasicMap.TILESIZE);
-			System.out.println("Monster Is active");
+//			Game.statusUpdate = "Monster has spotted you!";
 		}
 		else{
 			wander(playerPosition,7*BasicMap.TILESIZE,9*BasicMap.TILESIZE);
@@ -91,8 +94,6 @@ public class BasicMonster extends Creature{
 	int newX1 = x+BasicMap.TILESIZE;
 	int newX2 = x-BasicMap.TILESIZE;	
 	if ((newX2>= 0 || newX1<=1080)&&counter >= 500){
-		System.out.println("Direction: "+direction);
-		
 		//Change Direction
 		if (x > pathEnd)
 			direction = 'L';

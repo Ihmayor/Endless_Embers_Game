@@ -1,7 +1,6 @@
-package MonsterRelated;
+package monsterRelated;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import mapRelated.BasicMap;
 
 import org.junit.Test;
@@ -154,5 +153,21 @@ public class CreatureTest {
 		assertEquals(false, c2.isTaken(2*32, 6*32));
 		assertEquals(true, c.isTaken(3*32,5*32));
 	}
+	
+	
+///////////////////////////////////////////////////////////////////////////////////////////////	
+//Combat METHOD TESTS
+///////////////////////////////////////////////////////////////////////////////////////////////	
+	
+	@Test
+	public void testUpdateHealthPoints(){
+		fail("Not Yet Implemented");
+	}
+	
+	@Test
+	public void testAttackBasic(){
+		fail ("Not Yet Implemnted");
+	}
+	
 
 }

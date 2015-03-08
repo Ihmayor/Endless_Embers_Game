@@ -1,4 +1,4 @@
-package MonsterRelated;
+package monsterRelated;
 
 import mapRelated.BasicMap;
 

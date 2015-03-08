@@ -1,5 +1,7 @@
 package mapRelated;
 
+import gameStates.Game;
+
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
@@ -27,7 +29,7 @@ public class BasicMap
 	    //Just a test conditional code.
 	    if (mapArray[xBlock][yBlock] == 'B')
 	    {
-	    	System.out.println("Player has been blocked");
+	    	Game.statusUpdate = "Player has been blocked";
 	    	return true;
 	    }
 	    else{

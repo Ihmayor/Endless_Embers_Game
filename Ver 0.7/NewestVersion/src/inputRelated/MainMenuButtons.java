@@ -25,12 +25,12 @@ public class MainMenuButtons {
 	private Animation animationButton;
 	
 	//Used to for the actions of the buttons
-	private StateBasedGame game;
+	private StateBasedGame sbg;
 	private boolean savedGameExists = false;
 	
 	public MainMenuButtons (GameContainer gc, StateBasedGame stateGame) throws SlickException{
 	
-	game = stateGame;
+	sbg = stateGame;
 	//This is a really pointless animation. They're all transparent.
 	Image []  buttonImages = {new Image("res/interface/Sprial1.png"), 
 							  new Image("res/interface/Sprial1.png"), 
@@ -45,9 +45,9 @@ public class MainMenuButtons {
 	Image inactiveLoad = new Image ("res/interface/loadGame.png");
 	Image activeLoad = new Image("res/interface/loadGame2.png");
 	
-	newGameButton = new AnimatedButton(gc, animationButton, 400, 200, 
+	newGameButton = new AnimatedButton(gc, animationButton, 390, 350, 
 									    stateGame, Menu.ID, inactiveNewGame, activeNewGame);
-	loadGameButton = new AnimatedButton(gc, animationButton, 600, 200, 
+	loadGameButton = new AnimatedButton(gc, animationButton, 590, 350, 
 										stateGame, Menu.ID, inactiveLoad, activeLoad);
 	if (!savedGameExists)//Given that a saved game does not exist deactivate this button
 		loadGameButton.setMouseOverColor(Color.white);//Still struggling on making it completely unclickable
@@ -56,7 +56,7 @@ public class MainMenuButtons {
 	//Creates an anon class for the button's action.
 	newGameButton.add(new ButtonAction(){ 
 		public void perform(){
-		game.enterState(Game.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));		
+		sbg.enterState(Game.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));		
 		}
 		});
 	
@@ -64,7 +64,7 @@ public class MainMenuButtons {
 	loadGameButton.add(new ButtonAction(){ 
 		public void perform(){
 		if (savedGameExists)
-			game.enterState(LoadGame.ID, new FadeOutTransition(Color.white), new FadeInTransition(Color.white) );	
+			sbg.enterState(LoadGame.ID, new FadeOutTransition(Color.white), new FadeInTransition(Color.white) );	
 		}
 		});
 		
