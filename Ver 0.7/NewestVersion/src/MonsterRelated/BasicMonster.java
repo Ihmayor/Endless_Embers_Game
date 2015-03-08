@@ -23,7 +23,13 @@ public class BasicMonster extends Creature{
 	public BasicMonster(int x, int y, int counter){
 		super(x,y);
 		this.counter = counter;
-	}
+		name = "M";
+		monsterSightRange = 2;
+		counter = 0;
+		direction = 'R';
+		maxHealthPoints = 100;
+		healthPoints = maxHealthPoints;
+		}
 	///////////////////////////////////
 	
 	
@@ -37,7 +43,8 @@ public class BasicMonster extends Creature{
 		monsterImage = monsterLook;
 		counter = 0;
 		direction = 'R';
-		healthPoints = 100000;
+		maxHealthPoints = 100;
+		healthPoints = maxHealthPoints;
 	}
 	
 	
@@ -161,6 +168,6 @@ public class BasicMonster extends Creature{
 	}
 	
 	
-	public int getExpPointGain() {return healthPoints/2;}
+	public int getExpPointGain() {return maxHealthPoints/2;}
 	
 }

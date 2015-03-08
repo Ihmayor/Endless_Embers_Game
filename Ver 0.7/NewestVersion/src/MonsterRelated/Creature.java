@@ -73,7 +73,7 @@ public class Creature {
 		if (healthPoints - points <= 0){
 			alive = false;
 			entityArray[x/BasicMap.TILESIZE][y/BasicMap.TILESIZE] = " ";
-			System.out.println("Monster be dead");
+			healthPoints = 0;
 		}
 		else
 			healthPoints -= points;
@@ -87,7 +87,7 @@ public class Creature {
 	}
 	
 	public int getHealthPoints(){return healthPoints;}
-	
+	public int getMaxHealthPoints() {return maxHealthPoints;}
 	
 	
 	

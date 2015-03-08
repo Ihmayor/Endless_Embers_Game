@@ -1,7 +1,6 @@
 package gameStates;
 
 import java.awt.Font;
-import java.io.InputStream;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -10,10 +9,12 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.ResourceLoader;
+
+import fancyThings.SoundInGame;
 
 public class GameOverScreen extends BasicGameState{
 	private TrueTypeFont font;
+//	private SoundInGame sound;
 	public static int ID = 3; 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
@@ -35,7 +36,6 @@ public class GameOverScreen extends BasicGameState{
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
-		// TODO Auto-generated method stub
 		
 	}
 

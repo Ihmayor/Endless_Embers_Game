@@ -1,13 +1,16 @@
 package gameStates;
 
+import fancyThings.SoundInGame;
+import inputRelated.MainMenuButtons;
+
 import java.awt.Font;
 import java.io.InputStream;
 
-import inputRelated.MainMenuButtons;
-
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
@@ -21,29 +24,40 @@ public class Menu extends BasicGameState {
 	private MainMenuButtons menuButtons;
 	
 	private TrueTypeFont font;
-	private TrueTypeFont font2;
+	private SoundInGame sound;
+
+	
+	private Animation menuAnimation;
+	private Image menuImage;
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame stateGame)
 			throws SlickException {
 		menuButtons = new MainMenuButtons(gc,stateGame);	
-	
-		Font awtFont = new Font("Times New Roman", Font.BOLD, 40);
-	    font = new TrueTypeFont(awtFont, false);
-	         
+		
+		Image [] menuImages = {new Image ("res/interface/test2.png"), new Image ("res/interface/test3.png"), new Image ("res/interface/test1.png"), new Image ("res/interface/test3.png")}; 
+		int [] duration = {300, 150,100,100};
+		menuAnimation = new Animation (menuImages, duration, false);
+		
+		menuImage = new Image ("res/interface/design2.png");
+		
+		///Comment this back in if you want music.
+		//sound = new SoundInGame("res/sound/The Hero Of the Darkness.wav");
+	    
+		
+		
 	    // load font from a .ttf file
 	    try {
 	        InputStream inputStream = ResourceLoader.getResourceAsStream("res/interface/Sketch Gothic School.ttf");
 	         
-	        Font awtFont2 = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-	        awtFont2 = awtFont2.deriveFont(50f); // set font size
-	        font2 = new TrueTypeFont(awtFont2, false);
+	        Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+	        awtFont = awtFont.deriveFont(50f); // set font size
+	        font = new TrueTypeFont(awtFont, false);
 	             
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }  
-	
-		}
+	}
 	
 	
 
@@ -53,10 +67,12 @@ public class Menu extends BasicGameState {
 		gc.setShowFPS(false); //Annoying FPS counter is hidden
 		
 		g.setColor(Color.white); //Sets strings to draw in the color white
-		font2.drawString(400, 100, "Endless Embers", Color.white);
+		menuImage.draw(300,50);
+		menuAnimation.draw(300,50);
+//		font.drawString(400, 100, "Endless Embers", Color.white);
+
 //	    g.drawString("Menu Screen", 440, 110); // Draws string to screen.
 	    menuButtons.render(gc,g);//Renders the menu buttons
-		
 	}
 
 	@Override
@@ -65,6 +81,7 @@ public class Menu extends BasicGameState {
 			//In game loops this is how it changes what's seen on screen. 
 			//Say A character is supposed to move 5 pixels left because of 
 			//Player input. Well this is where we would put that stuff.
+			menuAnimation.update(delta);
 	}
 	
 	@Override

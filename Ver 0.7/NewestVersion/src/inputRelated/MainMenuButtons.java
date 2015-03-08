@@ -1,5 +1,6 @@
 package inputRelated;
 
+import fancyThings.SoundInGame;
 import gameStates.Game;
 import gameStates.LoadGame;
 import gameStates.Menu;
@@ -56,7 +57,10 @@ public class MainMenuButtons {
 	//Creates an anon class for the button's action.
 	newGameButton.add(new ButtonAction(){ 
 		public void perform(){
-		sbg.enterState(Game.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));		
+		sbg.enterState(Game.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));	
+		
+		//SoundInGame.changeSound("res/sound/Play At Your Own Risk.wav");//I warned you. Not even sorry.
+		//SoundInGame.changeSound("res/sound/Catacombs.wav");
 		}
 		});
 	
@@ -79,8 +83,5 @@ public class MainMenuButtons {
 	public void render(GameContainer gc, Graphics g){
 		 newGameButton.render(gc, g);//Draw the buttons on screen.
 		 loadGameButton.render(gc,g);
-		 g.setColor(Color.black);
-		 g.drawString("New Game", 400, 200);
-		 g.drawString("Continue", 600, 200);
 	}
 }

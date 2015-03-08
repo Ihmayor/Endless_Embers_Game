@@ -58,6 +58,14 @@ public class BasicMonsterTest {
 	}
 	
 	
+	
+	@Test
+	public void testExpPointGain(){
+		BasicMonster m = new BasicMonster (10,10,100);
+		assertEquals(100, m.getMaxHealthPoints());
+		assertEquals(50, m.getExpPointGain());
+	}
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////TESTS ABILITY TO SELECT A VALID SPOT WHEN NOT BLOCKED BY ANYTHING//////////////////////////////////
 	@Test
