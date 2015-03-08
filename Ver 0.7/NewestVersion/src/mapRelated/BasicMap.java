@@ -25,11 +25,9 @@ public class BasicMap
 	{
 		int xBlock = (int)x / TILESIZE;
 	    int yBlock = (int)y / TILESIZE;
-	    
-	    //Just a test conditional code.
+	    //Check if place is blocked
 	    if (mapArray[xBlock][yBlock] == 'B')
 	    {
-	    	Game.statusUpdate = "Player has been blocked";
 	    	return true;
 	    }
 	    else{

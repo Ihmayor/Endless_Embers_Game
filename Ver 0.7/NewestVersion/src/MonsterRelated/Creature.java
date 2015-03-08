@@ -44,7 +44,7 @@ public class Creature {
 	}
 	
 
-	protected boolean search(String name){
+	public boolean search(String name){
 			boolean found = false;
 			//Search looks within the range of 2
 			for (int row = (x/BasicMap.TILESIZE-2); row < (x/BasicMap.TILESIZE+2); row++)
@@ -70,9 +70,10 @@ public class Creature {
 ///////////Combat Methods/////////////////
 /////////////////////////////////////////
 	public void subtractHealth(int points){
-		if (healthPoints - points == 0){
+		if (healthPoints - points <= 0){
 			alive = false;
 			entityArray[x/BasicMap.TILESIZE][y/BasicMap.TILESIZE] = " ";
+			System.out.println("Monster be dead");
 		}
 		else
 			healthPoints -= points;
@@ -85,7 +86,7 @@ public class Creature {
 			healthPoints += points;
 	}
 	
-	
+	public int getHealthPoints(){return healthPoints;}
 	
 	
 	
@@ -97,6 +98,7 @@ public class Creature {
 	public void setEntityArray(String[][] entityArray){this.entityArray = entityArray;}
 	
 	public String[][]getEntityArray(){return entityArray;}
+	public boolean getAlive(){return alive;}
 	
 	public String getName(){return name;}	
 	
@@ -106,5 +108,6 @@ public class Creature {
 		position[1] = y;
 		return position;
 	}
+	
 		
 }

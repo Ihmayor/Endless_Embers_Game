@@ -1,6 +1,7 @@
 package playerRelated;
 
 import gameStates.Game;
+import gameStates.GameOverScreen;
 import mapRelated.BasicMap;
 import monsterRelated.Creature;
 
@@ -111,7 +112,7 @@ public class Player extends Creature{
 		if (alive == false){
 			Game.statusUpdate = "Your player be dead";
 			delayUpdate();
-			sbg.enterState(Game.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));		
+			sbg.enterState(GameOverScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));		
 			}
 		
 		Input input = gc.getInput();
@@ -287,7 +288,7 @@ public class Player extends Creature{
 			}
 	
 ///////////METHOD DEALING WITH LEVELING UP////////////////////
-	private void updateExperiencePoints(int points){
+	public void addExperiencePoints(int points){
 		experiencePoints += points;
 		if (experiencePoints >= pointsNextLevel){
 			playerLevel++;

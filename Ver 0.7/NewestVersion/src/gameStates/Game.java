@@ -30,7 +30,7 @@ public class Game extends BasicGameState {
 	private BasicMonster monster;
 	
 	public static String statusUpdate;
-	private LinkedList <Creature> monsterList = new LinkedList<Creature>();
+	private LinkedList <BasicMonster> monsterList = new LinkedList<BasicMonster>();
 	
 	private long prevTime;
 	

@@ -1,13 +1,12 @@
 package monsterRelated;
 
-import gameStates.Game;
-
 import java.util.Random;
 
 import mapRelated.BasicMap;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 
 public class BasicMonster extends Creature{
@@ -16,8 +15,7 @@ public class BasicMonster extends Creature{
 	protected Image monsterImage;
 	protected double monsterSightRange;
 	protected char direction;
-	public static int damageLimit = 20;//This can be overridden by its children later. Just watch for it.
-	
+	public int damageLimit = 20;//This can be overridden by its children later. Just watch for it.
 	
 	private int counter;
 	
@@ -39,6 +37,7 @@ public class BasicMonster extends Creature{
 		monsterImage = monsterLook;
 		counter = 0;
 		direction = 'R';
+		healthPoints = 100000;
 	}
 	
 	
@@ -50,7 +49,9 @@ public class BasicMonster extends Creature{
 	}
 	
 	
-	public void render(Graphics g){
+	public void render(Graphics g) throws SlickException{
+		if (!alive)
+			actDead();
 		g.drawImage(monsterImage, (int)x, (int)y);
 	}
 	public void update(int [] playerPosition, int counter)
@@ -65,9 +66,9 @@ public class BasicMonster extends Creature{
 		
 		isActiveState = search("P");
 		if (isActiveState){
+			//This is supposed to use a more intelligent wander.
 //			x = findClosestSpot(getPosition(), playerPosition)[0];
 //			y = findClosestSpot(getPosition(),playerPosition)[1];
-//Supposed to use more intelligent wander.
 			wander(playerPosition,7*BasicMap.TILESIZE,9*BasicMap.TILESIZE);
 //			Game.statusUpdate = "Monster has spotted you!";
 		}
@@ -154,5 +155,12 @@ public class BasicMonster extends Creature{
 		return newPosition;
 	}
 
+	
+	public void actDead() throws SlickException{
+		monsterImage = new Image ("res/interface/test.png");
+	}
+	
+	
+	public int getExpPointGain() {return healthPoints/2;}
 	
 }

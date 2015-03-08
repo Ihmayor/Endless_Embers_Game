@@ -5,18 +5,21 @@ import gameStates.Game;
 import java.util.LinkedList;
 import java.util.Random;
 
+import monsterRelated.BasicMonster;
 import monsterRelated.Creature;
+import playerRelated.Player;
 
 public class CombatManager {
 	
 	public static boolean battleHappening = false;
+	private Player player;
+	private static LinkedList <BasicMonster> monsterList = new LinkedList<BasicMonster>();
 	
-	private static LinkedList <Creature> monsterList = new LinkedList<Creature>();
+	public void setPlayerRef (Player player){this.player = player;}
+	public static void setMonsterList(LinkedList <BasicMonster> monsters){monsterList = monsters;}
 	
-	public static void setMonsterList(LinkedList <Creature> monsters){monsterList = monsters;}
 	
-	
-	public static void attackLoop(Creature c, int criticalHitLimit, int missFactor, int monsterX, int monsterY ){
+	public static void attackLoop(Player player, int criticalHitLimit, int missFactor, int monsterX, int monsterY ){
 		battleHappening = true;
 		if (getMonsterRef(monsterX, monsterY) == null)
 		{
@@ -25,25 +28,65 @@ public class CombatManager {
 		}
 		else
 		{
-			Creature currentFoe = getMonsterRef(monsterX,monsterY);
-			int attack = generateAttack(criticalHitLimit);
-			if (attack <= missFactor){
-			Game.statusUpdate = "You miss. yeah...The monster was embarrased by your fail too...";
-			}
-			
-			else if (attack > missFactor && attack <= criticalHitLimit/2)
-			{
-				
-			Game.statusUpdate = "Average Hit: "+attack;
-			}
-			
-			else 
-			{
-			Game.statusUpdate = "Critical Hit against monster! Wow! Much Strength! Such Cool!"+attack;	
+			BasicMonster currentFoe = getMonsterRef(monsterX,monsterY);
+			while (currentFoe.search("P")&&currentFoe.getAlive()&&player.getAlive()){
+				actualCombat(currentFoe, player, criticalHitLimit, missFactor);
+				delay();
 			}
 					
 		}
 	}
+	
+	private static void delay(){for (double i = 0; i < 100000000; i++);}
+	
+	//Add delay
+	private static void actualCombat(BasicMonster currentFoe, Player player, int criticalHitLimit, int missFactor){
+		int attack = generateAttack(criticalHitLimit);
+		if (attack <= missFactor){
+			Game.statusUpdate = "You missed! yeah...The monster was embarrassed by your fail too...";
+			delay();
+			}
+		
+		else if (attack > missFactor && attack <= criticalHitLimit-missFactor)
+		{
+		
+		System.out.println("Average Hit: "+attack);
+		currentFoe.subtractHealth(attack);
+			if (currentFoe.getHealthPoints() <= 0)
+			{
+				Game.statusUpdate = "You've Killed the monster!";
+				System.out.println("You've Killed the Monster!");
+				player.addExperiencePoints(currentFoe.getExpPointGain());
+				return;
+			}
+			delay();
+			attack = generateAttack(currentFoe.damageLimit);
+			player.subtractHealth(attack);	
+			Game.statusUpdate = "Monster attacks! Damage Done: "+attack;
+			System.out.println("Monster has Attacked!");
+			delay();
+		}
+		
+		else 
+		{
+		currentFoe.subtractHealth(attack);	
+		System.out.println("Critical Hit against monster! Wow! Much Strength! Such Cool!"+attack);	
+			if (currentFoe.getHealthPoints() <= 0)
+			{
+				Game.statusUpdate = "You've Killed the monster!";
+				System.out.println("You've Killed the Monster!");
+				player.addExperiencePoints(currentFoe.getExpPointGain());
+				return;
+			}
+			delay();
+			attack = generateAttack(currentFoe.damageLimit);
+			player.subtractHealth(attack);	
+			Game.statusUpdate = "Monster attacks! Damage Done: "+attack;
+			System.out.println("Monster has Attacked!");
+			delay();
+		}
+	}
+	
 	
 	private static int generateAttack(int criticalHitLimit){
 		Random gen = new Random();
@@ -52,8 +95,8 @@ public class CombatManager {
 	}
 	
 	//Might have to make public for testing.
-	private static Creature getMonsterRef(int x, int y){
-		Creature monsterFound = null;
+	private static BasicMonster getMonsterRef(int x, int y){
+		BasicMonster monsterFound = null;
 		int [] monsterPosition = new int [2];
 		for (int i = 0; i < monsterList.size(); i++)
 			{
@@ -65,5 +108,6 @@ public class CombatManager {
 			}
 		return monsterFound;
 	}
+	
 
 }

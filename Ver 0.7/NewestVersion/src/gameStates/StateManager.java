@@ -15,6 +15,7 @@ public class StateManager extends StateBasedGame {
 		addState( new Menu());//Very very important. Basically initializes the list of states in this game.
 		addState(new Game());
 		addState(new LoadGame());
+		addState(new GameOverScreen());
 	}
 
 }
