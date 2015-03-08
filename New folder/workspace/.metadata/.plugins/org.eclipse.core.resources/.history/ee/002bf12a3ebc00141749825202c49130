@@ -1,0 +1,8 @@
+package npc.monsterRelated;
+
+public class BasicMonster {
+	//Load Sprite Sheet here
+	//Load basic movement here
+	//Load Basic update
+	
+}

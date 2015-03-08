@@ -1,0 +1,65 @@
+package algorithm1;
+
+public class TreeNode {
+
+	private int [] keysInNode = new int [4];
+	private int index = 0;
+	private int depth;
+	
+	
+	TreeNode (int key)
+	{
+	keysInNode[index] = key;
+	index++;
+	}
+	
+	public void addKey(int key){
+	for (int i = 0; i <= index; i++){
+		if (keysInNode[i] > key)
+		{
+			int temp = keysInNode[i];
+			keysInNode[i] = key;
+			
+			for (int c = i++; c <=index; c++)
+			{
+			int swap1 = keysInNode[c];
+			keysInNode[c] = temp;
+			temp = swap1;
+			}
+			index++;
+			break;
+			}
+		else{
+		keysInNode[index] = key;	
+		}
+		}
+	}
+	
+	public int getIndex(){return index;}
+	
+	public int[] getKeysInNode(){return keysInNode;}
+	
+	public void updateDepth(int newDepth){depth = newDepth;}
+	
+	public int getDepth (){return depth;}
+	
+	public int[] pop(){
+		int sizeOfLastHalf = 2;
+		int[] poppedArray = new int [sizeOfLastHalf];
+		for (int i = 0; i < sizeOfLastHalf; i++)
+		{
+			poppedArray[i] = keysInNode[i+sizeOfLastHalf];
+			keysInNode[i+sizeOfLastHalf] = 0;
+		}
+		
+		return poppedArray;
+	}
+	
+	//This is where you store the amount of keys per node
+	//Make sure everything is at its limit
+	//Check depth
+	//Other info.
+	//I'll use an array to store the key values and re-adjust the array accordingly
+	//To Order it properly
+	//Essentially a mini-sorted list implemented into the node.
+}
