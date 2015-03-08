@@ -1,6 +1,0 @@
-package mapRelated;
-
-
-public class FloorOneMap extends Map{
-
-}
