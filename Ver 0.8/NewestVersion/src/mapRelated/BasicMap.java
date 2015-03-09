@@ -12,12 +12,21 @@ public class BasicMap
 	public static final int heightByTiles = 16;
 	public static final int TILESIZE = 32;
 	
+	////////////FOR TESTS ONLY//////////////
+	////////////////////////////////////////
+	public BasicMap(char [][] newArray){
+		mapArray = newArray;
+	}
+	//////////////////////////////////////
+	/////////////////////////////////////
+	
 	
 	public BasicMap(String tmxLocation) throws SlickException{
 		map = new TiledMap(tmxLocation);
 		mapArray = new char[widthByTiles][heightByTiles];
 		initMapArray();
 	}
+	
 	
 	public boolean hasCollision (float x, float y)
 	{
@@ -29,8 +38,7 @@ public class BasicMap
 	    	return true;
 	    
 	    else
-	    	return false;
-	    
+	    	return false;    
 	}
 		
 	public void render()

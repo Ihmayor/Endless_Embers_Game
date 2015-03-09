@@ -5,7 +5,7 @@ import gameStates.GameOver;
 import managers.CombatManager;
 import managers.SoundManager;
 import mapRelated.BasicMap;
-import monsterRelated.Creature;
+import monsterRelated.Entity;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -19,7 +19,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-public class Player extends Creature{
+public class Player extends Entity{
 	
 	private final GameContainer gc;
 	private long previousTime = 0;

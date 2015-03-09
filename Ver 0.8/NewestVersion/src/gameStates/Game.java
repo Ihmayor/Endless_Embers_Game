@@ -12,7 +12,7 @@ import managers.MonsterManager;
 import managers.SoundManager;
 import mapRelated.BasicMap;
 import monsterRelated.BasicMonster;
-import monsterRelated.Creature;
+import monsterRelated.Entity;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -108,7 +108,7 @@ public class Game extends BasicGameState {
 				entityArray[i][c] = " ";
 			}
 		}
-		entityArray[((Creature)player).getPosition()[0]/32][((Creature)player).getPosition()[1]/32] = player.getName();
+		entityArray[((Entity)player).getPosition()[0]/32][((Entity)player).getPosition()[1]/32] = player.getName();
 	}
 	
 	@Override
@@ -183,7 +183,6 @@ public class Game extends BasicGameState {
 				statusBackLog1 = statusUpdate;
 				statusUpdate = ""+temp;
 			}	
-			//queueTextLog.removeLast();
 			counter2 =0;
 		}
 		else

@@ -1,5 +1,7 @@
 package monsterRelated;
 
+import gameStates.Game;
+
 import java.util.Random;
 
 import mapRelated.BasicMap;
@@ -9,7 +11,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 
-public class BasicMonster extends Creature{
+public class BasicMonster extends Entity{
 
 	protected boolean isActiveState = false;
 	protected Image monsterImage;
@@ -34,9 +36,7 @@ public class BasicMonster extends Creature{
 		healthPoints = maxHealthPoints;
 		}
 	///////////////////////////////////
-	public void setPath (int start, int end){
-		pathStart = start;
-		pathEnd = end;}
+	
 	
 	
 	
@@ -52,8 +52,8 @@ public class BasicMonster extends Creature{
 		maxHealthPoints = 200;
 		healthPoints = maxHealthPoints;
 	}
-	
-	
+
+	///////Methods dealing with the state of the monster///////
 	public boolean getMonsterState(){return isActiveState;}
 	
 	
@@ -61,12 +61,22 @@ public class BasicMonster extends Creature{
 		isActiveState = foundPlayer;
 	}
 	
+	public void actDead() throws SlickException{
+		monsterImage = new Image ("res/interface/test.png");
+	}
+	
+	
+	public int getExpPointGain() {return maxHealthPoints/2;}
+	
+	
 	
 	public void render(Graphics g) throws SlickException{
 		if (!alive)
 			actDead();
 		g.drawImage(monsterImage, (int)x, (int)y);
 	}
+	
+	
 	public void update(int [] playerPosition, int counter)
 	{
 		this.counter = counter;
@@ -83,7 +93,7 @@ public class BasicMonster extends Creature{
 //			x = findClosestSpot(getPosition(), playerPosition)[0];
 //			y = findClosestSpot(getPosition(),playerPosition)[1];
 			wander(playerPosition);
-//			Game.statusUpdate = "Monster has spotted you!";
+//			Game.queueTextLog.addFirst ("Monster has spotted you!");
 		}
 		else{
 			wander(playerPosition);
@@ -103,6 +113,12 @@ public class BasicMonster extends Creature{
 /////////////////////////////////////////////////////
 	/////////////Movement Methods///////////////
 	////////////////////////////////////////////////////////////
+	
+	public void setPath (int start, int end){
+		pathStart = start;
+		pathEnd = end;}
+	
+	
 	private void wander(int [] playerPosition){
 	if (!alive)
 		return;
@@ -183,11 +199,5 @@ public class BasicMonster extends Creature{
 	}
 
 	
-	public void actDead() throws SlickException{
-		monsterImage = new Image ("res/interface/test.png");
-	}
-	
-	
-	public int getExpPointGain() {return maxHealthPoints/2;}
 	
 }

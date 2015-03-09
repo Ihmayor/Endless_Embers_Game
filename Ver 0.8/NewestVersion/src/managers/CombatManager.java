@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import monsterRelated.BasicMonster;
-import monsterRelated.Creature;
+import monsterRelated.Entity;
 import playerRelated.Player;
 
 public class CombatManager {
