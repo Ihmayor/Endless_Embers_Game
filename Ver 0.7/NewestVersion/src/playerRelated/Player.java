@@ -1,5 +1,6 @@
 package playerRelated;
 
+import fancyThings.SoundInGame;
 import gameStates.Game;
 import gameStates.GameOverScreen;
 import mapRelated.BasicMap;
@@ -42,7 +43,13 @@ public class Player extends Creature{
 	//Limited Vision Effect
 	private Image shadow;		
 	
-	
+	////FOR TEST PURPOSES ONLY////
+	public Player (int x, int y){
+		super(x,y);
+		gc = null;
+		sbg = null;
+		name = "P";
+	}
 	
 		
 		
@@ -112,7 +119,8 @@ public class Player extends Creature{
 		if (alive == false){
 			Game.statusUpdate = "Your player be dead";
 			delayUpdate();
-			sbg.enterState(GameOverScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));		
+			sbg.enterState(GameOverScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+			//SoundInGame.changeSound("res/sound/A Time To Lose.wav");
 			}
 		
 		Input input = gc.getInput();
@@ -295,13 +303,19 @@ public class Player extends Creature{
 			//Increase Maximum Health & Heal Up Completely
 			maxHealthPoints += playerLevel*maxHealthPoints/3;
 			healthPoints = maxHealthPoints;
+			
 			//Decrease Experience Points used up
 			//Increase amount needed to next level
-			experiencePoints = pointsNextLevel-experiencePoints;
-			pointsNextLevel = experiencePoints*playerLevel;
+			experiencePoints = experiencePoints-pointsNextLevel;
+			pointsNextLevel *= playerLevel;
 		}
 	}
 		
+	
+	
+	public int getExperiencePoints(){return experiencePoints;}
+	
+	public int getPointsNextLevel() {return pointsNextLevel;}
 ///////////METHODS DEALING WITH COMBAT///////////////////	
 	
 	private void attack(int monsterX, int monsterY){
