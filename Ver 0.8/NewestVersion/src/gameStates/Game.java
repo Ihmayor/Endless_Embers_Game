@@ -17,12 +17,11 @@ import monsterRelated.Entity;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -49,6 +48,8 @@ public class Game extends BasicGameState {
 	private static String statusBackLog1 = " ";
 	private static String statusBackLog2 = " ";
 	
+	private float volume = 1.0f;
+	
 	//Linked lists for keeping track of the game's state.
 	private LinkedList <BasicMonster> monsterList = new LinkedList<BasicMonster>();
 	public static LinkedList <String> queueTextLog = new LinkedList<String>();
@@ -71,8 +72,9 @@ public class Game extends BasicGameState {
 		//might move to map class???
 		BasicMap floorOne = new BasicMap("res/map/floor1.tmx");
 		BasicMap floorTwo = new BasicMap("res/map/floor2.tmx");
-
+		BasicMap floorThree = new BasicMap("res/map/floor3.tmx");
 		//Add them to the Linked List, last level first.
+		totalLevels.add(floorThree);
 		totalLevels.add(floorTwo);
 		totalLevels.add(floorOne);
 		//Get current map from the end.
@@ -164,17 +166,47 @@ public class Game extends BasicGameState {
 	case Input.KEY_1:
 		SoundManager.playSoundEffect("res/sound/SFX/Sword Swing.wav");
 		break;
-		}	
+
+	case Input.KEY_ESCAPE:
+		//Open Menu with this key.
+		break;
+		
+	case Input.KEY_M: 
+		//Open up menu
+		break;
+		
+	//Decrease volume
+	case Input.KEY_A:
+		volume -= 0.1f;
+        if (volume < 0.0f)
+           volume = 0.0f;
+		SoundStore.get().setMusicVolume(volume);
+		break;
+		
+	//Increase volume
+	case Input.KEY_B:
+		volume += 0.1f;
+        if (volume > 1.0f)
+           volume = 1.0f;
+        SoundStore.get().setSoundVolume(volume);
+		}
 	}
 
-	int counter = 0;
-	int counter2 = 0;
+	//Counters used to delay the text log and the movement of monsters
+	int counter = 0; //Must combine later
+	int counter2 = 0;//Must implement as private//Can possibly renamed Text log speed???
 	
 	
 	@Override
 	public void update(GameContainer gc, StateBasedGame stateGame, int delta)
 			throws SlickException {
+		//Always let the player move.
 		player.update(counter);
+		
+		//TextLog Code. Counter is the speed of which the text log updates itself
+		//NOT A SCROLLING TEXT LOG.
+		//Once we lose the 3rd status
+		//We lose it forever!
 		if (counter2 >= 200)
 		{
 			String temp = queueTextLog.pollLast();
@@ -187,6 +219,8 @@ public class Game extends BasicGameState {
 		}
 		else
 			counter2++;
+		
+		
 		//Prevent Monster from fleeing
 		if (CombatManager.battleHappening == false&&monsters.getMonsterList()!= null){
 			monsters.update(player.getPosition(), counter);
@@ -194,13 +228,14 @@ public class Game extends BasicGameState {
 			if (counter > 400)//Used to delay the monster's movement
 				counter = 0;
 			}
+		
+		//Load a new floor if the stairs are stepped on.
 		if (player.getOnStairs()&&totalLevels.peekLast()!= null){
 			currentMap = totalLevels.removeLast();
 			player.setMap(currentMap);
 			monsters.setMap(currentMap);
 			floorLevel++;
 			player.setOnStairs(false);
-			
 		}
 	}
 	

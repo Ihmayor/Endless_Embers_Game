@@ -58,8 +58,8 @@ public class MainMenuButtons {
 	newGameButton.add(new ButtonAction(){ 
 		public void perform(){
 		sbg.enterState(Game.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));	
-		SoundManager.changeSound("res/sound/Play At Your Own Risk.wav");//I warned you. Not even sorry.
-		//SoundManager.changeSound("res/sound/Catacombs.wav");
+		//SoundManager.changeSound("res/sound/Play At Your Own Risk.wav");//I warned you. Not even sorry.
+		SoundManager.changeSound("res/sound/Catacombs.wav");
 		}
 		});
 	

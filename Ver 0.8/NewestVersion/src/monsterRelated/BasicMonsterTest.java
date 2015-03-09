@@ -13,7 +13,9 @@ public class BasicMonsterTest {
 	
 	@Test
 	public void testGenericMove() throws SlickException{
-		BasicMonster b = new BasicMonster (4*32, 5*32, 0);
+		BasicMap map = new BasicMap();
+		
+		BasicMonster b = new BasicMonster (map, 4*32, 5*32, 0);
 		String [][] test = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
 		for (int i = 0; i < BasicMap.widthByTiles; i++){
 			for (int c = 0; c < BasicMap.heightByTiles; c++){
@@ -37,7 +39,7 @@ public class BasicMonsterTest {
 		test[5][4] = " ";
 		test[6][5] = "P";
 
-		assertEquals(true, b.isTaken(6,5));
+		assertEquals(true, b.isTaken(6*32,5*32));
 		b.update(testPosition,4000);//Do not move
 		
 		assertArrayEquals(monsterPos, b.getPosition());
@@ -49,7 +51,7 @@ public class BasicMonsterTest {
 
 		monsterPos[0] = 6*32;
 		
-		assertEquals(false, b.isTaken(6,5));
+		assertEquals(false, b.isTaken(6*32,5*32));
 		b.update(testPosition,4000);
 		
 		assertArrayEquals(monsterPos, b.getPosition());
@@ -60,17 +62,21 @@ public class BasicMonsterTest {
 	
 	
 	@Test
-	public void testExpPointGain(){
-		BasicMonster m = new BasicMonster (10,10,100);
-		assertEquals(100, m.getMaxHealthPoints());
-		assertEquals(50, m.getExpPointGain());
+	public void testExpPointGain() throws SlickException{
+		BasicMap map = new BasicMap();
+		
+		BasicMonster m = new BasicMonster (map, 10,10,100);
+		assertEquals(1000, m.getMaxHealthPoints());
+		assertEquals(500, m.getExpPointGain());
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////TESTS ABILITY TO SELECT A VALID SPOT WHEN NOT BLOCKED BY ANYTHING//////////////////////////////////
 	@Test
 	public void testClosestSpotNotNear() throws SlickException{
-		BasicMonster b = new BasicMonster( 4*32, 5*32, 0);
+		BasicMap map = new BasicMap();
+		
+		BasicMonster b = new BasicMonster(map, 4*32, 5*32, 0);
 		int [] expected = {7*32,9*32};
 		int [] test = b.getPosition();
 		

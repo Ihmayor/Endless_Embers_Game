@@ -12,7 +12,7 @@ import playerRelated.Player;
 public class CombatManager {
 	
 	public static boolean battleHappening = false;
-	private Player player;
+	private Player player;//Will use later for when the monster moves on its own.
 	private static LinkedList <BasicMonster> monsterList = new LinkedList<BasicMonster>();
 	
 	public void setPlayerRef (Player player){this.player = player;}
@@ -58,7 +58,6 @@ public class CombatManager {
 
 				Game.queueTextLog.addFirst("You've Killed the monster!");
 				System.out.println("You've Killed the Monster!");
-				int testValue = 10000;
 				player.addExperiencePoints(currentFoe.getExpPointGain());
 				battleHappening = false;
 				//delay();
@@ -75,8 +74,8 @@ public class CombatManager {
 		else 
 		{
 		currentFoe.subtractHealth(attack);	
-		System.out.println("Critical Hit against monster! Wow! Much Strength! Such Cool!"+attack);
-		Game.queueTextLog.addFirst("Wow! Much Strength! Such Cool!"+attack);
+		System.out.println("Critical Hit against monster! Wow! Much Strength! Such Cool! "+attack);
+		Game.queueTextLog.addFirst("Wow! Much Strength! Such Cool! "+attack);
 			if (currentFoe.getHealthPoints() <= 0)
 			{
 				Game.queueTextLog.addFirst("You've Killed the monster!");

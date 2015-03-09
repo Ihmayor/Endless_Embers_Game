@@ -31,7 +31,7 @@ public class Player extends Entity{
 	private int experiencePoints = 0;
 	private int pointsNextLevel = 1000;
 	private int playerLevel = 1;
-	private int damageIncrease = 0;
+	private int damageIncrease = 0;//Could be used for level ups
 	
 	private int criticalHitLimit= 30;
 	private int missFactor = 5;
@@ -114,6 +114,7 @@ public class Player extends Entity{
 	public void delayUpdate(){
 		for (int i = 0; i <= 4000; i++);
 	}
+	
 	
 	public void update(long delta){
 		if (alive == false){

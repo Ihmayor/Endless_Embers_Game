@@ -50,5 +50,11 @@ public class SoundManager {
 
 		}
 	 
+		
+		public static void lowerVolume (){
+			
+			
+		}
+		
 }
 

@@ -17,6 +17,10 @@ public class BasicMap
 	public BasicMap(char [][] newArray){
 		mapArray = newArray;
 	}
+	
+	public BasicMap(){
+		mapArray = new char [widthByTiles][heightByTiles];
+	}
 	//////////////////////////////////////
 	/////////////////////////////////////
 	

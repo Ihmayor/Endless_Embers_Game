@@ -25,9 +25,10 @@ public class BasicMonster extends Entity{
 	private int counter;
 	
 	//////////For TEST ONLY////////////////
-	public BasicMonster(int x, int y, int counter){
+	public BasicMonster(BasicMap map, int x, int y, int counter){
 		super(x,y);
 		this.counter = counter;
+		this.map = map;
 		name = "M";
 		monsterSightRange = 2;
 		counter = 0;
@@ -49,7 +50,7 @@ public class BasicMonster extends Entity{
 		monsterImage = monsterLook;
 		counter = 0;
 		direction = 'R';
-		maxHealthPoints = 200;
+		maxHealthPoints = 30;
 		healthPoints = maxHealthPoints;
 	}
 

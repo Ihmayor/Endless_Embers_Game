@@ -23,7 +23,4 @@ public class BasicMapTest {
 		
 	}
 	
-	//Need to write a has collision test
-	//Need to write a isStairs test
-
 }
