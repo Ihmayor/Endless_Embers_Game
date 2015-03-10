@@ -35,7 +35,7 @@ public class MonsterManager {
 	}
 	
 	public void init(String [][] entityArray) throws SlickException{
-		SpriteSheet monsterSheet = new SpriteSheet("res/player/dummySheet.png",32,32); 
+		SpriteSheet monsterSheet = new SpriteSheet("res/monster/dummySheet.png",32,32); 
 		Image monsterImage = monsterSheet.getSubImage(0, 0);
 		BasicMonster monster1 = new BasicMonster(currentMap, monsterImage, 7*32, 11*32);
 		BasicMonster monster2 = new BasicMonster(currentMap, monsterImage, 17*32, 3*32);

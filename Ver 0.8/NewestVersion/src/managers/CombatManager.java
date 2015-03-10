@@ -51,13 +51,11 @@ public class CombatManager {
 		{
 		
 		Game.queueTextLog.addFirst("Average Hit: "+attack); 
-		System.out.println("Average Hit: "+attack);
 		currentFoe.subtractHealth(attack);
 			if (currentFoe.getHealthPoints() <= 0)
 			{
 
 				Game.queueTextLog.addFirst("You've Killed the monster!");
-				System.out.println("You've Killed the Monster!");
 				player.addExperiencePoints(currentFoe.getExpPointGain());
 				battleHappening = false;
 				//delay();
@@ -66,20 +64,17 @@ public class CombatManager {
 			//delay();
 			attack = generateAttack(currentFoe.damageLimit);
 			player.subtractHealth(attack);	
-			Game.queueTextLog.addFirst("Monster attacks! Damage Done: "+attack);
-			System.out.println("Monster has Attacked!");
+			Game.queueTextLog.addFirst("Monster attacks back! Damage Done: "+attack);
 			//delay();
 		}
 		
 		else 
 		{
 		currentFoe.subtractHealth(attack);	
-		System.out.println("Critical Hit against monster! Wow! Much Strength! Such Cool! "+attack);
-		Game.queueTextLog.addFirst("Wow! Much Strength! Such Cool! "+attack);
+		Game.queueTextLog.addFirst("Critical Hit: "+attack);
 			if (currentFoe.getHealthPoints() <= 0)
 			{
 				Game.queueTextLog.addFirst("You've Killed the monster!");
-				System.out.println("You've Killed the Monster!");
 				player.addExperiencePoints(currentFoe.getExpPointGain());
 				battleHappening = false;
 			//	delay();
@@ -88,8 +83,7 @@ public class CombatManager {
 		//	delay();
 			attack = generateAttack(currentFoe.damageLimit);
 			player.subtractHealth(attack);	
-			Game.queueTextLog.addFirst("Monster attacks! Damage Done: "+attack);
-			System.out.println("Monster has Attacked!");
+			Game.queueTextLog.addFirst("Monster attacks back! Damage Done: "+attack);
 	//		delay();
 		}
 	}

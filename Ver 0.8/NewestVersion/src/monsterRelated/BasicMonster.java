@@ -63,7 +63,7 @@ public class BasicMonster extends Entity{
 	}
 	
 	public void actDead() throws SlickException{
-		monsterImage = new Image ("res/interface/test.png");
+		monsterImage = new Image ("res/monster/dead.png");
 	}
 	
 	
