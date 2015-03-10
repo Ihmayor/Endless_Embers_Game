@@ -98,7 +98,6 @@ public class Game extends BasicGameState {
 	}
 	
 	
-	
 	//Debating on keeping this here...
 	private void initEntityArray (){
 		String [][] newArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
@@ -164,6 +163,7 @@ public class Game extends BasicGameState {
 		gc.exit();//Exits game. 	
 		break;
 	case Input.KEY_1:
+		//Source of sound effect: https://www.freesound.org/people/JoelAudio/sounds/77611/
 		SoundManager.playSoundEffect("res/sound/SFX/Sword Swing.wav");
 		break;
 
@@ -180,6 +180,9 @@ public class Game extends BasicGameState {
 		volume -= 0.1f;
         if (volume < 0.0f)
            volume = 0.0f;
+        //NOTE: Sound Volume changes sound effects
+        // Music Volume changes background music
+//		SoundStore.get().setSoundVolume(volume);
 		SoundStore.get().setMusicVolume(volume);
 		break;
 		
@@ -188,7 +191,9 @@ public class Game extends BasicGameState {
 		volume += 0.1f;
         if (volume > 1.0f)
            volume = 1.0f;
-        SoundStore.get().setSoundVolume(volume);
+//      SoundStore.get().setSoundVolume(volume);
+        SoundStore.get().setMusicVolume(volume);
+
 		}
 	}
 
@@ -204,9 +209,6 @@ public class Game extends BasicGameState {
 		player.update(counter);
 		
 		//TextLog Code. Counter is the speed of which the text log updates itself
-		//NOT A SCROLLING TEXT LOG.
-		//Once we lose the 3rd status
-		//We lose it forever!
 		if (counter2 >= 200)
 		{
 			String temp = queueTextLog.pollLast();

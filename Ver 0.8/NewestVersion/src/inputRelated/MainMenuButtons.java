@@ -32,12 +32,11 @@ public class MainMenuButtons {
 	public MainMenuButtons (GameContainer gc, StateBasedGame stateGame) throws SlickException{
 	
 	sbg = stateGame;
-	//This is a really pointless animation. They're all transparent.
-	Image []  buttonImages = {new Image("res/interface/Sprial1.png"), 
-							  new Image("res/interface/Sprial1.png"), 
-							  new Image ("res/interface/Sprial1.png")};
-	//Again 50 ms/frame of animation
-	int [] duration = {50,50,50};
+	
+	//Array instantiated to satisfy animated button class.
+	Image []  buttonImages = {new Image("res/interface/Sprial1.png")};
+	//Duration of animation
+	int [] duration = {50};
 	animationButton = new Animation (buttonImages, duration,false);
 
 	//Get the images of the buttons in their inactive/active states

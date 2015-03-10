@@ -26,7 +26,8 @@ public class AnimatedButton extends MouseOverArea {
 
      private final List <ButtonAction> actions = new ArrayList <ButtonAction>();
  	
-	public AnimatedButton(GUIContext container, Animation animation, int x, int y,
+     
+     public AnimatedButton(GUIContext container, Animation animation, int x, int y,
 			StateBasedGame sbg, int stateID, Image inactiveButton, Image activeButton) throws SlickException {
 		 	super(container, inactiveButton, x, y);
 	        super.setMouseDownColor(Color.white);

@@ -52,7 +52,7 @@ public class Entity {
 		return isTaken;
 	}
 	
-
+	
 	public boolean search(String name){
 			boolean found = false;
 			//Search looks within the range of 2
@@ -75,8 +75,8 @@ public class Entity {
 			return found;
 	}
 	
-///////////////////////////////////////////
-///////////Combat Methods/////////////////
+/////////////////////////////////////////
+///////////Combat Methods////////////////
 /////////////////////////////////////////
 	public void subtractHealth(int points){
 		if (healthPoints - points <= 0){
@@ -87,6 +87,7 @@ public class Entity {
 		else
 			healthPoints -= points;
 	}
+	
 	
 	public void addHealthPoints(int points){
 		if (healthPoints+points > maxHealthPoints)
@@ -103,7 +104,7 @@ public class Entity {
 	
 	
 	
-	/////GENERAL GET METHODS///////////////////////////
+	/////GENERAL GET/SET METHODS///////////////////////////
 	public void setEntityArray(String[][] entityArray){this.entityArray = entityArray;}
 	
 	public String[][]getEntityArray(){return entityArray;}

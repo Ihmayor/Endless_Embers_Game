@@ -54,7 +54,7 @@ public class BasicMonster extends Entity{
 		monsterImage = monsterLook;
 		counter = 0;
 		direction = 'R';
-		maxHealthPoints = 30;
+		maxHealthPoints = 300;
 		healthPoints = maxHealthPoints;
 	}
 
@@ -87,6 +87,8 @@ public class BasicMonster extends Entity{
 		this.counter = counter;
 		oldx = x;
 		oldy = y;
+		
+		//Check for Overlap
 		if (entityArray[playerPosition[0]/32][playerPosition[1]/32] == " " ||
 			entityArray[playerPosition[0]/32][playerPosition[1]/32] == "M"){
 			PrintingTests.printEntityArray(entityArray);}

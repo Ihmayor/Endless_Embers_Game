@@ -23,6 +23,8 @@ public class EntityTest {
 		//Test to see if there is an 'M' or essentially if it can spot itself
 		assertEquals(true, c.search("M"));
 	}
+	
+	
 	@Test
 	public void testWanderCreature(){
 		Entity c = new Entity(3*32, 4*32);
@@ -159,15 +161,15 @@ public class EntityTest {
 //Combat METHOD TESTS
 ///////////////////////////////////////////////////////////////////////////////////////////////	
 	
-	@Test
-	public void testUpdateHealthPoints(){
-		fail("Not Yet Implemented");
-	}
-	
-	@Test
-	public void testAttackBasic(){
-		fail ("Not Yet Implemnted");
-	}
+//	@Test
+//	public void testUpdateHealthPoints(){
+//		fail("Not Yet Implemented");
+//	}
+//	
+//	@Test
+//	public void testAttackBasic(){
+//		fail ("Not Yet Implemnted");
+//	}
 	
 
 }

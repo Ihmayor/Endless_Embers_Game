@@ -2,8 +2,6 @@ package gameStates;
 
 import java.awt.Font;
 
-import managers.SoundManager;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -15,7 +13,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class GameOver extends BasicGameState{
 	private TrueTypeFont font;
-//	private SoundInGame sound;
 	public static int ID = 3; 
 	private GameContainer gc;
 	@Override
@@ -24,9 +21,7 @@ public class GameOver extends BasicGameState{
 	    // load a default java font
 		this.gc = gc;
 	    Font awtFont = new Font("Times New Roman", Font.BOLD, 50);
-	    font = new TrueTypeFont(awtFont, false);
-	    
-		
+	    font = new TrueTypeFont(awtFont, false);		
 	}
 
 	@Override

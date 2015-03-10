@@ -20,4 +20,5 @@ public class PlayerTest {
 		assertEquals(2000,player.getPointsNextLevel());
 		
 	}
+	
 }
