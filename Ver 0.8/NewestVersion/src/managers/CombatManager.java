@@ -36,10 +36,10 @@ public class CombatManager {
 					
 		}
 	}
-	
+	//Add delay
 	private static void delay(){for (double i = 0; i < 10000000; i++);}
 	
-	//Add delay
+	
 	private static void actualCombat(BasicMonster currentFoe, Player player, int criticalHitLimit, int missFactor){
 		int attack = generateAttack(criticalHitLimit);
 		if (attack <= missFactor){
@@ -58,6 +58,7 @@ public class CombatManager {
 				Game.queueTextLog.addFirst("You've Killed the monster!");
 				player.addExperiencePoints(currentFoe.getExpPointGain());
 				battleHappening = false;
+				monsterList.remove(currentFoe);
 				//delay();
 				return;
 			}
@@ -77,6 +78,7 @@ public class CombatManager {
 				Game.queueTextLog.addFirst("You've Killed the monster!");
 				player.addExperiencePoints(currentFoe.getExpPointGain());
 				battleHappening = false;
+				monsterList.remove(currentFoe);
 			//	delay();
 				return;
 			}
@@ -95,7 +97,8 @@ public class CombatManager {
 		return attack;
 	}
 	
-	//Might have to make public for testing.
+	
+	
 	private static BasicMonster getMonsterRef(int x, int y){
 		BasicMonster monsterFound = null;
 		int [] monsterPosition = new int [2];

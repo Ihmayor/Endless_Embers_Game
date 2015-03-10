@@ -5,11 +5,17 @@ import mapRelated.BasicMap;
 
 public class Entity {
 	
+	//Has both the old position and current position 
 	protected int oldx = 0, oldy = 0;
 	protected int x,y;
+	
+	//Used to check for overlap with other monsters
 	protected String [][] entityArray;
+	
+	//Name is created (note: never let it equal to 1 )
 	protected String name;
 	
+	//Variables related with the health of the character
 	protected int healthPoints = 200;
 	protected int maxHealthPoints = 200;
 	protected boolean alive = true;

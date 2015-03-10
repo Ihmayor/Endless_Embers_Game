@@ -21,24 +21,26 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class Player extends Entity{
 	
+	//Variables used for Slick 2 Game Components
 	private final GameContainer gc;
-	private long previousTime = 0;
 	private Graphics g;
 	private final StateBasedGame sbg;
 
+	//Used for stair case movement 
 	private boolean onStairs;
 	
+	//Variables used for Combat and related aspects
 	private int experiencePoints = 0;
 	private int pointsNextLevel = 1000;
+
 	private int playerLevel = 1;
-	private int damageIncrease = 0;//Could be used for level ups
-	
+	private int damageIncrease = 0;//Could be increased for level ups
 	private int criticalHitLimit= 30;
 	private int missFactor = 5;
 	
 	//Basic Sprite Variables
 	private SpriteSheet sheet;
-		private Animation currentSprite, up, down,left,right;
+	private Animation currentSprite, up, down,left,right;
 
 	//Limited Vision Effect
 	private Image shadow;		
@@ -50,16 +52,18 @@ public class Player extends Entity{
 		sbg = null;
 		name = "P";
 	}
-	
+	////FOR TEST PURPOSES ONLY////
 		
 		
 	public Player(GameContainer gc, StateBasedGame sbg, BasicMap currentMap,int x, int y) throws SlickException{
 		//Constructor used to 
 		super(x,y);
+		
 		//Variables for the usage outside functions
 		this.gc = gc;
 		this.sbg = sbg;
 		map = currentMap;
+		
 		//Initialize Variables
 		name = "P";
 		sheet = new SpriteSheet("res/player/template2.png", 32,32);
@@ -69,7 +73,7 @@ public class Player extends Entity{
 	}
 	
 	private void loadPlayerSprite(SpriteSheet playerSheet){
-		//Load Sprite Images for Player
+				//Load Sprite Images for Player
 				Image [] upSprite = {sheet.getSubImage(0,3),
 								     sheet.getSubImage(1,3),
 								     sheet.getSubImage(2,3),
@@ -88,15 +92,14 @@ public class Player extends Entity{
 					     			   sheet.getSubImage(2,1),
 					     			   sheet.getSubImage(3,1)};
 
-			//Set the duration of Animation in Milliseconds	
+				//Set the duration of Animation in Milliseconds	
 				int [] duration = {10,10,10,10};
 				
-			//Initialize Animations
+				//Initialize Animations
 				up = new Animation(upSprite, duration, false);
 				down = new Animation (downSprite, duration, false);
 				left = new Animation(leftSprite, duration, false);
-				right = new Animation (rightSprite,duration,false);
-				
+				right = new Animation (rightSprite,duration,false);		
 				currentSprite = down;
 	
 	}
@@ -110,63 +113,70 @@ public class Player extends Entity{
 	}
 	
 	
-	
-	public void delayUpdate(){
-		for (int i = 0; i <= 4000; i++);
-	}
-	
-	
 	public void update(long delta){
-		if (alive == false){
-			Game.statusUpdate = "Your player be dead";
-			delayUpdate();
+		
+		//If the player is not alive change game state.
+		if (!alive){
+			
+			Game.queueTextLog.add( "Your player be dead");
+			
+			//Change state of game to game over sate.
 			sbg.enterState(GameOver.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+			//Change Sound to Game Over State's sound
 			SoundManager.changeSound("res/sound/A Time To Lose.wav");
 			}
 		
+		
+		
+		//Input used to get keyboard controls
 		Input input = gc.getInput();
 		 
+		//Diagonal Up Left
 		if (input.isKeyPressed(Input.KEY_NUMPAD7)||input.isKeyPressed(Input.KEY_7)){
 			 moveDiagonalUpLeft();
 		 }
-
+		
+		//Normal Up
 		else if (input.isKeyPressed(Input.KEY_UP)||input.isKeyPressed(Input.KEY_8)
 				||input.isKeyPressed(Input.KEY_NUMPAD8)){
 				moveUp();
 		}
 		
-		
+		//Diagonal Up Right
 		else if (input.isKeyPressed(Input.KEY_NUMPAD9)||input.isKeyPressed(Input.KEY_9)){
 				moveDiagonalUpRight();
 		}
 
-		
+		//Normal Left
 		else if (input.isKeyPressed(Input.KEY_LEFT)||input.isKeyPressed(Input.KEY_U)
 				||input.isKeyPressed(Input.KEY_NUMPAD4)){
 				moveLeft();
-			
-			
 		}
 		
+		//PASS TURN
 		else if (input.isKeyPressed(Input.KEY_NUMPAD5)||input.isKeyPressed(Input.KEY_I))
 			{
 			moveNowhere();
 			}
 		
+		//Normal Right
 		else if (input.isKeyPressed(Input.KEY_RIGHT)||input.isKeyPressed(Input.KEY_O)||
 				input.isKeyPressed(Input.KEY_NUMPAD6)){
 			moveRight();
 			}
 		
-		
+		//Diagnoal Down Left
 		else if (input.isKeyPressed(Input.KEY_NUMPAD1)||input.isKeyPressed(Input.KEY_J)){
 				moveDiagonalDownLeft();
 				}
+		
+		//Normal Down
 		else if (input.isKeyPressed(Input.KEY_DOWN)||input.isKeyPressed(Input.KEY_K)||
 				input.isKeyPressed(Input.KEY_NUMPAD2)){
 			moveDown();
 		}
 
+		//Diagonal Down Right
 		else if (input.isKeyPressed(Input.KEY_NUMPAD3)||input.isKeyPressed(Input.KEY_L)){
 			moveDiagonalDownRight();
 		}
@@ -194,6 +204,8 @@ public class Player extends Entity{
 					}
 				}
 		 }
+	
+	
 	private void moveUp(){
 			currentSprite = up;
 			int newY = y - BasicMap.TILESIZE;
@@ -260,9 +272,8 @@ public class Player extends Entity{
 					onStairs = true;
 					setMap(map);
 					}
-
-			}
-		}	
+				}
+			}	
 		
 		
 	private void moveDiagonalDownLeft(){
@@ -297,7 +308,7 @@ public class Player extends Entity{
 					}
 				}
 			
-		}
+			}
 
 	private void moveDiagonalDownRight(){
 			currentSprite = right;
@@ -317,7 +328,7 @@ public class Player extends Entity{
 						}
 					}
 			
-			}
+				}
 	
 ///////////METHOD DEALING WITH LEVELING UP////////////////////
 	public void addExperiencePoints(int points){
@@ -327,7 +338,7 @@ public class Player extends Entity{
 			//Increase Maximum Health & Heal Up Completely
 			maxHealthPoints += playerLevel*maxHealthPoints/3;
 			healthPoints = maxHealthPoints;
-			
+				
 			//Decrease Experience Points used up
 			//Increase amount needed to next level
 			experiencePoints = experiencePoints-pointsNextLevel;
@@ -355,12 +366,12 @@ public class Player extends Entity{
 	public void setOnStairs(boolean var){onStairs = var;}
 
 	
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////	
+//////////////////////////////////////////////////////////////////////////////////////////////////////	
+	//ALL CODE BELOW WAS CREATED IN ATTEMPT TO SMOOTH OUT MOVEMENT/////////
 	
-	
-	
-	//ALL CODE BELOW WAS CREATED IN ATTEMPT TO SMOOTH OUT MOVEMENT
-	
-	///////////THAT STILL NEEDS TO BE IMPLEMENTED.
+	///////////THAT STILL NEEDS TO BE IMPLEMENTED./////////////
 	
 	private float getDistanceX(int current_x, int target_x)
 	{
