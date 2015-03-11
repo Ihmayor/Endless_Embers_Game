@@ -44,6 +44,8 @@ public class Entity {
 	}
 
 	protected boolean isTaken(int x, int y){
+		if (x <0 || y <0)
+			return false;
 		int xTile = x/BasicMap.TILESIZE;
 		int yTile = y/BasicMap.TILESIZE;
 		boolean isTaken = false;
@@ -78,7 +80,10 @@ public class Entity {
 /////////////////////////////////////////
 ///////////Combat Methods////////////////
 /////////////////////////////////////////
-	public void subtractHealth(int points){
+	public String subtractHealth(int points){
+		if (points < 0)
+			return "Cannot subtract negative health points";
+		
 		if (healthPoints - points <= 0){
 			alive = false;
 			entityArray[x/BasicMap.TILESIZE][y/BasicMap.TILESIZE] = " ";
@@ -86,14 +91,20 @@ public class Entity {
 		}
 		else
 			healthPoints -= points;
+		return null;
 	}
 	
 	
-	public void addHealthPoints(int points){
+	public String addHealthPoints(int points){
+		if (points < 0)
+			return "Cannot add negative health points";
+			
 		if (healthPoints+points > maxHealthPoints)
 			healthPoints = maxHealthPoints;
 		else
 			healthPoints += points;
+		
+		return null;
 	}
 	
 	public int getHealthPoints(){return healthPoints;}
@@ -105,7 +116,21 @@ public class Entity {
 	
 	
 	/////GENERAL GET/SET METHODS///////////////////////////
-	public void setEntityArray(String[][] entityArray){this.entityArray = entityArray;}
+	public String setEntityArray(String[][] entityArray){
+		
+		if (entityArray.length*entityArray[0].length != 35*16)
+			return "Entity Array Not Expected Size";
+		
+		for (String[] row: entityArray){
+			for (String s:row)
+			{
+				if (s == null)
+					return "EntityArray cannot have null objects";
+			}
+		}
+		this.entityArray = entityArray;
+		
+		return null;}
 	
 	public String[][]getEntityArray(){return entityArray;}
 	public boolean getAlive(){return alive;}

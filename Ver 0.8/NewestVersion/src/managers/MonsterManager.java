@@ -96,6 +96,7 @@ public class MonsterManager {
 		}
 		
 		this.entityArray = entityArray;
+		
 		for (BasicMonster m: monsters){
 			m.setEntityArray(entityArray);
 			}
