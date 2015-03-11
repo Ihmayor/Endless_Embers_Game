@@ -82,7 +82,7 @@ public class BasicMonster extends Entity{
 	}
 	
 	
-	public void update(int [] playerPosition, int counter)
+	public String update(int [] playerPosition, int counter)
 	{
 		this.counter = counter;
 		oldx = x;
@@ -91,7 +91,7 @@ public class BasicMonster extends Entity{
 		//Check for Overlap
 		if (entityArray[playerPosition[0]/32][playerPosition[1]/32] == " " ||
 			entityArray[playerPosition[0]/32][playerPosition[1]/32] == "M"){
-			PrintingTests.printEntityArray(entityArray);}
+			return "Player has disappeared from the map.";}
 
 		
 		isActiveState = search("P");
@@ -105,6 +105,8 @@ public class BasicMonster extends Entity{
 		else{
 			wander(playerPosition);
 		}
+		
+		return null;
 	}
 		
 	///More advanced version of search

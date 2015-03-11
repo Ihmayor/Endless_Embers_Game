@@ -1,6 +1,6 @@
 package managers;
 
-import gameStates.Game;
+import gameStates.GameScreenAssets;
 
 import java.util.LinkedList;
 import java.util.Random;
@@ -19,12 +19,13 @@ public class CombatManager {
 	public static void setMonsterList(LinkedList <BasicMonster> monsters){monsterList = monsters;}
 	
 	
-	public static void attackLoop(Player player, int criticalHitLimit, int missFactor, int monsterX, int monsterY ){
+	public static String attackLoop(Player player, int criticalHitLimit, int missFactor, int monsterX, int monsterY ){
 		battleHappening = true;
 		if (getMonsterRef(monsterX, monsterY) == null)
 		{
-			Game.statusUpdate = "You are attacking a ghost! Oh no! Run away before it gets you!";
+			GameScreenAssets.statusUpdate = "You are attacking a ghost! Oh no! Run away before it gets you!";
 			battleHappening = false;
+			return "Error! No Monster Found to Fight";
 		}
 		else
 		{
@@ -35,7 +36,10 @@ public class CombatManager {
 			//}
 					
 		}
+		return null;
 	}
+	
+	
 	//Add delay
 	private static void delay(){for (double i = 0; i < 10000000; i++);}
 	
@@ -43,19 +47,22 @@ public class CombatManager {
 	private static void actualCombat(BasicMonster currentFoe, Player player, int criticalHitLimit, int missFactor){
 		int attack = generateAttack(criticalHitLimit);
 		if (attack <= missFactor){
-			Game.queueTextLog.addFirst("You missed!");
+			GameScreenAssets.queueTextLog.addFirst("You missed!");
 			//delay();
+			attack = generateAttack(currentFoe.damageLimit);
+			player.subtractHealth(attack);	
+			GameScreenAssets.queueTextLog.addFirst("Monster attacks back! Damage Done: "+attack);
 			}
 		
 		else if (attack > missFactor && attack <= criticalHitLimit-missFactor)
 		{
 		
-		Game.queueTextLog.addFirst("Average Hit: "+attack); 
+		GameScreenAssets.queueTextLog.addFirst("Average Hit: "+attack); 
 		currentFoe.subtractHealth(attack);
 			if (currentFoe.getHealthPoints() <= 0)
 			{
 
-				Game.queueTextLog.addFirst("You've Killed the monster!");
+				GameScreenAssets.queueTextLog.addFirst("You've Killed the monster!");
 				player.addExperiencePoints(currentFoe.getExpPointGain());
 				battleHappening = false;
 				monsterList.remove(currentFoe);
@@ -65,17 +72,17 @@ public class CombatManager {
 			//delay();
 			attack = generateAttack(currentFoe.damageLimit);
 			player.subtractHealth(attack);	
-			Game.queueTextLog.addFirst("Monster attacks back! Damage Done: "+attack);
+			GameScreenAssets.queueTextLog.addFirst("Monster attacks back! Damage Done: "+attack);
 			//delay();
 		}
 		
 		else 
 		{
 		currentFoe.subtractHealth(attack);	
-		Game.queueTextLog.addFirst("Critical Hit: "+attack);
+		GameScreenAssets.queueTextLog.addFirst("Critical Hit: "+attack);
 			if (currentFoe.getHealthPoints() <= 0)
 			{
-				Game.queueTextLog.addFirst("You've Killed the monster!");
+				GameScreenAssets.queueTextLog.addFirst("You've Killed the monster!");
 				player.addExperiencePoints(currentFoe.getExpPointGain());
 				battleHappening = false;
 				monsterList.remove(currentFoe);
@@ -85,7 +92,7 @@ public class CombatManager {
 		//	delay();
 			attack = generateAttack(currentFoe.damageLimit);
 			player.subtractHealth(attack);	
-			Game.queueTextLog.addFirst("Monster attacks back! Damage Done: "+attack);
+			GameScreenAssets.queueTextLog.addFirst("Monster attacks back! Damage Done: "+attack);
 	//		delay();
 		}
 	}

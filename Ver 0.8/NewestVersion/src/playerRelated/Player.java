@@ -1,7 +1,7 @@
 package playerRelated;
 
-import gameStates.Game;
 import gameStates.GameOver;
+import gameStates.GameScreenAssets;
 import managers.CombatManager;
 import managers.SoundManager;
 import mapRelated.BasicMap;
@@ -23,9 +23,8 @@ public class Player extends Entity{
 	
 	//Variables used for Slick 2 Game Components
 	private final GameContainer gc;
-	private Graphics g;
 	private final StateBasedGame sbg;
-
+	
 	//Used for stair case movement 
 	private boolean onStairs;
 	
@@ -107,7 +106,6 @@ public class Player extends Entity{
 	
 	
 	public void render(Graphics g){
-	this.g = g;
 	currentSprite.draw((int) x, (int) y);//Draw what the Current sprite should look like.
 	//g.drawImage(shadow,(int)x-1110, (int)y-850); //Draw Shadow with a particular offset for the spotlight
 	}
@@ -118,7 +116,7 @@ public class Player extends Entity{
 		//If the player is not alive change game state.
 		if (!alive){
 			
-			Game.queueTextLog.add( "Your player be dead");
+			GameScreenAssets.queueTextLog.add( "Your player be dead");
 			
 			//Change state of game to game over sate.
 			sbg.enterState(GameOver.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
@@ -331,8 +329,24 @@ public class Player extends Entity{
 				}
 	
 ///////////METHOD DEALING WITH LEVELING UP////////////////////
-	public void addExperiencePoints(int points){
+	public String addExperiencePoints(int points){
+		if (points <0)
+			return "Can't gain negative EXP";
+		
+		//Add points given
 		experiencePoints += points;
+		if (levelUp())
+		{
+			GameScreenAssets.queueTextLog.add("Woohoo! Player has leveled Up!");
+			return "Player has leveled up";
+		}
+		
+			
+		return null;
+	}
+	
+	private boolean levelUp(){
+		
 		if (experiencePoints >= pointsNextLevel){
 			playerLevel++;
 			//Increase Maximum Health & Heal Up Completely
@@ -343,8 +357,12 @@ public class Player extends Entity{
 			//Increase amount needed to next level
 			experiencePoints = experiencePoints-pointsNextLevel;
 			pointsNextLevel *= playerLevel;
-		}
+			return true;
+			}
+		return false;
+		
 	}
+
 		
 	
 	
@@ -355,7 +373,6 @@ public class Player extends Entity{
 	
 	private void attack(int monsterX, int monsterY){
 	CombatManager.attackLoop(this,criticalHitLimit, missFactor, monsterX, monsterY);	
-	
 	}
 	
 	

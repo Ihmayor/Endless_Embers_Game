@@ -30,11 +30,53 @@ public class MonsterManager {
 	private BasicMap currentMap;
 	private String[][] entityArray;
 	
+	
+	//For test purposes Only
+	public MonsterManager(){
+		
+	}
+	//For test purposes only
+	
 	public MonsterManager(BasicMap map){
 		currentMap = map;
 	}
 	
+	
+	public String checkEntityArray(String [][] entityArray){
+		if (entityArray.length*entityArray[0].length != 35*16)
+			return "Entity Array Not Expected Size";
+		
+		for (String[] row: entityArray){
+			for (String s:row)
+			{
+				if (s == null)
+					return "EntityArray cannot have null objects";
+			}
+		}
+		
+		boolean playerFound = false;
+		for(String[] row:entityArray)
+		{
+			for (String s: row)
+			{
+				if (s.equals("P"))
+					playerFound = true;
+			}
+		}
+		
+		if (!playerFound)
+			return "Player not in EntityArray"; 
+		
+		return null;
+	}
+	
+	
+	
+	
 	public void init(String [][] entityArray) throws SlickException{
+		if (checkEntityArray(entityArray) !=null)
+			return;
+		
 		SpriteSheet monsterSheet = new SpriteSheet("res/monster/dummySheet.png",32,32); 
 		Image monsterImage = monsterSheet.getSubImage(0, 0);
 		BasicMonster monster1 = new BasicMonster(currentMap, monsterImage, 7*32, 11*32);
@@ -68,6 +110,7 @@ public class MonsterManager {
 		
 	}
 	
+	//Calls update method for every monster inside list
 	public void update(int[] playerPosition, int counter){
 
 		BasicMonster [] monsters = monsterList.toArray(new BasicMonster [monsterList.size()]);
@@ -77,10 +120,10 @@ public class MonsterManager {
 	}
 	
 	
-	
+	//Returns the entityArray with the monsters placed on them
 	public String [][] getEntityArray(){return entityArray;}	
 		
-	
+	//Returns the linked list of monsters
 	public LinkedList<BasicMonster> getMonsterList() {return monsterList;}
 	
 	
@@ -89,6 +132,8 @@ public class MonsterManager {
 	public void setLevel(int currentLevel, BasicMap map){
 		//Current level = #ofmonsters*(level/2)
 	}
+	
+	//Calls the setMap function for all the monsters inside the list
 	public void setMap(BasicMap newMap){
 
 		BasicMonster [] monsters = monsterList.toArray(new BasicMonster [monsterList.size()]);

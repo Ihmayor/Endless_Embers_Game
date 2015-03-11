@@ -11,16 +11,12 @@ import managers.CombatManager;
 import managers.MonsterManager;
 import managers.SoundManager;
 import mapRelated.BasicMap;
-import monsterRelated.BasicMonster;
 import monsterRelated.Entity;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.fills.GradientFill;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -29,50 +25,44 @@ import playerRelated.Player;
 
 public class Game extends BasicGameState {
 
-	private StateBasedGame game;
-
+	//Used for quitting the game
+	private GameContainer gc;
+	private GameScreenAssets gameAssets;
+	
 	//Entity Stuff
 	private Player player;
 	private String[][] entityArray;
 	
-	//Will soon replace with monster manager
-	//For better management of monsters
-	private BasicMonster monster;
+	//Handles Monsters on screen
 	private MonsterManager monsters;
 	
-	//Floor Variables
-	private int floorLevel = 1;
 	private BasicMap currentMap;
 	
-	public static String statusUpdate;
-	private static String statusBackLog1 = " ";
-	private static String statusBackLog2 = " ";
-	
+	//Counters for delaying textlog and monsters
+	private int textLogCounter = 0;//Must implement as private//Can possibly renamed Text log speed???
+
+	//Volume
 	private float volume = 1.0f;
 	
-	//Linked lists for keeping track of the game's state.
-	private LinkedList <BasicMonster> monsterList = new LinkedList<BasicMonster>();
-	public static LinkedList <String> queueTextLog = new LinkedList<String>();
 	private LinkedList<BasicMap> totalLevels = new LinkedList<BasicMap>();
 	
 	
-	
-//	private long prevTime;
-	
+	//State ID
 	public static final int ID = 1;
+
 	@Override
 	public void init(GameContainer gc, StateBasedGame stateGame) throws SlickException {
 		
 		//Used for changing game states
-		this.game = stateGame;
-	
-		//prevTime = 0;
+		this.gc = gc;
+		gameAssets = new GameScreenAssets();
 		
-		//Load ALL  Maps
+		//Load ALL  Maps of game
 		//might move to map class???
 		BasicMap floorOne = new BasicMap("res/map/floor1.tmx");
 		BasicMap floorTwo = new BasicMap("res/map/floor2.tmx");
 		BasicMap floorThree = new BasicMap("res/map/floor3.tmx");
+		
 		//Add them to the Linked List, last level first.
 		totalLevels.add(floorThree);
 		totalLevels.add(floorTwo);
@@ -81,20 +71,19 @@ public class Game extends BasicGameState {
 		currentMap = totalLevels.removeLast();
 		
 		
-		//Set up the creatures that appear initially
+		//Create player's character 
 		player = new Player(gc, stateGame,currentMap, 4*32, 5*32);
-		//monster = new BasicMonster(currentMap, monsterImage, 7*32, 11*32);
+		
+		//Place player's character onto map
 		initEntityArray();
 		
 		monsters = new MonsterManager(currentMap);
-		monsters.init(entityArray);
-		
+		monsters.init(entityArray);		
 		CombatManager.setMonsterList(monsters.getMonsterList());
 		
-		//Again Monster stuff will be moved.
 		player.setEntityArray(monsters.getEntityArray());
 		
-		statusUpdate = "Game is Now In Session";
+		GameScreenAssets.statusUpdate = "Game is Now In Session";
 	}
 	
 	
@@ -112,54 +101,22 @@ public class Game extends BasicGameState {
 		entityArray[((Entity)player).getPosition()[0]/32][((Entity)player).getPosition()[1]/32] = player.getName();
 	}
 	
+	
 	@Override
 	public void render(GameContainer gc, StateBasedGame stateGame, Graphics g)
 			throws SlickException {
 		
-		//Render Map, Monsters, Player
+		//Render Map, Monsters, Player, GameScreen Assets
 		currentMap.render();
 		monsters.render(g);
 		player.render(g);
-		
-		//Render Text Log + Floor Status
-		g.setColor(Color.white);
-		g.drawString("Floor: "+floorLevel, 1000, 20);
-	    g.drawString(statusUpdate, 600, 490);
-	    g.drawString(statusBackLog1, 600, 470);
-	    g.drawString(statusBackLog2, 600, 450);
-	    g.drawString("Press Q to quit", 700, 20);
-
-	    ///Draw Health Bar
-	    g.drawString("HP", 60, 450);
-	    g.drawString(""+player.getHealthPoints()+"/"+player.getMaxHealthPoints(), 400, 450);
-	    Rectangle healthBar = new Rectangle(90, 450, 300 * player.getHealthPoints() / player.getMaxHealthPoints(), 20);
-        GradientFill fillRed = new GradientFill(90, 0, new Color(255, 0, 0),
-                                             460 + 300, 0, new Color(220,60, 0));
-
-        g.setColor(Color.darkGray);
-        g.fillRect(90, 450, 300, 20);
-        g.fill(healthBar, fillRed); 
-        
-        
-        //Draw Experience Bar
-        g.setColor(Color.white);
-	    g.drawString("EXP", 60, 480);
-	    g.drawString(""+player.getExperiencePoints()+"/"+player.getPointsNextLevel(), 400, 480);
-	    Rectangle expBar = new Rectangle(90, 480, 300*player.getExperiencePoints()/player.getPointsNextLevel(), 20);
-        GradientFill fillGreen = new GradientFill(90, 0, new Color(90, 255, 20),
-                                             480 + 300, 0, new Color(40, 180, 40));
-        g.setColor(Color.darkGray);
-        g.fillRect(90, 480, 300, 20);
-        g.fill(expBar, fillGreen); 
-        
-	    
+		gameAssets.render(g, player);
 	}
 	
 	@Override
 	public void keyReleased (int key,char c){
 	switch (key){
 	case Input.KEY_Q:
-		GameContainer gc = game.getContainer();//Had to instantiate. I could've also made this another class variable.
 		gc.exit();//Exits game. 	
 		break;
 	case Input.KEY_1:
@@ -198,37 +155,23 @@ public class Game extends BasicGameState {
 	}
 
 	//Counters used to delay the text log and the movement of monsters
-	int counter = 0; //Must combine later
-	int counter2 = 0;//Must implement as private//Can possibly renamed Text log speed???
+	private int monsterCounter = 0; //Must combine later
 	
 	
 	@Override
 	public void update(GameContainer gc, StateBasedGame stateGame, int delta)
 			throws SlickException {
 		//Always let the player move.
-		player.update(counter);
+		player.update(monsterCounter);
 		
-		//TextLog Code. Counter is the speed of which the text log updates itself
-		if (counter2 >= 200)
-		{
-			String temp = queueTextLog.pollLast();
-			if (temp!= null){
-				statusBackLog2 = statusBackLog1;
-				statusBackLog1 = statusUpdate;
-				statusUpdate = ""+temp;
-			}	
-			counter2 =0;
-		}
-		else
-			counter2++;
-		
+		textLogCounter = gameAssets.updateTextLog(textLogCounter);
 		
 		//Prevent Monster from fleeing
 		if (CombatManager.battleHappening == false&&monsters.getMonsterList()!= null){
-			monsters.update(player.getPosition(), counter);
-			counter++;
-			if (counter > 400)//Used to delay the monster's movement
-				counter = 0;
+			monsters.update(player.getPosition(), monsterCounter);
+			monsterCounter++;
+			if (monsterCounter > 400)//Used to delay the monster's movement
+				monsterCounter = 0;
 			}
 		
 		//Load a new floor if the stairs are stepped on.
@@ -236,7 +179,7 @@ public class Game extends BasicGameState {
 			currentMap = totalLevels.removeLast();
 			player.setMap(currentMap);
 			monsters.setMap(currentMap);
-			floorLevel++;
+			gameAssets.increaseFloorLevel();
 			player.setOnStairs(false);
 		}
 	}
