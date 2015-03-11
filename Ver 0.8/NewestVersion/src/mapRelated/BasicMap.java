@@ -63,6 +63,9 @@ public class BasicMap
 	//Checks if a given x,y coordinate collides with a block on the map
 	public boolean hasCollision (float x, float y)
 	{
+		if (x < 0 || y <0)
+			return false;
+		
 		int xBlock = (int)x / TILESIZE;
 	    int yBlock = (int)y / TILESIZE;
 	    
@@ -83,6 +86,9 @@ public class BasicMap
 	//Checks if a give x,y coord is a staircase
 	public boolean isStairs (float x, float y)
 	{
+		
+		if (x < 0 || y <0)
+			return false;
 		int xStairs = (int)x / TILESIZE;
 	    int yStairs = (int)y / TILESIZE;
 	    
