@@ -32,15 +32,19 @@ public class Entity {
 /////////////////////////////////////////////////
 //METHODS USED FOR SEARCHING UPDATING LOCATION IN ENTITY ARRAY
 /////////////////////////////////////////////////
-	protected void updatePosition(int x, int y){
+	protected String updatePosition(int x, int y){
 		if (!alive)
-			return;
+			return null;
+		if (y < 0 || x <0 || y > 512 || x > 1120)
+			return "Invalid Position";
 		oldx = this.x;
 		oldy = this.y;
 		entityArray[oldx/BasicMap.TILESIZE][oldy/BasicMap.TILESIZE] = " ";
 		entityArray[x/BasicMap.TILESIZE][y/BasicMap.TILESIZE] = name;
 		this.x = x;
 		this.y = y;
+		
+		return null;
 	}
 
 	protected boolean isTaken(int x, int y){

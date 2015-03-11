@@ -74,7 +74,18 @@ public class EntityTest {
 		assertEquals(true, c.search("M"));
 	}
 	
-//Test update position
+	//Test update position
+	@Test
+	public void testInvalidPostion(){
+		Entity e = new Entity(5*32,5*32);
+		assertEquals("Invalid Position", e.updatePosition(-100,-100));
+	}
+	
+	
+	
+	
+	
+	
 	@Test
 	public void testWanderCreature(){
 		//Arrange
