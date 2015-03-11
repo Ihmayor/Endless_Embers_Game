@@ -1,6 +1,5 @@
 package monsterRelated;
 
-import gameStates.Game;
 
 import java.util.Random;
 
@@ -109,15 +108,16 @@ public class BasicMonster extends Entity{
 		return null;
 	}
 		
+////////////////////////////////////////////////	
 	///More advanced version of search
-	private boolean monsterSees(int[] playerPosition){
-		double distance = Math.sqrt((double)( (playerPosition[0]- x)^2+(playerPosition[1]-y)^2));
-		if (distance < monsterSightRange)
-			return true;
-		else
-			return false;
-	}
-	
+//	private boolean monsterSees(int[] playerPosition){
+//		double distance = Math.sqrt((double)( (playerPosition[0]- x)^2+(playerPosition[1]-y)^2));
+//		if (distance < monsterSightRange)
+//			return true;
+//		else
+//			return false;
+//	}
+//	
 	
 	////////////////////////////////////////////
 	/////////////Movement Methods///////////////

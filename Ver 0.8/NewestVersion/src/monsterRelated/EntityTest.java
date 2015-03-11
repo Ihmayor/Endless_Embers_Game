@@ -1,7 +1,6 @@
 package monsterRelated;
 
 import static org.junit.Assert.*;
-import managers.MonsterManager;
 import mapRelated.BasicMap;
 
 import org.junit.Test;

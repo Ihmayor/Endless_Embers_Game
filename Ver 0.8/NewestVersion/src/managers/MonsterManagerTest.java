@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import mapRelated.BasicMap;
 
 import org.junit.Test;
-import org.newdawn.slick.SlickException;
 
 public class MonsterManagerTest {
 

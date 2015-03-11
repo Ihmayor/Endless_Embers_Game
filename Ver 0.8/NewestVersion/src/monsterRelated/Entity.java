@@ -1,6 +1,5 @@
 package monsterRelated;
 
-import gameStates.Game;
 import mapRelated.BasicMap;
 
 public class Entity {
