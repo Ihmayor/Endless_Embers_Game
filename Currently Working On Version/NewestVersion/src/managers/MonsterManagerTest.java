@@ -87,7 +87,10 @@ public class MonsterManagerTest {
 		assertEquals(null, m.checkValidPlacement(testPosition, 4, new BasicMap(testMap), testArray));
 		
 	}
-	
+	@Test
+	public void testInvalidPositionGenerated(){
+		fail("Not yet implemented");
+	}
 	
 	
 	@Test
@@ -185,10 +188,15 @@ public class MonsterManagerTest {
 			}
 		}
 		int [] testPosition = m.findValidPlacement(4, new BasicMap(testMap), testArray);
-		int [] expectedPosition = {0,0};
 		
-		assertArrayEquals(expectedPosition, testPosition);
+		assertNotNull(testPosition);
 		
+	}
+	
+	@Test
+	public void testFindPlacement_Edges(){
+		fail("Not yet implemented");	
+		//WOW THAT IS A LOT that I missed.
 	}
 
 	
@@ -220,7 +228,13 @@ public class MonsterManagerTest {
 		assertArrayEquals("Check that it can find Valid last spot",expectedPosition, testPosition);
 		
 	}
-
+	
+	@Test
+	public void testFindPlacement_OneSpotLeft_Edges(){
+		fail("Not yet implemented");
+	}
+	
+	
 	
 	@Test
 	public void testFindPlacement_OneSpotLeft_MapArrayOnly (){
@@ -272,6 +286,7 @@ public class MonsterManagerTest {
 		testPosition = m.findValidPlacement(4, new BasicMap(testMap), testArray);
 		assertEquals( null, testPosition);
 	}
+	
 	
 	
 	@Test

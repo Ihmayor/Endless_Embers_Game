@@ -1,7 +1,9 @@
 /////////////////////////////////////////////////////////////
 //Monster Manager                                          //
 //Purpose: Manage Multiple Monsters in a level		       //
-//Limit: Inflexible to more than one level				   //
+//Limit: Clunky in spawning its monsters. Currently only   // 
+//handles one type of monster.                             //
+//Features: Randomly spawns three monsters per level. 	   //
 //Group: SENG 301 Group 16			            		   //
 /////////////////////////////////////////////////////////////
 
@@ -102,8 +104,9 @@ public class MonsterManager {
 	
 	//Put this into a private object.
 	public int[] findValidPlacement(int monsterPathSize, BasicMap map, String [][] array){
-		int newX = 0;
-		int newY = 0;
+		Random gen = new Random();
+		int newX = gen.nextInt(34)*BasicMap.TILESIZE;
+		int newY = gen.nextInt(15)*BasicMap.TILESIZE;
 		int[]  newPosition = {newX, newY};
 		
 		for (int i = 0; i < BasicMap.widthByTiles; i ++){
@@ -111,8 +114,8 @@ public class MonsterManager {
 				if (checkValidPlacement(newPosition, monsterPathSize, map, array) == null){
 					return newPosition;
 					}
-				newPosition[0] = i*BasicMap.TILESIZE*2;
-				newPosition[1] = c*BasicMap.TILESIZE*3;
+				newPosition[0] = (newX+i*BasicMap.TILESIZE)%(1120-32);
+				newPosition[1] = (newY+c*BasicMap.TILESIZE)%(512-32);
 				}
 
 			}
@@ -167,36 +170,38 @@ public class MonsterManager {
 		BasicMonster monster1 = null;
 		BasicMonster monster2 = null;
 		BasicMonster monster3 = null;
-		BasicMonster monster4 = null;
-		BasicMonster monster5 = null;
 		
 		
-		int[] spawnPosition = findValidPlacement (2, currentMap, entityArray);
+		int[] spawnPosition = findValidPlacement (4, currentMap, entityArray);
+		while (spawnPosition == null)
+			spawnPosition = findValidPlacement (4, currentMap, entityArray);
 		
-		if (spawnPosition != null){
-			monster1 = new BasicMonster(currentMap, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
+		monster1 = new BasicMonster(currentMap, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
 		monsterList.add(monster1);
 		monster1.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);
 		entityArray[monster1.getPosition()[0]/BasicMap.TILESIZE]
 				   [monster1.getPosition()[1]/BasicMap.TILESIZE] = monster1.getName();
-		}
-		spawnPosition = findValidPlacement (5, currentMap, entityArray);
 		
-		if (spawnPosition != null){
-			monster2 = new BasicMonster(currentMap, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
-			monsterList.add(monster2);
-			entityArray[monster2.getPosition()[0]/BasicMap.TILESIZE]
+		spawnPosition = findValidPlacement (4, currentMap, entityArray);
+		while (spawnPosition == null)
+			spawnPosition = findValidPlacement (4, currentMap, entityArray);
+		
+		
+		monster2 = new BasicMonster(currentMap, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
+		monsterList.add(monster2);
+		entityArray[monster2.getPosition()[0]/BasicMap.TILESIZE]
 				   [monster2.getPosition()[1]/BasicMap.TILESIZE] = monster2.getName();
 			monster2.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);
-		}
-		spawnPosition = findValidPlacement (2, currentMap, entityArray);
 		
-		if (spawnPosition != null){
-			monster3 = new BasicMonster(currentMap, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
+		spawnPosition = findValidPlacement (4, currentMap, entityArray);
+		while (spawnPosition == null)
+			spawnPosition = findValidPlacement (4, currentMap, entityArray);
+		
+		monster3 = new BasicMonster(currentMap, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
 		monsterList.add(monster3);
 		entityArray[monster1.getPosition()[0]/BasicMap.TILESIZE]
 				   [monster1.getPosition()[1]/BasicMap.TILESIZE] = monster1.getName();
-		monster3.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);}
+		monster3.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);
 		
 	
 		BasicMonster [] monsters = monsterList.toArray(new BasicMonster [monsterList.size()]);
