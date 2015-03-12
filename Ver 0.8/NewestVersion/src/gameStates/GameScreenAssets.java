@@ -9,6 +9,11 @@ import org.newdawn.slick.geom.Rectangle;
 
 import playerRelated.Player;
 
+//////
+// GameScreenAssets
+// Purpose: Controls the various elements in the UI
+// Limit?
+//////
 public class GameScreenAssets {
 
 	//Floor Variables
@@ -22,8 +27,10 @@ public class GameScreenAssets {
 	//Linked lists for keeping track of the game's state.
 	public static LinkedList <String> queueTextLog = new LinkedList<String>();
 	
+	//Increases the floor level whenever the player moves to the next floor
 	public void increaseFloorLevel(){ floorLevel++;}
 	
+	// Draws the UI elements
 	public void render(Graphics g, Player player){
 		
 		//Render Text Log + Floor Status
@@ -58,6 +65,7 @@ public class GameScreenAssets {
         g.fill(expBar, fillGreen); 
 	}
 	
+	// Scrolls the text log to display more recent information
 	public int updateTextLog(int textLogCounter){
 		if (textLogCounter < 0)
 			return 0;
