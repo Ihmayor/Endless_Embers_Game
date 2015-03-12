@@ -78,7 +78,7 @@ public class Game extends BasicGameState {
 		initEntityArray();
 		
 		monsters = new MonsterManager(currentMap);
-		monsters.init(entityArray);		
+		monsters.init(entityArray, currentMap);		
 		CombatManager.setMonsterList(monsters.getMonsterList());
 		
 		player.setEntityArray(monsters.getEntityArray());
@@ -178,7 +178,10 @@ public class Game extends BasicGameState {
 		if (player.getOnStairs()&&totalLevels.peekLast()!= null){
 			currentMap = totalLevels.removeLast();
 			player.setMap(currentMap);
-			monsters.setMap(currentMap);
+			monsters.clearMonsters();
+			monsters.init(entityArray, currentMap);		
+			CombatManager.setMonsterList(monsters.getMonsterList());
+			player.setEntityArray(monsters.getEntityArray());
 			gameAssets.increaseFloorLevel();
 			player.setOnStairs(false);
 		}

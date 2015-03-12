@@ -264,13 +264,30 @@ public class MonsterManagerTest {
 		{
 			for (int c = 0; c < BasicMap.heightByTiles; c++)
 			{
-				testArray[i][c] = " ";
-				testMap[i][c] = ' ';
+				testArray[i][c] = "P";
+				testMap[i][c] = 'B';
 			}
 		}
-		int [] testPosition = m.findValidPlacement(4, new BasicMap(testMap), testArray);
+		int [] testPosition = new int [2];
+		testPosition = m.findValidPlacement(4, new BasicMap(testMap), testArray);
 		assertEquals( null, testPosition);
 	}
 	
+	
+	@Test
+	public void testClearMonsters(){
+		MonsterManager m = new MonsterManager();
+		String [][] testArray = new String [35][16];
+		for (int i = 0; i < BasicMap.widthByTiles; i++)
+		{
+			for (int c = 0; c < BasicMap.heightByTiles; c++)
+			{
+				testArray[i][c] = " ";
+			}
+		}
+		testArray[4][5] = "P";
+		assertEquals(null, m.setEntityArray(testArray));
+		assertEquals(null, m.clearMonsters());
+	}
 	
 }

@@ -53,7 +53,7 @@ public class BasicMonster extends Entity{
 		monsterImage = monsterLook;
 		counter = 0;
 		direction = 'R';
-		maxHealthPoints = 300;
+		maxHealthPoints = 10;
 		healthPoints = maxHealthPoints;
 	}
 

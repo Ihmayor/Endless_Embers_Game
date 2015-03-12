@@ -10,6 +10,7 @@
 package managers;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 import mapRelated.BasicMap;
 import monsterRelated.BasicMonster;
@@ -29,6 +30,24 @@ public class MonsterManager {
 	private int level;
 	private BasicMap currentMap;
 	private String[][] entityArray;
+	
+	
+	//Monster Type1
+	//Might Rename as "Soldiers" or "Guards"
+	//Because they will march between two points like guards on patrol.
+	private Image basicMonsterImage;
+	private SpriteSheet basicMonsterSheet;
+	
+	//Monster Type2
+	//Will name wanderers
+	//Since they will freely wander the entire screen
+	private Image wanderImage;
+	private Image wanderImage2;
+	
+	//Monster Type3
+	//Will name hives
+	//Since they will think collectively and 'swarm' the player
+	private Image hiveImage;
 	
 	
 	//For test purposes Only
@@ -76,8 +95,7 @@ public class MonsterManager {
 		{
 			return "Invalid Entity Array";
 		}
-		
-		
+		this.entityArray = entityArray;
 		return null;
 	}
 	
@@ -86,19 +104,18 @@ public class MonsterManager {
 	public int[] findValidPlacement(int monsterPathSize, BasicMap map, String [][] array){
 		int newX = 0;
 		int newY = 0;
-		int[]  newPosition = {newX, newY}; 
+		int[]  newPosition = {newX, newY};
 		
 		for (int i = 0; i < BasicMap.widthByTiles; i ++){
 			for (int c = 0; c < BasicMap.heightByTiles; c++){
 				if (checkValidPlacement(newPosition, monsterPathSize, map, array) == null){
-					return newPosition;}
-				
-				
-				newPosition[0] = i*BasicMap.TILESIZE;
-				newPosition[1] = c*BasicMap.TILESIZE;
+					return newPosition;
+					}
+				newPosition[0] = i*BasicMap.TILESIZE*2;
+				newPosition[1] = c*BasicMap.TILESIZE*3;
 				}
+
 			}
-		
 		return null;
 	}
 	
@@ -119,47 +136,74 @@ public class MonsterManager {
 			if (map.hasCollision(checkX, checkY))
 				{
 				allClear = false;
-				return "Map Overlap";//return map overlap?
+				return "Map Overlap";
 				}
+			
 			checkX += BasicMap.TILESIZE;
 		}
-		
-		if (allClear)
+
+		if (allClear){
 			return null;
-		else
+		}
+		else{
 			return "Invalid Spot";
+		}
+
+	}
+	
+	private void loadMonsterTypes() throws SlickException{
+		basicMonsterSheet= new SpriteSheet("res/monster/dummySheet.png",32,32); 
+		basicMonsterImage = basicMonsterSheet.getSubImage(0, 0);
+		
 	}
 	
 	
-	
-	
-	public void init(String [][] entityArray) throws SlickException{
+	public void init(String [][] entityArray, BasicMap currentMap) throws SlickException{
 		if (checkEntityArray(entityArray) !=null)
 			return;
-		
-		SpriteSheet monsterSheet = new SpriteSheet("res/monster/dummySheet.png",32,32); 
-		Image monsterImage = monsterSheet.getSubImage(0, 0);
-		BasicMonster monster1 = new BasicMonster(currentMap, monsterImage, 7*32, 11*32);
-		BasicMonster monster2 = new BasicMonster(currentMap, monsterImage, 17*32, 3*32);
-		BasicMonster monster3 = new BasicMonster(currentMap, monsterImage, 22*32, 11*32);
-		monster2.setPath(17*32, 20*32);
-		monster3.setPath(22*32, 24*32);
-		
-		monsterList.add(monster1);
-		monsterList.add(monster2);
-		monsterList.add(monster3);
-		
-		BasicMonster [] monsters = monsterList.toArray(new BasicMonster [monsterList.size()]);
-		for (BasicMonster m:monsters)
-		{
-			entityArray[m.getPosition()[0]/BasicMap.TILESIZE][m.getPosition()[1]/BasicMap.TILESIZE] = m.getName();
-		}
-		
 		this.entityArray = entityArray;
+		loadMonsterTypes();
+
+		BasicMonster monster1 = null;
+		BasicMonster monster2 = null;
+		BasicMonster monster3 = null;
+		BasicMonster monster4 = null;
+		BasicMonster monster5 = null;
 		
+		
+		int[] spawnPosition = findValidPlacement (2, currentMap, entityArray);
+		
+		if (spawnPosition != null){
+			monster1 = new BasicMonster(currentMap, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
+		monsterList.add(monster1);
+		monster1.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);
+		entityArray[monster1.getPosition()[0]/BasicMap.TILESIZE]
+				   [monster1.getPosition()[1]/BasicMap.TILESIZE] = monster1.getName();
+		}
+		spawnPosition = findValidPlacement (5, currentMap, entityArray);
+		
+		if (spawnPosition != null){
+			monster2 = new BasicMonster(currentMap, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
+			monsterList.add(monster2);
+			entityArray[monster2.getPosition()[0]/BasicMap.TILESIZE]
+				   [monster2.getPosition()[1]/BasicMap.TILESIZE] = monster2.getName();
+			monster2.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);
+		}
+		spawnPosition = findValidPlacement (2, currentMap, entityArray);
+		
+		if (spawnPosition != null){
+			monster3 = new BasicMonster(currentMap, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
+		monsterList.add(monster3);
+		entityArray[monster1.getPosition()[0]/BasicMap.TILESIZE]
+				   [monster1.getPosition()[1]/BasicMap.TILESIZE] = monster1.getName();
+		monster3.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);}
+		
+	
+		BasicMonster [] monsters = monsterList.toArray(new BasicMonster [monsterList.size()]);
 		for (BasicMonster m: monsters){
 			m.setEntityArray(entityArray);
 			}
+		setMap(currentMap);
 	}
 	
 	public void render(Graphics g) throws SlickException{
@@ -202,6 +246,23 @@ public class MonsterManager {
 			m.setMap(newMap);
 			}
 		
+	}
+	
+	//Clears the monsters for the next Level
+	public String clearMonsters(){
+		for (int i = 0; i < BasicMap.widthByTiles; i++){
+			for (int c = 0; c <BasicMap.heightByTiles; c ++){
+				if (entityArray[i][c] != "P")
+					entityArray[i][c] = " ";
+			}
+		}
+		if (checkEntityArray (entityArray) != null){
+			return "Error! You accidentally cleared the player";
+		}
+		while (!monsterList.isEmpty()) {
+	        monsterList.removeFirst();
+	    }
+		return null;
 	}
 	
 	
