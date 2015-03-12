@@ -109,7 +109,7 @@ public class BasicMonster extends Entity{
 	}
 		
 ////////////////////////////////////////////////	
-	///More advanced version of search
+	///More advanced version of search not properly implmented or used
 //	private boolean monsterSees(int[] playerPosition){
 //		double distance = Math.sqrt((double)( (playerPosition[0]- x)^2+(playerPosition[1]-y)^2));
 //		if (distance < monsterSightRange)

@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////////////
+//Combat  Manager                                          //
+//Purpose: Deal with the combat inside the game		       //
+//Limit: Monsters will only attack if players attack       // 
+//Monsters will freeze movement if one monster is being    //
+//attacked.  											   //
+//Features: Sends messages about the combat to text log	   //
+//Group: SENG 301 Group 16			            		   //
+/////////////////////////////////////////////////////////////
+
 package managers;
 
 import gameStates.GameScreenAssets;

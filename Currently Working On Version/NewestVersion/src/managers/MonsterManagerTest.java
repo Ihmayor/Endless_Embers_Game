@@ -196,7 +196,7 @@ public class MonsterManagerTest {
 	@Test
 	public void testFindPlacement_Edges(){
 		fail("Not yet implemented");	
-		//WOW THAT IS A LOT that I missed.
+		//Make sure this thing can find spots along the edges. So the bottom corner spots.
 	}
 
 	

@@ -101,8 +101,8 @@ public class MonsterManager {
 		return null;
 	}
 	
-	
-	//Put this into a private object.
+	//To do later: Put this into a prive object and change this method to a private method.
+	//OLD CODE BELOW THIS CODE + NOTES.
 	public int[] findValidPlacement(int monsterPathSize, BasicMap map, String [][] array){
 		Random gen = new Random();
 		int newX = gen.nextInt(34)*BasicMap.TILESIZE;
@@ -122,7 +122,36 @@ public class MonsterManager {
 		return null;
 	}
 	
-	 
+
+	///////IMPORTANT!! PLEASE READ!!!/////////////////
+	////This is what the code was before I did some refactoring. It should pass TestOneSpot EntityArray only test
+	///And it should pass the the test find placement one spot left map array only
+	
+	//Reasons for changing: Monsters ended up spawning to one side of the screen biasedly
+	//Predictable non-changing spawning.
+	
+	//Helpful tips: If you want to comment back in/ comment out quickly. Highly the piece of code. Ctrl+shift+c.
+	//Ctrl + D : Deletes current line of code.
+	
+	
+//	public int[] OLDfindValidPlacement(int monsterPathSize, BasicMap map, String [][] array){
+//		int newX = 0;
+//		int newY = 0;
+//		int[]  newPosition = {newX, newY};
+//		
+//		for (int i = 0; i < BasicMap.widthByTiles; i ++){
+//			for (int c = 0; c < BasicMap.heightByTiles; c++){
+//				if (checkValidPlacement(newPosition, monsterPathSize, map, array) == null){
+//					return newPosition;
+//					}
+//				newPosition[0] = i*BasicMap.TILESIZE;
+//				newPosition[1] = c*BasicMap.TILESIZE;
+//				}
+//
+//			}
+//		return null;
+//	}
+	
 	
 	public String checkValidPlacement(int[]newPosition, int monsterPathSize, BasicMap map, String [][] array){
 		Boolean allClear = true;
@@ -130,7 +159,7 @@ public class MonsterManager {
 		int checkY = newPosition[1];
 		for (int i = 0;i < monsterPathSize; i++)
 		{
-			if (checkX > 1120 || checkY > 512)
+			if (checkX >= 1120 || checkY >= 512)
 				return "Out of Bounds";
 			if (array[checkX/BasicMap.TILESIZE][checkY/BasicMap.TILESIZE] != " "){
 				allClear = false;
@@ -154,6 +183,8 @@ public class MonsterManager {
 
 	}
 	
+	
+	
 	private void loadMonsterTypes() throws SlickException{
 		basicMonsterSheet= new SpriteSheet("res/monster/dummySheet.png",32,32); 
 		basicMonsterImage = basicMonsterSheet.getSubImage(0, 0);
@@ -168,8 +199,11 @@ public class MonsterManager {
 		loadMonsterTypes();
 
 		BasicMonster monster1 = null;
-		BasicMonster monster2 = null;
-		BasicMonster monster3 = null;
+		
+		//Fixes needed for below after the tests are done
+		//You'll notice that below there is a lot of repeated code.
+		//Goal: Get rid of the repeated code. Automate it in a for Loop perhaps? <---suggestion only. 
+		//With an integer that relates with the map level.
 		
 		
 		int[] spawnPosition = findValidPlacement (4, currentMap, entityArray);
@@ -187,21 +221,21 @@ public class MonsterManager {
 			spawnPosition = findValidPlacement (4, currentMap, entityArray);
 		
 		
-		monster2 = new BasicMonster(currentMap, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
-		monsterList.add(monster2);
-		entityArray[monster2.getPosition()[0]/BasicMap.TILESIZE]
-				   [monster2.getPosition()[1]/BasicMap.TILESIZE] = monster2.getName();
-			monster2.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);
+		monster1 = new BasicMonster(currentMap, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
+		monsterList.add(monster1);
+		entityArray[monster1.getPosition()[0]/BasicMap.TILESIZE]
+				   [monster1.getPosition()[1]/BasicMap.TILESIZE] = monster1.getName();
+			monster1.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);
 		
 		spawnPosition = findValidPlacement (4, currentMap, entityArray);
 		while (spawnPosition == null)
 			spawnPosition = findValidPlacement (4, currentMap, entityArray);
 		
-		monster3 = new BasicMonster(currentMap, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
-		monsterList.add(monster3);
+		monster1 = new BasicMonster(currentMap, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
+		monsterList.add(monster1);
 		entityArray[monster1.getPosition()[0]/BasicMap.TILESIZE]
 				   [monster1.getPosition()[1]/BasicMap.TILESIZE] = monster1.getName();
-		monster3.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);
+		monster1.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);
 		
 	
 		BasicMonster [] monsters = monsterList.toArray(new BasicMonster [monsterList.size()]);
@@ -211,6 +245,7 @@ public class MonsterManager {
 		setMap(currentMap);
 	}
 	
+	//Calls render method for every monster inside the list.
 	public void render(Graphics g) throws SlickException{
 		
 		BasicMonster [] monsters = monsterList.toArray(new BasicMonster [monsterList.size()]);
@@ -237,7 +272,7 @@ public class MonsterManager {
 	public LinkedList<BasicMonster> getMonsterList() {return monsterList;}
 	
 	
-	
+	//May or may not be needed. Depending.
 	//////Method to change level and change the amount of monsters.
 	public void setLevel(int currentLevel, BasicMap map){
 		//Current level = #ofmonsters*(level/2)
@@ -262,10 +297,10 @@ public class MonsterManager {
 			}
 		}
 		if (checkEntityArray (entityArray) != null){
-			return "Error! You accidentally cleared the player";
-		}
+			return "Error! You accidentally cleared the player";//"Technically this checks if you've created an array
+		}														//Of proper size, no nulls AND a player inside it.
 		while (!monsterList.isEmpty()) {
-	        monsterList.removeFirst();
+	        monsterList.removeFirst();//Just removes all monsters.
 	    }
 		return null;
 	}

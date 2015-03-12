@@ -2,6 +2,9 @@ package gameStates;
 
 import inputRelated.MainMenuButtons;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import managers.SoundManager;
 
@@ -26,8 +29,10 @@ public class Menu extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame stateGame)
 			throws SlickException {
-		menuButtons = new MainMenuButtons(gc,stateGame);	
-		
+		menuButtons = new MainMenuButtons(gc,stateGame);
+		JFrame test2 = new JFrame("test");
+		JDialog test = new JDialog(test2,"test", true);
+		test.isVisible();
 		Image [] menuImages = {new Image ("res/interface/design2.png"), new Image ("res/interface/design2slide2.png")}; 
 		int [] duration = {300,300};
 		menuAnimation = new Animation (menuImages, duration, false);
