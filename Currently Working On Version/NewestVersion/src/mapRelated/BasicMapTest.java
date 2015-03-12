@@ -26,22 +26,21 @@ public class BasicMapTest {
 	}
 	
 	
-	//Ask the T.A's about these tests
-	@Test
+	@Test(expected= ArrayIndexOutOfBoundsException.class)
 	public void testInvalidStairsInput(){
 		char [][] test = new char [35][16];
 		test[3][4] = 'S';
 		BasicMap map = new BasicMap(test);
-		assertEquals(false, map.isStairs(-40,-21));
+		map.isStairs(-40,-21);
 		
 	}
 	
-	@Test
+	@Test (expected= ArrayIndexOutOfBoundsException.class)
 	public void testInvalidCollisioninput(){
 		char [][] test = new char [35][16];
 		test[3][4] = 'S';
 		BasicMap map = new BasicMap(test);
-		assertEquals(false, map.hasCollision(-40,-21));
+		map.hasCollision(-40,-21);
 		
 	}
 	

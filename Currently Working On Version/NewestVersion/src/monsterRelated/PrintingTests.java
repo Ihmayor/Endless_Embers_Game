@@ -27,4 +27,23 @@ public class PrintingTests {
 		
 	}
 
+	
+	public static void printCharArray (char[][] mapArray){
+		System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+		for (int i = 0; i < BasicMap.heightByTiles; i++)
+		{
+		
+			for (int c = 0; c < BasicMap.widthByTiles; c++){
+
+				System.out.print("|");
+				System.out.print(mapArray[c][i]);
+				System.out.print("|");
+			}	
+			System.out.println("");
+			System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+			
+		}
+		
+	}
+
 }

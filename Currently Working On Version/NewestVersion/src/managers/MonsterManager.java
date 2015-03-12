@@ -2,7 +2,7 @@
 //Monster Manager                                          //
 //Purpose: Manage Multiple Monsters in a level		       //
 //Limit: Inflexible to more than one level				   //
-//Author: I.M  Group: SENG 301 Group 16					   //
+//Group: SENG 301 Group 16			            		   //
 /////////////////////////////////////////////////////////////
 
 
@@ -81,9 +81,23 @@ public class MonsterManager {
 		return null;
 	}
 	
+	
+	//Put this into a private object.
 	public int[] findValidPlacement(int monsterPathSize, BasicMap map, String [][] array){
-		//int newPosition[] = new int[2];
-		//
+		int newX = 0;
+		int newY = 0;
+		int[]  newPosition = {newX, newY}; 
+		
+		for (int i = 0; i < BasicMap.widthByTiles; i ++){
+			for (int c = 0; c < BasicMap.heightByTiles; c++){
+				if (checkValidPlacement(newPosition, monsterPathSize, map, array) == null){
+					return newPosition;}
+				
+				
+				newPosition[0] = i*BasicMap.TILESIZE;
+				newPosition[1] = c*BasicMap.TILESIZE;
+				}
+			}
 		
 		return null;
 	}
@@ -94,16 +108,15 @@ public class MonsterManager {
 		Boolean allClear = true;
 		int checkX = newPosition[0];
 		int checkY = newPosition[1];
-		
 		for (int i = 0;i < monsterPathSize; i++)
 		{
-			if (checkX > 1024 || checkY > 528)
+			if (checkX > 1120 || checkY > 512)
 				return "Out of Bounds";
 			if (array[checkX/BasicMap.TILESIZE][checkY/BasicMap.TILESIZE] != " "){
 				allClear = false;
 				return "Entity Overlap";
 				}
-			else if (map.hasCollision(checkX, checkY))
+			if (map.hasCollision(checkX, checkY))
 				{
 				allClear = false;
 				return "Map Overlap";//return map overlap?

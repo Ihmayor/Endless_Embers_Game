@@ -1,7 +1,6 @@
 package managers;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import mapRelated.BasicMap;
 
 import org.junit.Test;
@@ -56,21 +55,23 @@ public class MonsterManagerTest {
 			}
 		}
 
-		assertEquals("Player not in EntityArray",m.checkEntityArray(testArray));	
+		assertEquals("Player has disappeared offf entityArray","Player not in EntityArray",m.checkEntityArray(testArray));	
 	}
 	
 	
 	@Test
-	public void testFindValidPlacement(){
+	public void testCheckValidPlacement(){
 		//Arrange
 		MonsterManager m = new MonsterManager();
 		String [][] testArray = new String [35][16];
-
+		char [][] testMap = new char [35][16];
+		
 		for (int i = 0; i < BasicMap.widthByTiles; i++)
 		{
 			for (int c = 0; c < BasicMap.heightByTiles; c++)
 			{
 				testArray[i][c] = " ";
+				testMap [i][c] = ' ';
 			}
 		}
 
@@ -80,13 +81,7 @@ public class MonsterManagerTest {
 		assertEquals(null, m.setEntityArray(testArray));
 		int [] testPosition = {4,5};
 		
-		char [][] testMap = new char [35][16];
-		for (char[] row: testMap){
-			for (char i: row)
-			{
-				i = ' ';
-			}
-		}
+		
 		
 		
 		assertEquals(null, m.checkValidPlacement(testPosition, 4, new BasicMap(testMap), testArray));
@@ -100,12 +95,13 @@ public class MonsterManagerTest {
 		//Arrange
 		MonsterManager m = new MonsterManager();
 		String [][] testArray = new String [35][16];
-
+		char [][] testMap = new char [35][16];
 		for (int i = 0; i < BasicMap.widthByTiles; i++)
 		{
 			for (int c = 0; c < BasicMap.heightByTiles; c++)
 			{
 				testArray[i][c] = " ";
+				testMap[i][c] = ' ';
 			}
 		}
 
@@ -115,14 +111,8 @@ public class MonsterManagerTest {
 		assertEquals(null, m.setEntityArray(testArray));
 		int [] testPosition = {2000,5};
 		
-		char [][] testMap = new char [35][16];
-		for (char[] row: testMap){
-			for (char i: row)
-			{
-				i = ' ';
-			}
-		}	
-		assertEquals("Out of Bounds", m.checkValidPlacement(testPosition, 4, new BasicMap(testMap), testArray));
+			
+		assertEquals("Do not place monsters out of game's boundaries","Out of Bounds", m.checkValidPlacement(testPosition, 4, new BasicMap(testMap), testArray));
 	}
 	
 	@Test
@@ -130,12 +120,15 @@ public class MonsterManagerTest {
 		//Arrange
 		MonsterManager m = new MonsterManager();
 		String [][] testArray = new String [35][16];
-
+		char [][] testMap = new char [35][16];
+		
 		for (int i = 0; i < BasicMap.widthByTiles; i++)
 		{
 			for (int c = 0; c < BasicMap.heightByTiles; c++)
 			{
 				testArray[i][c] = " ";
+				 testMap[i][c] = ' ';
+				
 			}
 		}
 
@@ -144,16 +137,8 @@ public class MonsterManagerTest {
 		testArray[5][7] = "P";
 		assertEquals(null, m.setEntityArray(testArray));
 		int [] testPosition = {5*BasicMap.TILESIZE,7*BasicMap.TILESIZE};
-		
-		char [][] testMap = new char [35][16];
-		for (char[] row: testMap){
-			for (char i: row)
-			{
-				i = ' ';
-			}
-		}
-		
-		assertEquals("Entity Overlap", m.checkValidPlacement(testPosition, 4, new BasicMap(testMap), testArray));
+				
+		assertEquals("Should be preventing placement over the player and other monsters","Entity Overlap", m.checkValidPlacement(testPosition, 4, new BasicMap(testMap), testArray));
 	}
 	
 	
@@ -162,12 +147,13 @@ public class MonsterManagerTest {
 		//Arrange
 		MonsterManager m = new MonsterManager();
 		String [][] testArray = new String [35][16];
-
+		char [][] testMap = new char [35][16];
 		for (int i = 0; i < BasicMap.widthByTiles; i++)
 		{
 			for (int c = 0; c < BasicMap.heightByTiles; c++)
 			{
 				testArray[i][c] = " ";
+				testMap[i][c] = ' ';
 			}
 		}
 
@@ -177,116 +163,114 @@ public class MonsterManagerTest {
 		assertEquals(null, m.setEntityArray(testArray));
 		int [] testPosition = {9*BasicMap.TILESIZE,9*BasicMap.TILESIZE};
 		
-		char [][] testMap = new char [35][16];
-		for (char[] row: testMap){
-			for (char i: row)
-			{
-				i = ' ';
-			}
-		}
+		
 		testMap[9][9] = 'B';
 		
-		assertEquals("Map Overlap", m.checkValidPlacement(testPosition, 4, new BasicMap(testMap), testArray));
+		assertEquals("We should be preventing placement that overlaps obstacles","Map Overlap", m.checkValidPlacement(testPosition, 4, new BasicMap(testMap), testArray));
 	}
 	
 	@Test
 	public void testFindPlacement_NoBlocks (){
 		//Arrange
+		MonsterManager m = new MonsterManager();
 		String [][] testArray = new String [35][16];
-
+		char [][] testMap = new char [35][16];
+		
 		for (int i = 0; i < BasicMap.widthByTiles; i++)
 		{
 			for (int c = 0; c < BasicMap.heightByTiles; c++)
 			{
 				testArray[i][c] = " ";
+				testMap[i][c] = ' ';
 			}
 		}
-		char [][] testMap = new char [35][16];
-		for (char[] row: testMap){
-			for (char i: row)
-			{
-				i = ' ';
-			}
-		}
-
+		int [] testPosition = m.findValidPlacement(4, new BasicMap(testMap), testArray);
+		int [] expectedPosition = {0,0};
 		
-		fail("not yet implemented");
+		assertArrayEquals(expectedPosition, testPosition);
+		
 	}
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////TESTS TO DO///////////////////////////////////////////////////////
-//	
-//	@Test
-//	public void testFindPlacement_OneSpotLeft_EntityArrayOnly (){
-//		//Arrange
-//		String [][] testArray = new String [35][16];
-//
-//		for (int i = 0; i < BasicMap.widthByTiles; i++)
-//		{
-//			for (int c = 0; c < BasicMap.heightByTiles; c++)
-//			{
-//				testArray[i][c] = " ";
-//			}
-//		}
-//		char [][] testMap = new char [35][16];
-//		for (char[] row: testMap){
-//			for (char i: row)
-//			{
-//				i = ' ';
-//			}
-//		}
-//
-//		
-//		fail("not yet implemented");
-//	}
-//		
-//	@Test
-//	public void testFindPlacement_OneSpotLeft_MapArrayOnly (){
-//		//Arrange
-//		String [][] testArray = new String [35][16];
-//
-//		for (int i = 0; i < BasicMap.widthByTiles; i++)
-//		{
-//			for (int c = 0; c < BasicMap.heightByTiles; c++)
-//			{
-//				testArray[i][c] = " ";
-//			}
-//		}
-//		char [][] testMap = new char [35][16];
-//		for (char[] row: testMap){
-//			for (char i: row)
-//			{
-//				i = ' ';
-//			}
-//		}
-//
-//		
-//		fail("not yet implemented");
-//	}
-//
-//	@Test
-//	public void testFindPlacement_NoSpotsLeft (){
-//		//Arrange
-//		String [][] testArray = new String [35][16];
-//
-//		for (int i = 0; i < BasicMap.widthByTiles; i++)
-//		{
-//			for (int c = 0; c < BasicMap.heightByTiles; c++)
-//			{
-//				testArray[i][c] = " ";
-//			}
-//		}
-//		char [][] testMap = new char [35][16];
-//		for (char[] row: testMap){
-//			for (char i: row)
-//			{
-//				i = ' ';
-//			}
-//		}
-//
-//		
-//		fail("not yet implemented");
-//	}
-//	
+	
+	@Test
+	public void testFindPlacement_OneSpotLeft_EntityArrayOnly (){
+		//Arrange
+		String [][] testArray = new String [35][16];
+		char [][] testMap = new char [35][16];
+		
+		for (int i = 0; i < BasicMap.widthByTiles; i++)
+		{
+			for (int c = 0; c < BasicMap.heightByTiles; c++)
+			{
+				testArray[i][c] = "M";
+				testMap[i][c] = ' ';
+			}
+		}
+		testArray[30][15] = " ";
+		testArray[31][15] = " ";
+		testArray[32][15] = " ";
+		testArray[33][15] = " ";
+		testArray[34][15] = " ";		
+		
+		MonsterManager m = new MonsterManager();
+		m.setEntityArray(testArray);
+		
+		int [] testPosition = m.findValidPlacement(4, new BasicMap(testMap), testArray);
+		int [] expectedPosition = {30*BasicMap.TILESIZE,15*BasicMap.TILESIZE};
+		assertArrayEquals("Check that it can find Valid last spot",expectedPosition, testPosition);
+		
+	}
+
+	
+	@Test
+	public void testFindPlacement_OneSpotLeft_MapArrayOnly (){
+		//Arrange
+		String [][] testArray = new String [35][16];
+		char [][] testMap = new char [35][16];
+		
+		for (int i = 0; i < BasicMap.widthByTiles; i++)
+		{
+			for (int c = 0; c < BasicMap.heightByTiles; c++)
+			{
+				testArray[i][c] = " ";
+				testMap[i][c] = 'B';
+			}
+		}
+		
+		
+		testMap[30][15] = ' ';
+		testMap[31][15] = ' ';
+		testMap[32][15] = ' ';
+		testMap[33][15] = ' ';
+		testMap[34][15] = ' ';
+		
+		MonsterManager m = new MonsterManager();
+		int [] testPosition = m.findValidPlacement(4, new BasicMap(testMap), testArray);
+		int [] expectedPosition = {30*BasicMap.TILESIZE,15*BasicMap.TILESIZE};
+		assertArrayEquals("Check that it can see overlap with map",expectedPosition, testPosition);
+		
+	}
+
+	
+	
+	
+	@Test
+	public void testFindPlacement_NoSpotsLeft (){
+		MonsterManager m = new MonsterManager();
+		String [][] testArray = new String [35][16];
+		char [][] testMap = new char [35][16];
+		
+		for (int i = 0; i < BasicMap.widthByTiles; i++)
+		{
+			for (int c = 0; c < BasicMap.heightByTiles; c++)
+			{
+				testArray[i][c] = " ";
+				testMap[i][c] = ' ';
+			}
+		}
+		int [] testPosition = m.findValidPlacement(4, new BasicMap(testMap), testArray);
+		assertEquals( null, testPosition);
+	}
+	
 	
 }

@@ -15,6 +15,7 @@ public class BasicMap
 	////////////FOR TESTS ONLY//////////////
 	////////////////////////////////////////
 	public BasicMap(char [][] newArray){
+		
 		mapArray = newArray;
 	}
 	
@@ -63,8 +64,6 @@ public class BasicMap
 	//Checks if a given x,y coordinate collides with a block on the map
 	public boolean hasCollision (float x, float y)
 	{
-		if (x < 0 || y <0)
-			return false;
 		
 		int xBlock = (int)x / TILESIZE;
 	    int yBlock = (int)y / TILESIZE;
@@ -87,8 +86,6 @@ public class BasicMap
 	public boolean isStairs (float x, float y)
 	{
 		
-		if (x < 0 || y <0)
-			return false;
 		int xStairs = (int)x / TILESIZE;
 	    int yStairs = (int)y / TILESIZE;
 	    
