@@ -15,6 +15,7 @@ public class StateManager extends StateBasedGame {
 		super(name);
 	}
 
+	// A list of states used by the game
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
 		addState( new Menu());//Very very important. Basically initializes the list of states in this game.

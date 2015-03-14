@@ -46,7 +46,7 @@ public class MonsterManager {
 		currentMap = map;
 	}
 	
-	
+	// Checks the array of entities to ensure it is of proper size and has no null objects
 	public String checkEntityArray(String [][] entityArray){
 		if (entityArray.length*entityArray[0].length != 35*16)
 			return "Entity Array Not Expected Size";
@@ -77,7 +77,7 @@ public class MonsterManager {
 	
 	
 	
-	
+	// Initializes all the monsters
 	public void init(String [][] entityArray) throws SlickException{
 		if (checkEntityArray(entityArray) !=null)
 			return;
@@ -107,6 +107,7 @@ public class MonsterManager {
 			}
 	}
 	
+	// Draws the monsters
 	public void render(Graphics g) throws SlickException{
 		
 		BasicMonster [] monsters = monsterList.toArray(new BasicMonster [monsterList.size()]);

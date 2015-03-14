@@ -31,7 +31,7 @@ public class AnimatedButton extends MouseOverArea {
 
      private final List <ButtonAction> actions = new ArrayList <ButtonAction>();
  	
-     
+     // Controls the button's animations (when moused over, clicked on, etc)
      public AnimatedButton(GUIContext container, Animation animation, int x, int y,
 			StateBasedGame sbg, int stateID, Image inactiveButton, Image activeButton) throws SlickException {
 		 	super(container, inactiveButton, x, y);
@@ -48,7 +48,7 @@ public class AnimatedButton extends MouseOverArea {
 		actions.add(action);
 	}
 	
-	
+	// Controls the animation of the button as its moused over
 	 @Override
 	    public void mouseMoved(int oldx, int oldy, int newx, int newy) {
 	        if (sbg.getCurrentStateID() == stateID) {
@@ -61,6 +61,7 @@ public class AnimatedButton extends MouseOverArea {
 	        super.mouseMoved(oldx, oldy, newx, newy);
 	    }
 	 
+	 // Draws the button
 	    @Override
 	    public void render(GUIContext guic, Graphics g) {
 	        if (activated) {
@@ -80,7 +81,7 @@ public class AnimatedButton extends MouseOverArea {
 	        activated = b;
 	    }
 	    
-	
+	// Animates the button as its clicked
 	    @Override
 	    public void mouseClicked(int button, int x, int y, int clickCount) {
 	        if (isMouseOver() && sbg.getCurrentStateID() == stateID) {

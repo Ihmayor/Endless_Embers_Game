@@ -47,7 +47,7 @@ public class BasicMonster extends Entity{
 	
 	
 	
-	
+	// These are the stats and attributes of the monster
 	public BasicMonster(BasicMap currentMap, Image monsterLook,int x, int y)
 	{
 		super(x,y);
@@ -69,22 +69,23 @@ public class BasicMonster extends Entity{
 		isActiveState = foundPlayer;
 	}
 	
+	// This is what happens when the monster dies
 	public void actDead() throws SlickException{
 		monsterImage = new Image ("res/monster/dead.png");
 	}
 	
-	
+	// How much exp is rewarded if the monster is killed
 	public int getExpPointGain() {return maxHealthPoints/2;}
 	
 	
-	
+	// Draws the monster
 	public void render(Graphics g) throws SlickException{
 		if (!alive)
 			actDead();
 		g.drawImage(monsterImage, (int)x, (int)y);
 	}
 	
-	
+	// Updates the state of the monster
 	public String update(int [] playerPosition, int counter)
 	{
 		this.counter = counter;
@@ -127,11 +128,12 @@ public class BasicMonster extends Entity{
 	/////////////Movement Methods///////////////
 	////////////////////////////////////////////
 	
+	// The path the monster will take when moving
 	public void setPath (int start, int end){
 		pathStart = start;
 		pathEnd = end;}
 	
-	
+	// The monster wanders until it is provoked
 	private void wander(int [] playerPosition){
 	if (!alive)
 		return;

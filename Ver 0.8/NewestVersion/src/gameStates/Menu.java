@@ -28,6 +28,7 @@ public class Menu extends BasicGameState {
 	
 	private Animation menuAnimation;
 	
+	// Initializes the menu
 	@Override
 	public void init(GameContainer gc, StateBasedGame stateGame)
 			throws SlickException {
@@ -45,7 +46,7 @@ public class Menu extends BasicGameState {
 	}
 	
 	
-
+	// Draws the menu screen
 	@Override
 	public void render(GameContainer gc, StateBasedGame stateGame, Graphics g)
 			throws SlickException {
@@ -54,12 +55,14 @@ public class Menu extends BasicGameState {
 	    menuButtons.render(gc,g);//Renders the menu buttons
 	}
 
+	// Updates the menu state (as buttons are clicked, menus are accessed, etc)
 	@Override
 	public void update(GameContainer gc, StateBasedGame stateGame, int delta)
 			throws SlickException {
 			menuAnimation.update(delta);
 	}
 	
+	// ?
 	@Override
 	public int getID() {
 		return ID;

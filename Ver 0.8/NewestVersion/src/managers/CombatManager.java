@@ -23,7 +23,7 @@ public class CombatManager {
 	public void setPlayerRef (Player player){this.player = player;}
 	public static void setMonsterList(LinkedList <BasicMonster> monsters){monsterList = monsters;}
 	
-	
+	// The monster will attack the player when it has been provoked
 	public static String attackLoop(Player player, int criticalHitLimit, int missFactor, int monsterX, int monsterY ){
 		battleHappening = true;
 		if (getMonsterRef(monsterX, monsterY) == null)
@@ -48,7 +48,7 @@ public class CombatManager {
 	//Add delay
 	private static void delay(){for (double i = 0; i < 10000000; i++);}
 	
-	
+	// This is where the monster makes an attack
 	private static void actualCombat(BasicMonster currentFoe, Player player, int criticalHitLimit, int missFactor){
 		int attack = generateAttack(criticalHitLimit);
 		if (attack <= missFactor){
@@ -102,7 +102,7 @@ public class CombatManager {
 		}
 	}
 	
-	
+	// Monster's attack roll
 	private static int generateAttack(int criticalHitLimit){
 		Random gen = new Random();
 		int attack = gen.nextInt(criticalHitLimit);
@@ -110,7 +110,7 @@ public class CombatManager {
 	}
 	
 	
-	
+	// ?
 	private static BasicMonster getMonsterRef(int x, int y){
 		BasicMonster monsterFound = null;
 		int [] monsterPosition = new int [2];

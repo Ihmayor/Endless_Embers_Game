@@ -29,6 +29,8 @@ public class Creature {
 /////////////////////////////////////////////////
 //METHODS USED FOR SEARCHING UPDATING LOCATION IN ENTITY ARRAY
 /////////////////////////////////////////////////
+	
+	// The new position of the monster as its updated
 	protected void updatePosition(int x, int y){
 		if (!alive)
 			return;
@@ -40,6 +42,7 @@ public class Creature {
 		this.y = y;
 	}
 
+	// Ensures a monster does not spawn in a wall or an occupied space
 	protected boolean isTaken(int x, int y){
 		int xTile = x/BasicMap.TILESIZE;
 		int yTile = y/BasicMap.TILESIZE;
@@ -49,7 +52,7 @@ public class Creature {
 		return isTaken;
 	}
 	
-
+	// I think it looks for a spot to place the monster?
 	public boolean search(String name){
 			boolean found = false;
 			//Search looks within the range of 2
@@ -75,6 +78,8 @@ public class Creature {
 ///////////////////////////////////////////
 ///////////Combat Methods/////////////////
 /////////////////////////////////////////
+	
+	// When a monster is hurt
 	public void subtractHealth(int points){
 		if (healthPoints - points <= 0){
 			alive = false;
@@ -85,6 +90,7 @@ public class Creature {
 			healthPoints -= points;
 	}
 	
+	// When a monster is healed
 	public void addHealthPoints(int points){
 		if (healthPoints+points > maxHealthPoints)
 			healthPoints = maxHealthPoints;
@@ -108,6 +114,7 @@ public class Creature {
 	
 	public String getName(){return name;}	
 	
+	// Gets the position of where the monster is located
 	public int[] getPosition(){
 		int[] position = new int[2];
 		position[0] = x;

@@ -32,7 +32,7 @@ public class BasicMap
 	
 	
 	
-	
+	// Retrieves a map from a TMX file
 	public BasicMap(String tmxLocation) throws SlickException{
 		map = new TiledMap(tmxLocation);
 		mapArray = new char[widthByTiles][heightByTiles];

@@ -29,11 +29,13 @@ public class SoundManager {
 			
 	    }
 	 
+	    // Updates the sound state?
 		public void update() {
 			wavEffect.playAsMusic(1.0f,1.0f, true);  
 			SoundStore.get().poll(0);
 		}
 		
+		// changes to a different sound
 		public static void changeSound (String filename){
 			try{
 			wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream(filename));
@@ -44,6 +46,7 @@ public class SoundManager {
 			}
 		}
 		
+		// Plays a sound effect when something happens (an attack is made, etc)
 		public static void playSoundEffect(String filename){
 			try{
 				wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream(filename));

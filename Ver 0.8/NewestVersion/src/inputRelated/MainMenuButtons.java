@@ -81,7 +81,7 @@ public class MainMenuButtons {
 	//And associated actions
 	}
 	
-	
+	// Draws the buttons
 	public void render(GameContainer gc, Graphics g){
 		 newGameButton.render(gc, g);//Draw the buttons on screen.
 		 loadGameButton.render(gc,g);

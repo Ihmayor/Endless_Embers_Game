@@ -51,6 +51,7 @@ public class Entity {
 		return null;
 	}
 
+	// Determines if a space is already occupied or is a wall
 	protected boolean isTaken(int x, int y){
 		if (x <0 || y <0)
 			return false;

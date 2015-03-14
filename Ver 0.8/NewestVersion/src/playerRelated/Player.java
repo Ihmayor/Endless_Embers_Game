@@ -58,7 +58,7 @@ public class Player extends Entity{
 	}
 	////FOR TEST PURPOSES ONLY////
 		
-		
+	// Initializes the player
 	public Player(GameContainer gc, StateBasedGame sbg, BasicMap currentMap,int x, int y) throws SlickException{
 		//Constructor used to 
 		super(x,y);
@@ -76,6 +76,7 @@ public class Player extends Entity{
 		
 	}
 	
+	// This is what the player looks like (note that the sprite changes when the player is facing a different direction)
 	private void loadPlayerSprite(SpriteSheet playerSheet){
 				//Load Sprite Images for Player
 				Image [] upSprite = {sheet.getSubImage(0,3),
@@ -109,13 +110,13 @@ public class Player extends Entity{
 	}
 	
 	
-	
+	// Draw the player
 	public void render(Graphics g){
 	currentSprite.draw((int) x, (int) y);//Draw what the Current sprite should look like.
 	//g.drawImage(shadow,(int)x-1110, (int)y-850); //Draw Shadow with a particular offset for the spotlight
 	}
 	
-	
+	// Update the state of the player (if s/hes dead)
 	public void update(long delta){
 		
 		//If the player is not alive change game state.
@@ -334,6 +335,8 @@ public class Player extends Entity{
 				}
 	
 ///////////METHOD DEALING WITH LEVELING UP////////////////////
+	
+	// When the player is awared experience points
 	public String addExperiencePoints(int points){
 		if (points <0)
 			return "Can't gain negative EXP";
@@ -350,6 +353,7 @@ public class Player extends Entity{
 		return null;
 	}
 	
+	// What happens when the player levels up
 	private boolean levelUp(){
 		
 		if (experiencePoints >= pointsNextLevel){
