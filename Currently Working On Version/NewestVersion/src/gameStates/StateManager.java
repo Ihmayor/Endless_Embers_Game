@@ -12,7 +12,8 @@ public class StateManager extends StateBasedGame {
 
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
-		addState( new Menu());//Very very important. Basically initializes the list of states in this game.
+		addState(new Menu());//Very very important. Basically initializes the list of states in this game.
+		addState(new TransitionScreen());
 		addState(new Game());
 		addState(new LoadGame());
 		addState(new GameOver());

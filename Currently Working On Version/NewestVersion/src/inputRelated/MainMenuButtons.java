@@ -1,8 +1,8 @@
 package inputRelated;
 
-import gameStates.Game;
 import gameStates.LoadGame;
 import gameStates.Menu;
+import gameStates.TransitionScreen;
 import managers.SoundManager;
 
 import org.newdawn.slick.Animation;
@@ -55,7 +55,7 @@ public class MainMenuButtons {
 	//Creates an anon class for the button's action.
 	newGameButton.add(new ButtonAction(){ 
 		public void perform(){
-		sbg.enterState(Game.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));	
+		sbg.enterState(TransitionScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));	
 		//SoundManager.changeSound("res/sound/Play At Your Own Risk.wav");//I warned you. Not even sorry.
 		SoundManager.changeSound("res/sound/Catacombs.wav");
 		}

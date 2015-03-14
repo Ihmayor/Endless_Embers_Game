@@ -54,11 +54,13 @@ public class Menu extends BasicGameState {
 	    menuButtons.render(gc,g);//Renders the menu buttons
 	}
 
+	
 	@Override
 	public void update(GameContainer gc, StateBasedGame stateGame, int delta)
 			throws SlickException {
 			menuAnimation.update(delta);
 	}
+	
 	
 	@Override
 	public int getID() {

@@ -92,7 +92,7 @@ public class Player extends Entity{
 					     			   sheet.getSubImage(3,1)};
 
 				//Set the duration of Animation in Milliseconds	
-				int [] duration = {10,10,10,10};
+				int [] duration = {300,300,300,300};
 				
 				//Initialize Animations
 				up = new Animation(upSprite, duration, false);
@@ -100,7 +100,10 @@ public class Player extends Entity{
 				left = new Animation(leftSprite, duration, false);
 				right = new Animation (rightSprite,duration,false);		
 				currentSprite = down;
-	
+				currentSprite.setAutoUpdate(true);
+				up.setAutoUpdate(true);
+				left.setAutoUpdate(true);
+				right.setAutoUpdate(true);
 	}
 	
 	

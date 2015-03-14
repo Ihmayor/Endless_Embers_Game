@@ -17,6 +17,7 @@ import java.util.Random;
 import mapRelated.BasicMap;
 import monsterRelated.BasicMonster;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -39,6 +40,7 @@ public class MonsterManager {
 	//Because they will march between two points like guards on patrol.
 	private Image basicMonsterImage;
 	private SpriteSheet basicMonsterSheet;
+	private Animation basicMonsterAnimation;
 	
 	//Monster Type2
 	//Will name wanderers
@@ -188,7 +190,6 @@ public class MonsterManager {
 	private void loadMonsterTypes() throws SlickException{
 		basicMonsterSheet= new SpriteSheet("res/monster/dummySheet.png",32,32); 
 		basicMonsterImage = basicMonsterSheet.getSubImage(0, 0);
-		
 	}
 	
 	
@@ -210,7 +211,7 @@ public class MonsterManager {
 		while (spawnPosition == null)
 			spawnPosition = findValidPlacement (4, currentMap, entityArray);
 		
-		monster1 = new BasicMonster(currentMap, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
+		monster1 = new BasicMonster(currentMap,basicMonsterImage, spawnPosition[0], spawnPosition[1]);
 		monsterList.add(monster1);
 		monster1.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);
 		entityArray[monster1.getPosition()[0]/BasicMap.TILESIZE]
@@ -221,7 +222,7 @@ public class MonsterManager {
 			spawnPosition = findValidPlacement (4, currentMap, entityArray);
 		
 		
-		monster1 = new BasicMonster(currentMap, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
+		monster1 = new BasicMonster(currentMap,basicMonsterImage, spawnPosition[0], spawnPosition[1]);
 		monsterList.add(monster1);
 		entityArray[monster1.getPosition()[0]/BasicMap.TILESIZE]
 				   [monster1.getPosition()[1]/BasicMap.TILESIZE] = monster1.getName();

@@ -5,15 +5,18 @@ import java.util.Random;
 
 import mapRelated.BasicMap;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 
 
 public class BasicMonster extends Entity{
 
 	protected boolean isActiveState = false;
 	protected Image monsterImage;
+	protected Animation monsterAnimation;
 	protected double monsterSightRange;
 	protected char direction;
 	public int damageLimit = 20;//This can be overridden by its children later. Just watch for it.
@@ -44,6 +47,25 @@ public class BasicMonster extends Entity{
 	
 	
 	
+
+	
+	
+	public BasicMonster(BasicMap currentMap, Animation monsterLook,int x, int y) throws SlickException
+	{
+		super(x,y);
+		map = currentMap;
+		name = "M";
+		monsterSightRange = 2;
+		SpriteSheet basicMonsterSheet= new SpriteSheet("res/monster/dummySheet.png",32,32); 
+		monsterImage = basicMonsterSheet.getSubImage(0, 0);
+		monsterAnimation = monsterLook;
+		monsterAnimation.setAutoUpdate(true);
+		counter = 0;
+		direction = 'R';
+		maxHealthPoints = 10;
+		healthPoints = maxHealthPoints;
+	}
+
 	public BasicMonster(BasicMap currentMap, Image monsterLook,int x, int y)
 	{
 		super(x,y);
@@ -78,6 +100,7 @@ public class BasicMonster extends Entity{
 		if (!alive)
 			actDead();
 		g.drawImage(monsterImage, (int)x, (int)y);
+	//	monsterAnimation.draw((int)x, (int)y);
 	}
 	
 	
