@@ -1,9 +1,12 @@
 package gameStates;
 
+import inputRelated.SlideOutMenu;
+
 import java.util.LinkedList;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -56,6 +59,8 @@ public class GameScreenAssets {
         g.setColor(Color.darkGray);
         g.fillRect(90, 480, 300, 20);
         g.fill(expBar, fillGreen); 
+        
+        
 	}
 	
 	public int updateTextLog(int textLogCounter){

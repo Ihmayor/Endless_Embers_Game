@@ -3,6 +3,9 @@ package inputRelated;
 import gameStates.LoadGame;
 import gameStates.Menu;
 import gameStates.TransitionScreen;
+
+import javax.swing.JButton;
+
 import managers.SoundManager;
 
 import org.newdawn.slick.Animation;
@@ -81,4 +84,6 @@ public class MainMenuButtons {
 		 newGameButton.render(gc, g);//Draw the buttons on screen.
 		 loadGameButton.render(gc,g);
 	}
+	
+	
 }

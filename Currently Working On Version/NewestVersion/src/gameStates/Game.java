@@ -3,6 +3,10 @@
 
 package gameStates;
 
+import inputRelated.ButtonAction;
+import inputRelated.PopUpWindow;
+import inputRelated.SlideOutMenu;
+
 import java.util.LinkedList;
 
 import managers.CombatManager;
@@ -13,6 +17,7 @@ import monsterRelated.Entity;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.openal.SoundStore;
@@ -48,13 +53,27 @@ public class Game extends BasicGameState {
 	//State ID
 	public static final int ID = 1;
 
+	
+	//Menu will put into game screen assets later.
+	SlideOutMenu menu;
+	
 	@Override
 	public void init(GameContainer gc, StateBasedGame stateGame) throws SlickException {
 		
 		//Used for changing game states
 		this.gc = gc;
 		gameAssets = new GameScreenAssets();
-		
+
+        
+        //Draw Menu
+        menu = new SlideOutMenu(gc, stateGame, ID, new Image ("res/interface/MenuBlankSlate.png"), 1100, 50 );
+        menu.add(new ButtonAction(){ 
+    		public void perform(){
+    		//SoundManager.changeSound("res/sound/Play At Your Own Risk.wav");//I warned you. Not even sorry.	
+    		SoundManager.playSoundEffect("res/sound/SFX/Sword Swing.wav");
+    		}
+    		});
+    	
 		//Load ALL  Maps of game
 		//might move to map class???
 		BasicMap floorOne = new BasicMap("res/map/floor1.tmx");
@@ -109,6 +128,8 @@ public class Game extends BasicGameState {
 		monsters.render(g);
 		player.render(g);
 		gameAssets.render(g, player);
+		menu.render(gc, g);
+		
 	}
 	
 	@Override
@@ -121,15 +142,19 @@ public class Game extends BasicGameState {
 		//Source of sound effect: https://www.freesound.org/people/JoelAudio/sounds/77611/
 		SoundManager.playSoundEffect("res/sound/SFX/Sword Swing.wav");
 		break;
-
-	case Input.KEY_ESCAPE:
-		//Open Menu with this key.
-		break;
-		
 	case Input.KEY_M: 
-		//Open up menu
-		break;
+	case Input.KEY_ESCAPE:
+		//Design2
 		
+		
+		//Design 1
+		PopUpWindow popup = new PopUpWindow();
+		popup.run();
+
+		
+		
+		
+		break;		
 	//Decrease volume
 	case Input.KEY_A:
 		volume -= 0.1f;

@@ -32,6 +32,7 @@ public class PopUpButtons {
 	
 	//Array instantiated to satisfy animated button class.
 	Image []  buttonImages = {new Image("res/interface/Sprial1.png")};
+	
 	//Duration of animation
 	int [] duration = {50};
 	animationButton = new Animation (buttonImages, duration,false);
