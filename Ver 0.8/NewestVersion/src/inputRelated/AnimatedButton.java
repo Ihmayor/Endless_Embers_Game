@@ -12,6 +12,11 @@ import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.StateBasedGame;
 
+//////
+// AnimatedButton
+// Purpose: Animates the buttons (when clicked, on mouse over, etc)
+// Limit: ?
+//////
 public class AnimatedButton extends MouseOverArea {
 
 

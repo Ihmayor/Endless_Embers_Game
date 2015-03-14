@@ -3,6 +3,11 @@ package monsterRelated;
 import gameStates.Game;
 import mapRelated.BasicMap;
 
+//////
+// Creature
+// Purpose: Controls and manages one type of monster, the Creature
+// Limit: ?
+//////
 public class Creature {
 	
 	protected int oldx = 0, oldy = 0;

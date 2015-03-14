@@ -4,6 +4,11 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+//////
+// StateManager
+// Purpose: This class manages the various game states (Menu, The game itself, GameOver screen, etc)
+// Limit: ?
+//////
 public class StateManager extends StateBasedGame {
 
 		public StateManager(String name) {

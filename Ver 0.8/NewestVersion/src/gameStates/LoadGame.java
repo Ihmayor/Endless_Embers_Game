@@ -10,7 +10,10 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 //////
-
+// LoadGame
+// Purpose: This class loads the game proper (after new game or continue is selected)
+// Limit?
+//////
 public class LoadGame extends BasicGameState{
 
 	private Animation loadingScreen;

@@ -9,7 +9,11 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-
+//////
+// BasicMonster
+// Purpose: Controls and manages the various monsters
+// Limit: ?
+//////
 public class BasicMonster extends Entity{
 
 	protected boolean isActiveState = false;

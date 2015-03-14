@@ -3,6 +3,11 @@ package mapRelated;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
+//////
+// BasicMap
+// Purpose: Manages and controls the maps (the areas where the game takes place)
+// Limit: ?
+//////
 public class BasicMap
 {
 	private TiledMap map;
