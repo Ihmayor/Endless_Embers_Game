@@ -103,7 +103,7 @@ public class MonsterManager {
 		return null;
 	}
 	
-	//To do later: Put this into a prive object and change this method to a private method.
+	//To do later: Put this into a private object and change this method to a private method.
 	//OLD CODE BELOW THIS CODE + NOTES.
 	public int[] findValidPlacement(int monsterPathSize, BasicMap map, String [][] array){
 		Random gen = new Random();

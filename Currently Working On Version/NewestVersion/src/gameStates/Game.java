@@ -79,8 +79,15 @@ public class Game extends BasicGameState {
 		BasicMap floorOne = new BasicMap("res/map/floor1.tmx");
 		BasicMap floorTwo = new BasicMap("res/map/floor2.tmx");
 		BasicMap floorThree = new BasicMap("res/map/floor3.tmx");
-		
+		BasicMap floorFour = new BasicMap("res/map/floor4.tmx");
+		BasicMap floorFive = new BasicMap("res/map/floor5.tmx");
+		BasicMap floorSix = new BasicMap("res/map/floor6.tmx");
+		BasicMap floorSeven = new BasicMap("res/map/floor7.tmx");
 		//Add them to the Linked List, last level first.
+		totalLevels.add(floorSeven);
+		totalLevels.add(floorSix);
+		totalLevels.add(floorFive);
+        totalLevels.add(floorFour);
 		totalLevels.add(floorThree);
 		totalLevels.add(floorTwo);
 		totalLevels.add(floorOne);
