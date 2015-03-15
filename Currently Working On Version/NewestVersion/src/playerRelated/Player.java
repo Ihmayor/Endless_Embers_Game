@@ -201,7 +201,6 @@ public class Player extends Entity{
 				
 				if (map.isStairs(x, y)){
 					onStairs = true;
-					setMap(map);
 					}
 				}
 		 }
@@ -217,7 +216,6 @@ public class Player extends Entity{
 				y = newY;
 				if (map.isStairs(x, y)){
 					onStairs = true;
-					setMap(map);
 					}
 			}
 		}
@@ -237,7 +235,6 @@ public class Player extends Entity{
 					x = newX;	
 					if (map.isStairs(x, y)){
 						onStairs = true;
-						setMap(map);
 						}
 				}
 		}
@@ -252,9 +249,8 @@ public class Player extends Entity{
 				x = newX;
 				if (map.isStairs(x, y)){
 					onStairs = true;
-					setMap(map);
 					}
-		}
+			}
 			
 		}
 		
@@ -263,7 +259,6 @@ public class Player extends Entity{
 			currentSprite = down;
 			if (map.isStairs(x, y)){
 				onStairs = true;
-				setMap(map);
 				}
 		
 			}
@@ -278,7 +273,6 @@ public class Player extends Entity{
 				x = newX;
 				if (map.isStairs(x, y)){
 					onStairs = true;
-					setMap(map);
 					}
 				}
 			}	
@@ -297,7 +291,6 @@ public class Player extends Entity{
 					y = newY;
 					if (map.isStairs(x, y)){
 						onStairs = true;
-						setMap(map);
 						}
 					}
 				}
@@ -312,7 +305,6 @@ public class Player extends Entity{
 				y = newY;
 				if (map.isStairs(x, y)){
 					onStairs = true;
-					setMap(map);
 					}
 				}
 			
@@ -332,7 +324,6 @@ public class Player extends Entity{
 					y = newY;
 					if (map.isStairs(x, y)){
 						onStairs = true;
-						setMap(map);
 						}
 					}
 			

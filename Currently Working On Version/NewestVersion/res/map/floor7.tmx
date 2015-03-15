@@ -106,9 +106,24 @@
  </tileset>
  <tileset firstgid="5037" name="32x32" tilewidth="32" tileheight="32">
   <image source="32x32.bmp" width="2048" height="2272"/>
+  <tile id="6">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
   <tile id="22">
    <properties>
     <property name="stairs" value="true"/>
+   </properties>
+  </tile>
+  <tile id="148">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="149">
+   <properties>
+    <property name="blocked" value="true"/>
    </properties>
   </tile>
   <tile id="151">
@@ -147,7 +162,7 @@
    <property name="blocked" value="false"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC/MVYmDwHQF4CStpmBw7jjEQh0HmewgSj8l1CzE0zC1hjAj78LEpCZd1wrgxzI4uEjAl4ULIHfRyy2AOl8GUXgY6H+EKF3qXLyB6GgMCY3MLPfCoW/C7hVhxYvFBhlGMDQMAyHIye8AIAAA=
+   H4sIAAAAAAAAC/MVYmDwHQF4CStpmBw7jjEQh0HmewgSh51EyHcLMTTMLWGMCDtxsSlxCwivE8aNYXZ0EYkpDRdC7qCXWwZzuAym9DLQ+QhXuNC7fAHR0xgQGJtb6IFH3YLfLcSKE4sPMoxibBgAVrp+o8AIAAA=
   </data>
  </layer>
 </map>
