@@ -66,7 +66,7 @@ public class Game extends BasicGameState {
 
         
         //Draw Menu
-        menu = new SlideOutMenu(gc, stateGame, ID, new Image ("res/interface/MenuBlankSlate.png"), 1100, 50 );
+        menu = new SlideOutMenu(gc, stateGame, ID, new Image ("res/interface/tester.png"), 1100, 50 );
         menu.add(new ButtonAction(){ 
     		public void perform(){
     		//SoundManager.changeSound("res/sound/Play At Your Own Risk.wav");//I warned you. Not even sorry.	
@@ -155,8 +155,8 @@ public class Game extends BasicGameState {
 		
 		
 		//Design 1
-		PopUpWindow popup = new PopUpWindow();
-		popup.run();
+//		PopUpWindow popup = new PopUpWindow();
+//		popup.run();
 
 		
 		
@@ -206,6 +206,7 @@ public class Game extends BasicGameState {
 		
 		//Load a new floor if the stairs are stepped on.
 		if (player.getOnStairs()&&totalLevels.peekLast()!= null){
+			System.out.println("Are you in here");
 			currentMap = totalLevels.removeLast();
 			player.setMap(currentMap);
 			monsters.clearMonsters();

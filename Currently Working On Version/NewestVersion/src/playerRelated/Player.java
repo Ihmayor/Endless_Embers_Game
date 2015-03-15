@@ -110,7 +110,7 @@ public class Player extends Entity{
 	
 	public void render(Graphics g){
 	currentSprite.draw((int) x, (int) y);//Draw what the Current sprite should look like.
-	//g.drawImage(shadow,(int)x-1110, (int)y-850); //Draw Shadow with a particular offset for the spotlight
+	g.drawImage(shadow,(int)x-1110, (int)y-850); //Draw Shadow with a particular offset for the spotlight
 	}
 	
 	
@@ -250,15 +250,22 @@ public class Player extends Entity{
 			else if (!(map.hasCollision(newX, y))){
 				updatePosition(newX,y);
 				x = newX;
-				map.isStairs(x,y);
-			}
+				if (map.isStairs(x, y)){
+					onStairs = true;
+					setMap(map);
+					}
+		}
 			
 		}
 		
 	private void moveNowhere()
 			{
 			currentSprite = down;
-			
+			if (map.isStairs(x, y)){
+				onStairs = true;
+				setMap(map);
+				}
+		
 			}
 		
 	private void moveRight(){
