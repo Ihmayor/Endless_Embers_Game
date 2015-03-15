@@ -50,6 +50,16 @@
     <property name="stairs" value="true"/>
    </properties>
   </tile>
+  <tile id="149">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="150">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
   <tile id="154">
    <properties>
     <property name="blocked" value="true"/>
@@ -147,7 +157,7 @@
    <property name="blocked" value="false"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC/MVYmDwHQF4CStpmBw7jjEQh0HmewgSj8l1CzE0zC1hjAj78LEpCZd1wrgxzI4uEjAl4ULIHfRyy2AOl8GUXgY6H+EKF3qXLyB6GgMCY3MLPfCoW/C7hVhxYvFBhlGMDQMAyHIye8AIAAA=
+   H4sIAAAAAAAAC/MVYmDwHQF4CStpmBw7jjEQh0HmewgShylxCzE0zC3hjAg7cbEpDZd1wrgxzI4uIjGl4ULIHfRyy2AOl8GUXgY6H+EKF3qXLyB6GgMCY3MLPfCoW/C7hVhxYvFBhlGMDQMAxdGepcAIAAA=
   </data>
  </layer>
 </map>
