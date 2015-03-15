@@ -11,13 +11,13 @@ import org.newdawn.slick.state.StateBasedGame;
  
 //Source :https://evilzone.org/java/%28java-fames-tut%29-slick2d-buttons-buttons-buttons/
 
-public class BuildButton extends AnimatedButton {
+public class BuildButton extends BasicButton {
  
     private static List<BuildButton> buttons = new ArrayList<BuildButton>();
  
     public BuildButton(GUIContext guic, Animation animation, int x, int y, StateBasedGame sbg, int stateID, Image inactive, Image active)
             throws SlickException {
-        super(guic, animation, x, y, sbg, stateID, inactive, active);
+        super(guic, x, y, sbg, stateID, inactive, active);
         buttons.add(this);
     }
  

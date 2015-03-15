@@ -32,7 +32,7 @@ public class Menu extends BasicGameState {
 		
 		
 		///Comment this back in if you want music.
-		SoundManager.changeSound("res/sound/The Hero Of the Darkness.wav");
+		SoundManager.changeSound("res/sound/Flying In The Face Of Hope.wav");
 	    
 		
 	}

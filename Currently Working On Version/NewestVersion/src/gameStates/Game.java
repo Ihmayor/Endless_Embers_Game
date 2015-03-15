@@ -1,10 +1,7 @@
-
-
-
 package gameStates;
 
 import inputRelated.ButtonAction;
-import inputRelated.PopUpWindow;
+import inputRelated.LoadingGame;
 import inputRelated.SlideOutMenu;
 
 import java.util.LinkedList;
@@ -53,12 +50,20 @@ public class Game extends BasicGameState {
 	//State ID
 	public static final int ID = 1;
 
+	private boolean loadedGame = false;
 	
 	//Menu will put into game screen assets later.
 	SlideOutMenu menu;
 	
+	
+	
 	@Override
 	public void init(GameContainer gc, StateBasedGame stateGame) throws SlickException {
+		
+		if (loadedGame)
+			LoadingGame.initLoadingGame();
+		else{
+			
 		
 		//Used for changing game states
 		this.gc = gc;
@@ -66,7 +71,7 @@ public class Game extends BasicGameState {
 
         
         //Draw Menu
-        menu = new SlideOutMenu(gc, stateGame, ID, new Image ("res/interface/tester.png"), 1100, 50 );
+        menu = new SlideOutMenu(gc, stateGame, ID, new Image ("res/interface/menu2.png"), 1100, 50 );
         menu.add(new ButtonAction(){ 
     		public void perform(){
     		//SoundManager.changeSound("res/sound/Play At Your Own Risk.wav");//I warned you. Not even sorry.	
@@ -108,10 +113,11 @@ public class Game extends BasicGameState {
 		player.setEntityArray(monsters.getEntityArray());
 		
 		GameScreenAssets.statusUpdate = "Game is Now In Session";
+		}
 	}
 	
+	public void setLoadedGame(boolean value){loadedGame =value;}
 	
-	//Debating on keeping this here...
 	private void initEntityArray (){
 		String [][] newArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
 		entityArray = newArray;
@@ -206,7 +212,6 @@ public class Game extends BasicGameState {
 		
 		//Load a new floor if the stairs are stepped on.
 		if (player.getOnStairs()&&totalLevels.peekLast()!= null){
-			System.out.println("Are you in here");
 			currentMap = totalLevels.removeLast();
 			player.setMap(currentMap);
 			monsters.clearMonsters();
@@ -214,6 +219,7 @@ public class Game extends BasicGameState {
 			CombatManager.setMonsterList(monsters.getMonsterList());
 			player.setEntityArray(monsters.getEntityArray());
 			gameAssets.increaseFloorLevel();
+			SoundManager.changeSound("res/sound/Tank Battle.wav");
 			player.setOnStairs(false);
 		}
 	}

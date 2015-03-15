@@ -157,7 +157,7 @@ public class BasicMonster extends Entity{
 	
 	int newX1 = x+BasicMap.TILESIZE;
 	int newX2 = x-BasicMap.TILESIZE;	
-	if ((newX2>= 0 || newX1<=1080)&&counter >= 400){
+	if ((newX2>= 0 || newX1<=1048)&&counter >= 400){
 		//Change Direction
 		if (x > pathEnd)
 			direction = 'L';
