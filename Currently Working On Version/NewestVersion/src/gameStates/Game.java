@@ -71,7 +71,7 @@ public class Game extends BasicGameState {
 
         
         //Draw Menu
-        menu = new SlideOutMenu(gc, stateGame, ID, new Image ("res/interface/menu2.png"), 1100, 50 );
+        menu = new SlideOutMenu(gc, stateGame, ID, new Image ("res/interface/menu2.png"), 1065, 50 );
         menu.add(new ButtonAction(){ 
     		public void perform(){
     		//SoundManager.changeSound("res/sound/Play At Your Own Risk.wav");//I warned you. Not even sorry.	
@@ -157,15 +157,8 @@ public class Game extends BasicGameState {
 		break;
 	case Input.KEY_M: 
 	case Input.KEY_ESCAPE:
-		//Design2
-		
-		
-		//Design 1
-//		PopUpWindow popup = new PopUpWindow();
-//		popup.run();
 
-		
-		
+		//Put slide out menu here
 		
 		break;		
 	//Decrease volume
@@ -173,18 +166,16 @@ public class Game extends BasicGameState {
 		volume -= 0.1f;
         if (volume < 0.0f)
            volume = 0.0f;
-        //NOTE: Sound Volume changes sound effects
-        // Music Volume changes background music
-//		SoundStore.get().setSoundVolume(volume);
+		SoundStore.get().setSoundVolume(volume);
 		SoundStore.get().setMusicVolume(volume);
 		break;
 		
 	//Increase volume
-	case Input.KEY_B:
+	case Input.KEY_S:
 		volume += 0.1f;
         if (volume > 1.0f)
            volume = 1.0f;
-//      SoundStore.get().setSoundVolume(volume);
+        SoundStore.get().setSoundVolume(volume);
         SoundStore.get().setMusicVolume(volume);
 
 		}

@@ -35,9 +35,7 @@ public class GameScreenAssets {
 	    g.drawString(statusUpdate, 600, 490);
 	    g.drawString(statusBackLog1, 600, 470);
 	    g.drawString(statusBackLog2, 600, 450);
-	    g.drawString("Press Q to quit", 700, 20);
 
-	    g.drawString("Press M or 'ESC' for menu", 400, 20);
 
 	    ///Draw Health Bar
 	    g.drawString("HP", 60, 450);

@@ -30,18 +30,9 @@ public class SlideOutMenu extends MouseOverArea{
 		gc = container;
 		this.stateID = stateID;
 	    super.setMouseOverColor(Color.yellow);
-//	    returnButton = new BasicButton(container, x+20, y+270, game, 
-//	    		stateID, new Image ("res/interface/returnGame.png"), new Image ("res/interface/returnGameMouseOver.png"));
-	    exitGameButton = new BasicButton(container, x+20, y+310, game, 
+	    exitGameButton = new BasicButton(container, 1140, y+315, game, 
 	    		stateID, new Image ("res/interface/exitGame.png"), new Image ("res/interface/exitGameMouseOver.png"));
 	  	 
-//		returnButton.add(new ButtonAction(){ 
-//			public void perform(){
-//				System.out.println("Pressed");
-
-//			}
-//			});
-//		
 		exitGameButton.add(new ButtonAction(){
 			public void perform(){
 				((GameContainer)gc).exit();	
@@ -52,7 +43,6 @@ public class SlideOutMenu extends MouseOverArea{
 
 	   public void render(GameContainer gc, Graphics g) {
 	          super.render(gc, g);
-//	          returnButton.render(gc,g);
 	          exitGameButton.render(gc,g);
 	   }
 	
@@ -72,13 +62,12 @@ public class SlideOutMenu extends MouseOverArea{
             System.out.println("Test");
             if (menuOpen == false){
             	setX(300);
-//            	returnButton.setX(500+60);
-            	exitGameButton.setX(300+260);
+            	exitGameButton.setX(610);
             	menuOpen = true;
             }
             else{
-            	setX(1110);
-            	exitGameButton.setX(1110+40);
+            	setX(1065);
+            	exitGameButton.setX(1150);
             	menuOpen = false;
             }
         super.mousePressed(button, x, y);
