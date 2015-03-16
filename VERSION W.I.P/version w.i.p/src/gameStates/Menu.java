@@ -12,6 +12,11 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+//////
+//Menu
+//Purpose: Does this class load the main menu (when the game is first started) or the in-game menu screen? (accessed while game is in progress)
+//Limit: ?
+//////
 public class Menu extends BasicGameState {
 
 	

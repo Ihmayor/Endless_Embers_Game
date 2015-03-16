@@ -10,6 +10,11 @@
 
 package managers;
 
+//////
+//CombatManager
+//Purpose: Controls the combat functions of the game (calculations, dice rolls, etc)
+//Limit: ?
+//////
 import gameStates.GameScreenAssets;
 
 import java.util.LinkedList;

@@ -16,6 +16,11 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+//////
+//MainMenuButtons
+//Purpose: Controls the buttons in the main menu
+//Limit: ?
+//////
 public class MainMenuButtons {
 	
 	//Button Variables

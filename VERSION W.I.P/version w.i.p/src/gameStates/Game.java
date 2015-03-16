@@ -23,6 +23,11 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import playerRelated.Player;
 
+////////
+//Game
+//Purpose: Controls all elements in the game
+//Limit: ?
+////////
 public class Game extends BasicGameState {
 
 	//Used for quitting the game

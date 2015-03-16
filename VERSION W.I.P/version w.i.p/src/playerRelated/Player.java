@@ -19,6 +19,11 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+//////
+//Player
+//Purpose: Manages the character controlled by the player
+//Limit: ?
+//////
 public class Player extends Entity{
 	
 	//Variables used for Slick 2 Game Components

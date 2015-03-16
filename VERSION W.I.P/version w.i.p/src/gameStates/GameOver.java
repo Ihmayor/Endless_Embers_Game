@@ -11,6 +11,11 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+//////
+//GameOver
+//Purpose: Controls the game over state. This occurs when the player character has died
+//Limit: ?
+//////
 public class GameOver extends BasicGameState{
 	private TrueTypeFont font;
 	public static int ID = 3; 

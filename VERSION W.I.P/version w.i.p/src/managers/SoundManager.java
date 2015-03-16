@@ -6,6 +6,11 @@ import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.util.ResourceLoader;
 
+//////
+//SoundManager
+//Purpose: Manages the sounds in the game
+//Limit: ?
+//////
 public class SoundManager {
 	 
 		/** The wav sound effect */

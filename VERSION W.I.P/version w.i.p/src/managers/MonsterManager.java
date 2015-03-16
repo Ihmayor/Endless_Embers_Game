@@ -25,6 +25,11 @@ import org.newdawn.slick.SpriteSheet;
 
 import playerRelated.Player;
 
+////////
+//MonsterManager
+//Purpose: Manages and controls the monsters in the game
+//Limit: ?
+//////
 public class MonsterManager {
 
 	

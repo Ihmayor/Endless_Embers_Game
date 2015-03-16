@@ -2,6 +2,11 @@ package monsterRelated;
 
 import mapRelated.BasicMap;
 
+//////
+//Entity
+//Purpose: controls and manages the various objects in the game (such as monsters, players, etc)
+//limit: ?
+//////
 public class Entity {
 	
 	//Has both the old position and current position 

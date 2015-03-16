@@ -11,6 +11,11 @@ import org.newdawn.slick.state.StateBasedGame;
  
 //Source :https://evilzone.org/java/%28java-fames-tut%29-slick2d-buttons-buttons-buttons/
 
+//////
+//BuildButton
+//Purpose: Creates buttons (that you click on for things to happen)
+//Limit: ?
+//////
 public class BuildButton extends BasicButton {
  
     private static List<BuildButton> buttons = new ArrayList<BuildButton>();

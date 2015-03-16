@@ -12,6 +12,11 @@ import org.newdawn.slick.geom.Rectangle;
 
 import playerRelated.Player;
 
+//////
+//GameScreenAssets
+//Purpose: Controls the various elements in the UI
+//Limit?
+//////
 public class GameScreenAssets {
 
 	//Floor Variables
