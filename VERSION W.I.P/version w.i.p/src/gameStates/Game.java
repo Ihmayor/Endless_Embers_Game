@@ -61,7 +61,7 @@ public class Game extends BasicGameState {
 	SlideOutMenu menu;
 	
 	
-	
+	// initializes the game
 	@Override
 	public void init(GameContainer gc, StateBasedGame stateGame) throws SlickException {
 		
@@ -123,6 +123,7 @@ public class Game extends BasicGameState {
 	
 	public void setLoadedGame(boolean value){loadedGame =value;}
 	
+	// Initializes the entity array, this will hold the information about the objects in the game (such as the player)
 	private void initEntityArray (){
 		String [][] newArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
 		entityArray = newArray;
@@ -136,7 +137,7 @@ public class Game extends BasicGameState {
 		entityArray[((Entity)player).getPosition()[0]/32][((Entity)player).getPosition()[1]/32] = player.getName();
 	}
 	
-	
+	// Draws the display of the game
 	@Override
 	public void render(GameContainer gc, StateBasedGame stateGame, Graphics g)
 			throws SlickException {
@@ -150,6 +151,7 @@ public class Game extends BasicGameState {
 		
 	}
 	
+	// Manages the controls of the game
 	@Override
 	public void keyReleased (int key,char c){
 	switch (key){
@@ -189,7 +191,7 @@ public class Game extends BasicGameState {
 	//Counters used to delay the text log and the movement of monsters
 	private int monsterCounter = 0; //Must combine later
 	
-	
+	// Updates the state of the game (where the player is, etc)
 	@Override
 	public void update(GameContainer gc, StateBasedGame stateGame, int delta)
 			throws SlickException {
@@ -220,6 +222,7 @@ public class Game extends BasicGameState {
 		}
 	}
 	
+	// ?
 	@Override
 	public int getID() {
 		return ID;

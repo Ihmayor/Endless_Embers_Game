@@ -20,12 +20,14 @@ public class BuildButton extends BasicButton {
  
     private static List<BuildButton> buttons = new ArrayList<BuildButton>();
  
+    // Builds the button (what it does, its animations, etc)
     public BuildButton(GUIContext guic, Animation animation, int x, int y, StateBasedGame sbg, int stateID, Image inactive, Image active)
             throws SlickException {
         super(guic, x, y, sbg, stateID, inactive, active);
         buttons.add(this);
     }
  
+    // Controls what happens when the button is clicked on
     @Override
     public void mouseClicked(int button, int x, int y, int clickCount) {
         if (!isMouseOver()) {

@@ -23,6 +23,7 @@ public class LoadGame extends BasicGameState{
 		this.game = stateGame;
 	}
 
+	// Draws the game screen (UI, maps, etc)
 	@Override
 	public void render(GameContainer gc, StateBasedGame stateGame, Graphics g)
 			throws SlickException {
@@ -31,6 +32,7 @@ public class LoadGame extends BasicGameState{
 
 	}
 
+	// Controls keyboard input
 	public void keyReleased (int key, char c){
 	switch (key){
 	case Input.KEY_Q:
@@ -40,7 +42,7 @@ public class LoadGame extends BasicGameState{
 		}	
 	}
 
-
+	// Updates the action of the game (monsters moving, etc)
 	@Override
 	public void update(GameContainer gc, StateBasedGame stateGame, int delta)
 			throws SlickException {
@@ -49,6 +51,7 @@ public class LoadGame extends BasicGameState{
 		
 	}
 
+	// ?
 	@Override
 	public int getID() {
 		return ID;

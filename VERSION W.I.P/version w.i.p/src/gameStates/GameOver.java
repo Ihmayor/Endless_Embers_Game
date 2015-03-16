@@ -29,6 +29,7 @@ public class GameOver extends BasicGameState{
 	    font = new TrueTypeFont(awtFont, false);		
 	}
 
+	// Displays the game over screen
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
@@ -38,11 +39,14 @@ public class GameOver extends BasicGameState{
 		g.drawString("Press 'Q' to quit",300,100);
 	}
 
+	// Updates the state of the game (the player is now dead)
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
 		
 	}
+	
+	// Controls key input in the game over screen
 	@Override
 	public void keyReleased (int key,char c){
 	switch (key){
@@ -52,6 +56,7 @@ public class GameOver extends BasicGameState{
 		}	
 	}
 
+	// ?
 	@Override
 	public int getID() {
 		return ID;
