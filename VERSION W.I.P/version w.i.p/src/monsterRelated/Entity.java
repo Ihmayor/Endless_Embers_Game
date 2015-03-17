@@ -36,6 +36,8 @@ public class Entity {
 /////////////////////////////////////////////////
 //METHODS USED FOR SEARCHING UPDATING LOCATION IN ENTITY ARRAY
 /////////////////////////////////////////////////
+	
+	// Updates the position of the entity (such as monsters or players moving)
 	protected String updatePosition(int x, int y){
 		if (!alive)
 			return null;
@@ -49,6 +51,7 @@ public class Entity {
 		return null;
 	}
 
+	// Determines if the spot is an empty space or not. Entities cannot be placed on tiles blocked or already occupied
 	protected boolean isTaken(int x, int y){
 		if (x <0 || y <0)
 			return false;
@@ -60,7 +63,7 @@ public class Entity {
 		return isTaken;
 	}
 	
-	
+	// Determines if the monster sees the player?
 	public boolean search(String name){
 			boolean found = false;
 			//Search looks within the range of 2
@@ -86,6 +89,8 @@ public class Entity {
 /////////////////////////////////////////
 ///////////Combat Methods////////////////
 /////////////////////////////////////////
+	
+	// Subtract HP when a monster or player gets hurt
 	public String subtractHealth(int points){
 		if (points < 0)
 			return "Cannot subtract negative health points";
@@ -100,7 +105,7 @@ public class Entity {
 		return null;
 	}
 	
-	
+	// Add HP when a monster or player is healed
 	public String addHealthPoints(int points){
 		if (points < 0)
 			return "Cannot add negative health points";

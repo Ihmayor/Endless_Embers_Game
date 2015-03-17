@@ -53,7 +53,7 @@ public class BasicMonster extends Entity{
 	
 
 	
-	
+	// This determines the attributes of the basic monster (its HP, how it looks, etc)
 	public BasicMonster(BasicMap currentMap, Animation monsterLook,int x, int y) throws SlickException
 	{
 		super(x,y);
@@ -70,6 +70,7 @@ public class BasicMonster extends Entity{
 		healthPoints = maxHealthPoints;
 	}
 
+	// Is this a repeat of the previous function?
 	public BasicMonster(BasicMap currentMap, Image monsterLook,int x, int y)
 	{
 		super(x,y);
@@ -86,20 +87,21 @@ public class BasicMonster extends Entity{
 	///////Methods dealing with the state of the monster///////
 	public boolean getMonsterState(){return isActiveState;}
 	
-	
+	// The monster will be active when it sees the player
 	public void setMonsterState(boolean foundPlayer){
 		isActiveState = foundPlayer;
 	}
 	
+	// This is what happens when the monster dies
 	public void actDead() throws SlickException{
 		monsterImage = new Image ("res/monster/dead.png");
 	}
 	
-	
+	// The experience the player will gain when he/she kills this monster
 	public int getExpPointGain() {return maxHealthPoints/2;}
 	
 	
-	
+	// Draws the monster
 	public void render(Graphics g) throws SlickException{
 		if (!alive)
 			actDead();
@@ -107,7 +109,7 @@ public class BasicMonster extends Entity{
 	//	monsterAnimation.draw((int)x, (int)y);
 	}
 	
-	
+	// Updates the state of the monster (its position, whether it sees the player, etc)
 	public String update(int [] playerPosition, int counter)
 	{
 		this.counter = counter;
@@ -150,11 +152,12 @@ public class BasicMonster extends Entity{
 	/////////////Movement Methods///////////////
 	////////////////////////////////////////////
 	
+	// The path the monster will take when moving
 	public void setPath (int start, int end){
 		pathStart = start;
 		pathEnd = end;}
 	
-	
+	// This is how the monster will move when it is not fighting
 	private void wander(int [] playerPosition){
 	if (!alive)
 		return;
