@@ -107,8 +107,8 @@ public class MonsterManager {
 	//OLD CODE BELOW THIS CODE + NOTES.
 	public int[] findValidPlacement(int monsterPathSize, BasicMap map, String [][] array){
 		Random gen = new Random();
-		int newX = gen.nextInt(34)*BasicMap.TILESIZE;
-		int newY = gen.nextInt(15)*BasicMap.TILESIZE;
+		int newX = gen.nextInt(35)*BasicMap.TILESIZE;
+		int newY = gen.nextInt(16)*BasicMap.TILESIZE;
 		int[]  newPosition = {newX, newY};
 		
 		for (int i = 0; i < BasicMap.widthByTiles; i ++){
@@ -116,8 +116,8 @@ public class MonsterManager {
 				if (checkValidPlacement(newPosition, monsterPathSize, map, array) == null){
 					return newPosition;
 					}
-				newPosition[0] = (newX+i*BasicMap.TILESIZE)%(1120-32);
-				newPosition[1] = (newY+c*BasicMap.TILESIZE)%(512-32);
+				newPosition[0] = (newX+i*BasicMap.TILESIZE)%(1120);
+				newPosition[1] = (newY+c*BasicMap.TILESIZE)%(512);
 				}
 
 			}
@@ -155,19 +155,27 @@ public class MonsterManager {
 //	}
 	
 	
+	
+	
+	//Recorded failed values: 992 352
+						    //992 480
+							// test: 992 + 32%1120 = X  test: 480 +32 %512
+							//It quits out too early. (It quits out at 992) 
+							// Test this...it shouldn't be allow this....
+	
 	public String checkValidPlacement(int[]newPosition, int monsterPathSize, BasicMap map, String [][] array){
 		Boolean allClear = true;
 		int checkX = newPosition[0];
 		int checkY = newPosition[1];
 		for (int i = 0;i < monsterPathSize; i++)
 		{
-			if (checkX >= 1120 || checkY >= 512)
+			if (checkX >= (1120) || checkY >= (512) || checkX < 0 || checkY < 0)
 				return "Out of Bounds";
-			if (array[checkX/BasicMap.TILESIZE][checkY/BasicMap.TILESIZE] != " "){
+			else if (array[checkX/BasicMap.TILESIZE][checkY/BasicMap.TILESIZE] != " "){
 				allClear = false;
 				return "Entity Overlap";
 				}
-			if (map.hasCollision(checkX, checkY))
+			else if (map.hasCollision(checkX, checkY))
 				{
 				allClear = false;
 				return "Map Overlap";

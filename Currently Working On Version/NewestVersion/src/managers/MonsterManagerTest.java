@@ -79,18 +79,56 @@ public class MonsterManagerTest {
 		assertEquals("Invalid Entity Array", m.setEntityArray(testArray));
 		testArray[5][7] = "P";
 		assertEquals(null, m.setEntityArray(testArray));
-		int [] testPosition = {4,5};
+		int [] testPosition = {4*BasicMap.TILESIZE,5*BasicMap.TILESIZE};
 		
 		
 		
 		
 		assertEquals(null, m.checkValidPlacement(testPosition, 4, new BasicMap(testMap), testArray));
+		for (int i = 0; i < BasicMap.widthByTiles; i++)
+		{
+			for (int c = 0; c < BasicMap.heightByTiles; c++)
+			{
+				testArray[i][c] = " ";
+				testMap [i][c] = 'B';
+			}
+		}
+		testMap[31][15] = ' ';
+		testMap[32][15] = ' ';
+		testMap[33][15] = ' ';
+		
+		testPosition[0] = 992;
+		testPosition[1] = 480;
+		assertEquals("Map Overlap", m.checkValidPlacement(testPosition, 4, new BasicMap (testMap), testArray));
 		
 	}
+
+	
 	@Test
 	public void testInvalidPositionGenerated(){
-		fail("Not yet implemented");
+		
+		MonsterManager m = new MonsterManager();
+		String [][] testArray = new String [35][16];
+		char [][] testMap = new char [35][16];
+		
+		for (int i = 0; i < BasicMap.widthByTiles; i++)
+		{
+			for (int c = 0; c < BasicMap.heightByTiles; c++)
+			{
+				testArray[i][c] = " ";
+				testMap [i][c] = ' ';
+			}
+		}
+		BasicMap map = new BasicMap (testMap);
+		int [] newPosition = {-100,-100};
+		assertEquals("Out of Bounds", m.checkValidPlacement(newPosition, 4, map, testArray));
+		int [] thirdTestPosition = {1120, 512};
+		assertEquals("Out of Bounds", m.checkValidPlacement(thirdTestPosition, 4, map, testArray));
 	}
+	
+
+	
+	
 	
 	
 	@Test
@@ -117,6 +155,9 @@ public class MonsterManagerTest {
 			
 		assertEquals("Do not place monsters out of game's boundaries","Out of Bounds", m.checkValidPlacement(testPosition, 4, new BasicMap(testMap), testArray));
 	}
+
+	
+	
 	
 	@Test
 	public void testCheckEntityOverlap(){
@@ -171,7 +212,7 @@ public class MonsterManagerTest {
 		
 		assertEquals("We should be preventing placement that overlaps obstacles","Map Overlap", m.checkValidPlacement(testPosition, 4, new BasicMap(testMap), testArray));
 	}
-	
+//	
 	@Test
 	public void testFindPlacement_NoBlocks (){
 		//Arrange
@@ -191,12 +232,6 @@ public class MonsterManagerTest {
 		
 		assertNotNull(testPosition);
 		
-	}
-	
-	@Test
-	public void testFindPlacement_Edges(){
-		fail("Not yet implemented");	
-		//Make sure this thing can find spots along the edges. So the bottom corner spots.
 	}
 
 	
@@ -218,11 +253,9 @@ public class MonsterManagerTest {
 		testArray[31][15] = " ";
 		testArray[32][15] = " ";
 		testArray[33][15] = " ";
-		testArray[34][15] = " ";		
 		
 		MonsterManager m = new MonsterManager();
 		m.setEntityArray(testArray);
-		
 		int [] testPosition = m.findValidPlacement(4, new BasicMap(testMap), testArray);
 		int [] expectedPosition = {30*BasicMap.TILESIZE,15*BasicMap.TILESIZE};
 		assertArrayEquals("Check that it can find Valid last spot",expectedPosition, testPosition);
@@ -231,7 +264,39 @@ public class MonsterManagerTest {
 	
 	@Test
 	public void testFindPlacement_OneSpotLeft_Edges(){
-		fail("Not yet implemented");
+		String [][] testArray = new String [35][16];
+		char [][] testMap = new char [35][16];
+		
+		for (int i = 0; i < BasicMap.widthByTiles; i++)
+		{
+			for (int c = 0; c < BasicMap.heightByTiles; c++)
+			{
+				testArray[i][c] = "M";
+				testMap[i][c] = ' ';
+			}
+		}
+		testArray[31][15] = " ";
+		testArray[32][15] = " ";
+		testArray[33][15] = " ";
+		testArray[34][15] = " ";
+		
+		MonsterManager m = new MonsterManager();
+		m.setEntityArray(testArray);
+		int [] testPosition = m.findValidPlacement(4, new BasicMap(testMap), testArray);
+		int [] expectedPosition = {31*BasicMap.TILESIZE,15*BasicMap.TILESIZE};
+		assertArrayEquals("Check that it can find corners",expectedPosition, testPosition);
+		
+		testArray[31][15] = "M";
+		testArray[32][15] = "M";
+		testArray[33][15] = "M";
+		testArray[34][15] = "M";
+	
+		testArray[34][12] = " ";
+		testArray[34][13] = " ";
+		testArray[34][14] = " ";
+		testArray[34][15] = " ";
+		testPosition = m.findValidPlacement(4, new BasicMap(testMap), testArray);
+		assertArrayEquals("Check that it cannot look vertically" ,null, testPosition);
 	}
 	
 	
@@ -256,7 +321,6 @@ public class MonsterManagerTest {
 		testMap[31][15] = ' ';
 		testMap[32][15] = ' ';
 		testMap[33][15] = ' ';
-		testMap[34][15] = ' ';
 		
 		MonsterManager m = new MonsterManager();
 		int [] testPosition = m.findValidPlacement(4, new BasicMap(testMap), testArray);
