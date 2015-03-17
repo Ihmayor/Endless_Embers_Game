@@ -69,7 +69,7 @@ public class MonsterManager {
 		currentMap = map;
 	}
 	
-	
+	// Checks the array for objects (such as monsters)
 	public String checkEntityArray(String [][] entityArray){
 		if (entityArray.length*entityArray[0].length != 35*16)
 			return "Entity Array Not Expected Size";
@@ -98,7 +98,7 @@ public class MonsterManager {
 		return null;
 	}
 	
-	
+	// Sets the entity array
 	public String setEntityArray(String [][]entityArray){
 		if ( checkEntityArray(entityArray) != null)
 		{
@@ -159,7 +159,7 @@ public class MonsterManager {
 //		return null;
 //	}
 	
-	
+	// Ensures a monster is not placed on a blocked tile (such as a wall)
 	public String checkValidPlacement(int[]newPosition, int monsterPathSize, BasicMap map, String [][] array){
 		Boolean allClear = true;
 		int checkX = newPosition[0];
@@ -191,13 +191,13 @@ public class MonsterManager {
 	}
 	
 	
-	
+	// Loads the image of the monster
 	private void loadMonsterTypes() throws SlickException{
 		basicMonsterSheet= new SpriteSheet("res/monster/dummySheet.png",32,32); 
 		basicMonsterImage = basicMonsterSheet.getSubImage(0, 0);
 	}
 	
-	
+	// Initializes the monsters (their statistics, their images, their placement, etc)
 	public void init(String [][] entityArray, BasicMap currentMap) throws SlickException{
 		if (checkEntityArray(entityArray) !=null)
 			return;
