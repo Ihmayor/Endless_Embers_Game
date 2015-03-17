@@ -45,7 +45,7 @@ public class Entity {
 	}
 
 	protected boolean isTaken(int x, int y){
-		if (x <0 || y <0)
+		if (x <0 || y <0 || x >= 1120 || y >=512)
 			return false;
 		int xTile = x/BasicMap.TILESIZE;
 		int yTile = y/BasicMap.TILESIZE;

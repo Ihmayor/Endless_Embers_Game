@@ -30,7 +30,7 @@ public class MonsterManager {
 	
 	private Player player;
 	private LinkedList<BasicMonster> monsterList = new LinkedList<BasicMonster>();
-	private int level;
+	private int level = 1;
 	private BasicMap currentMap;
 	private String[][] entityArray;
 	
@@ -104,7 +104,6 @@ public class MonsterManager {
 	}
 	
 	//To do later: Put this into a private object and change this method to a private method.
-	//OLD CODE BELOW THIS CODE + NOTES.
 	public int[] findValidPlacement(int monsterPathSize, BasicMap map, String [][] array){
 		Random gen = new Random();
 		int newX = gen.nextInt(35)*BasicMap.TILESIZE;
@@ -124,44 +123,6 @@ public class MonsterManager {
 		return null;
 	}
 	
-
-	///////IMPORTANT!! PLEASE READ!!!/////////////////
-	////This is what the code was before I did some refactoring. It should pass TestOneSpot EntityArray only test
-	///And it should pass the the test find placement one spot left map array only
-	
-	//Reasons for changing: Monsters ended up spawning to one side of the screen biasedly
-	//Predictable non-changing spawning.
-	
-	//Helpful tips: If you want to comment back in/ comment out quickly. Highly the piece of code. Ctrl+shift+c.
-	//Ctrl + D : Deletes current line of code.
-	
-	
-//	public int[] OLDfindValidPlacement(int monsterPathSize, BasicMap map, String [][] array){
-//		int newX = 0;
-//		int newY = 0;
-//		int[]  newPosition = {newX, newY};
-//		
-//		for (int i = 0; i < BasicMap.widthByTiles; i ++){
-//			for (int c = 0; c < BasicMap.heightByTiles; c++){
-//				if (checkValidPlacement(newPosition, monsterPathSize, map, array) == null){
-//					return newPosition;
-//					}
-//				newPosition[0] = i*BasicMap.TILESIZE;
-//				newPosition[1] = c*BasicMap.TILESIZE;
-//				}
-//
-//			}
-//		return null;
-//	}
-	
-	
-	
-	
-	//Recorded failed values: 992 352
-						    //992 480
-							// test: 992 + 32%1120 = X  test: 480 +32 %512
-							//It quits out too early. (It quits out at 992) 
-							// Test this...it shouldn't be allow this....
 	
 	public String checkValidPlacement(int[]newPosition, int monsterPathSize, BasicMap map, String [][] array){
 		Boolean allClear = true;
@@ -209,43 +170,19 @@ public class MonsterManager {
 
 		BasicMonster monster1 = null;
 		
-		//Fixes needed for below after the tests are done
-		//You'll notice that below there is a lot of repeated code.
-		//Goal: Get rid of the repeated code. Automate it in a for Loop perhaps? <---suggestion only. 
-		//With an integer that relates with the map level.
-		
-		
-		int[] spawnPosition = findValidPlacement (4, currentMap, entityArray);
-		while (spawnPosition == null)
-			spawnPosition = findValidPlacement (4, currentMap, entityArray);
-		
-		monster1 = new BasicMonster(currentMap,basicMonsterImage, spawnPosition[0], spawnPosition[1]);
-		monsterList.add(monster1);
-		monster1.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);
-		entityArray[monster1.getPosition()[0]/BasicMap.TILESIZE]
-				   [monster1.getPosition()[1]/BasicMap.TILESIZE] = monster1.getName();
-		
-		spawnPosition = findValidPlacement (4, currentMap, entityArray);
-		while (spawnPosition == null)
-			spawnPosition = findValidPlacement (4, currentMap, entityArray);
-		
-		
-		monster1 = new BasicMonster(currentMap,basicMonsterImage, spawnPosition[0], spawnPosition[1]);
-		monsterList.add(monster1);
-		entityArray[monster1.getPosition()[0]/BasicMap.TILESIZE]
-				   [monster1.getPosition()[1]/BasicMap.TILESIZE] = monster1.getName();
+		for (int i = 0; i < level*3 ; i++){
+			int[] spawnPosition = findValidPlacement (4, currentMap, entityArray);
+			while (spawnPosition == null)
+				spawnPosition = findValidPlacement (4, currentMap, entityArray);
+			
+			monster1 = new BasicMonster(currentMap,basicMonsterImage, spawnPosition[0], spawnPosition[1]);
+			monsterList.add(monster1);
 			monster1.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);
-		
-		spawnPosition = findValidPlacement (4, currentMap, entityArray);
-		while (spawnPosition == null)
-			spawnPosition = findValidPlacement (4, currentMap, entityArray);
-		
-		monster1 = new BasicMonster(currentMap, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
-		monsterList.add(monster1);
-		entityArray[monster1.getPosition()[0]/BasicMap.TILESIZE]
-				   [monster1.getPosition()[1]/BasicMap.TILESIZE] = monster1.getName();
-		monster1.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);
-		
+			entityArray[monster1.getPosition()[0]/BasicMap.TILESIZE]
+					   [monster1.getPosition()[1]/BasicMap.TILESIZE] = monster1.getName();
+			
+			
+			}
 	
 		BasicMonster [] monsters = monsterList.toArray(new BasicMonster [monsterList.size()]);
 		for (BasicMonster m: monsters){

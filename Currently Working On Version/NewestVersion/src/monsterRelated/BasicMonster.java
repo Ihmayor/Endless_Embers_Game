@@ -22,7 +22,7 @@ public class BasicMonster extends Entity{
 	public int damageLimit = 20;//This can be overridden by its children later. Just watch for it.
 	private BasicMap map;
 	private int pathStart = 7*BasicMap.TILESIZE, pathEnd = 9*BasicMap.TILESIZE;
-	
+	protected boolean isAttacked = false;
 	
 	private int counter;
 	
@@ -62,9 +62,10 @@ public class BasicMonster extends Entity{
 		monsterAnimation.setAutoUpdate(true);
 		counter = 0;
 		direction = 'R';
-		maxHealthPoints = 10;
+		maxHealthPoints = 100;
 		healthPoints = maxHealthPoints;
 	}
+	//////////////////////////////////// STILL TEST METHODS ABOVE//////////////////////////
 
 	public BasicMonster(BasicMap currentMap, Image monsterLook,int x, int y)
 	{
@@ -75,7 +76,7 @@ public class BasicMonster extends Entity{
 		monsterImage = monsterLook;
 		counter = 0;
 		direction = 'R';
-		maxHealthPoints = 10;
+		maxHealthPoints = 100;
 		healthPoints = maxHealthPoints;
 	}
 
@@ -86,6 +87,7 @@ public class BasicMonster extends Entity{
 	public void setMonsterState(boolean foundPlayer){
 		isActiveState = foundPlayer;
 	}
+	public void setIsAttacked (boolean attacked){isAttacked = attacked;}
 	
 	public void actDead() throws SlickException{
 		monsterImage = new Image ("res/monster/dead.png");
@@ -117,12 +119,8 @@ public class BasicMonster extends Entity{
 
 		
 		isActiveState = search("P");
-		if (isActiveState){
-			//This is supposed to use a more intelligent wander.
-//			x = findClosestSpot(getPosition(), playerPosition)[0];
-//			y = findClosestSpot(getPosition(),playerPosition)[1];
-			wander(playerPosition);
-//			Game.queueTextLog.addFirst ("Monster has spotted you!");
+		if (isActiveState || (isAttacked&&!isActiveState)){
+			findClosestSpot(playerPosition);
 		}
 		else{
 			wander(playerPosition);
@@ -201,40 +199,90 @@ public class BasicMonster extends Entity{
 	
 	////Used for a more intelligent wander
 	////Will most likely be adapted for following fleeing players.
-	public int[] findClosestSpot(int[]current, int[] player)
-	{	
-		oldx = x;
-		oldy = y;
-		Random gen = new Random();
-		int newY = gen.nextInt(y+32-(y-1))+y-32;
-		int newX = gen.nextInt(x+32-(x-1))+x-32;
-		if (current[0] == player[0]&& current[1]!= player[1]){
-			if(!isTaken(x, newY))
-			{	
-				newX = x;
+	public void findClosestSpot(int[] player)
+	{
+		int newX = 0;
+		int newY = 0;
+		if (x == player[0]&& y!= player[1]){
+				closestSpotHorizontal (player, newX, newY);
 			}
-		}
 			
-		else if (current[1] == player[1]&& current[0] != player[0])
+		else if (y == player[1]&& x != player[0])
 		{
-			while(!isTaken(newX, y))
-			{
-				newY = y;
-				newX = gen.nextInt(x+1-(x-1))+x-1;			}
+			closestSpotVertical(player,newX, newY);
 		}
+		else if (y!= player[1]&& x!= player[0])
+		{
+			closestSpotDiagonal(player,newX, newY);
+				
+		    }
+	}	
+	
+	
+	private void closestSpotDiagonal(int [] player, int newX, int newY)
+	{
+
+		if (y > player[1])
+			newY = y - BasicMap.TILESIZE;
+		else
+			newY = y + BasicMap.TILESIZE;
 		
-		else if (current[1]!= player[1]&& current[0]!= player[0])
-		{
-			while(!isTaken(x, newY))
-			{	
-				newX = gen.nextInt(x+32-(x-32))+x-32;
-				newY = gen.nextInt(y+32-(y-32))+y-32;	
-			}
-		}
-		int [] newPosition = {newX,newY};
-		return newPosition;
+		if (x > player [0])
+			newX = x - BasicMap.TILESIZE;
+		else
+			newX = x + BasicMap.TILESIZE;		
+		
+		if (!isTaken(newX, newY) && !map.hasCollision(newX, newY))
+				{
+				updatePosition(newX,newY);
+				x = newX;
+				y = newY;
+				}
+		
+		else if (!isTaken(x, newY) && !map.hasCollision(x, newY))
+				{
+				updatePosition(x,newY);
+				y = newY;
+			    }
+		
+		else if (!isTaken(newX, y) && !map.hasCollision(newX, y))
+				{
+				updatePosition(newX, y);
+				x = newX;
+				}		
 	}
+	
+	
+	
+	private void closestSpotHorizontal(int [] player, int newX, int newY){
+		if (player[1] > y)
+			newY = y+ BasicMap.TILESIZE;
+		else
+			newY = y- BasicMap.TILESIZE;
+		if (!isTaken(x,newY)&&!map.hasCollision(x,newY))
+			{		
+			updatePosition(x,newY);
+			y = newY;
+			}
+	}
+	
+	
+	
+	private void closestSpotVertical(int [] player, int newX, int newY){
+		
+		if (player[0] > x)
+			newX = x + BasicMap.TILESIZE;
+		else
+			newX = x - BasicMap.TILESIZE;
+		
+		if (!isTaken(newX,y)&&!map.hasCollision(newX, y))
+			{
+			updatePosition(newX,y);
+			x = newX;
+			}
+	}
+}
 
 	
 	
-}
+

@@ -194,7 +194,7 @@ public class Game extends BasicGameState {
 		textLogCounter = gameAssets.updateTextLog(textLogCounter);
 		
 		//Prevent Monster from fleeing
-		if (CombatManager.battleHappening == false&&monsters.getMonsterList()!= null){
+		if (monsters.getMonsterList()!= null){
 			monsters.update(player.getPosition(), monsterCounter);
 			monsterCounter++;
 			if (monsterCounter > 400)//Used to delay the monster's movement

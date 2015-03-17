@@ -69,6 +69,7 @@ public class CombatManager {
 		
 		GameScreenAssets.queueTextLog.addFirst("Average Hit: "+attack); 
 		currentFoe.subtractHealth(attack);
+		currentFoe.setIsAttacked(true);
 			if (currentFoe.getHealthPoints() <= 0)
 			{
 
@@ -88,14 +89,14 @@ public class CombatManager {
 		
 		else 
 		{
-		currentFoe.subtractHealth(attack);	
+		currentFoe.subtractHealth(attack);
+		currentFoe.setIsAttacked(true);
 		GameScreenAssets.queueTextLog.addFirst("Critical Hit: "+attack);
 			if (currentFoe.getHealthPoints() <= 0)
 			{
 				GameScreenAssets.queueTextLog.addFirst("You've Killed the monster!");
 				player.addExperiencePoints(currentFoe.getExpPointGain());
 				battleHappening = false;
-				monsterList.remove(currentFoe);
 			//	delay();
 				return;
 			}

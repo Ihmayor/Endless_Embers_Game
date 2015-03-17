@@ -1,6 +1,7 @@
 package monsterRelated;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import mapRelated.BasicMap;
 
 import org.junit.Test;
@@ -12,24 +13,25 @@ public class BasicMonsterTest {
 	@Test
 	public void testGenericMove() throws SlickException{
 		//Arrange Data
-		BasicMap map = new BasicMap();
-		
-		BasicMonster b = new BasicMonster (map, 4*32, 5*32, 0);
+		char [][] testMap = new char [BasicMap.widthByTiles][BasicMap.heightByTiles];
 		String [][] test = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
 		for (int i = 0; i < BasicMap.widthByTiles; i++){
 			for (int c = 0; c < BasicMap.heightByTiles; c++){
 				test [i][c] = " ";
+				testMap[i][c] = ' ';
 				}
 			}
+		BasicMap map = new BasicMap(testMap);
 		test[5][4] = "P";		
+		BasicMonster b = new BasicMonster (map, 7*32, 7*32, 0);
 		b.setEntityArray(test);
 		
 		//Act
 		int [] testPosition = {5*32,4*32};//Not in the way player
-		int [] monsterPos = {5*32, 5*32};//Monster's supposed current position
+		int [] monsterPos = {8*32, 7*32};//Monster's supposed current position
 			
 		//Assert
-		assertEquals(false, b.isTaken(5*32,5*32));
+		assertEquals(false, b.isTaken(8*32,7*32));
 		
 		//Act
 		b.update(testPosition,4000);//Move over by one.
@@ -72,18 +74,36 @@ public class BasicMonsterTest {
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////TESTS ABILITY TO SELECT A VALID SPOT WHEN NOT BLOCKED BY ANYTHING//////////////////////////////////
-//	@Test
-//	public void testClosestSpotNotNear() throws SlickException{
-//		BasicMap map = new BasicMap();
-//		
-//		BasicMonster b = new BasicMonster(map, 4*32, 5*32, 0);
-//		int [] expected = {7*32,9*32};
-//		int [] test = b.getPosition();
-//		
-//		assertArrayEquals(expected, test);
-//	}
+	@Test
+	public void testClosestSpotNotNear() throws SlickException{
+		String [][] testArray = new String [35][16];
+		char [][] testMap = new char [35][16];
+		
+		for (int i = 0; i < BasicMap.widthByTiles; i++)
+		{
+			for (int c = 0; c < BasicMap.heightByTiles; c++)
+			{
+				testArray[i][c] = " ";
+				testMap [i][c] = ' ';
+			}
+		}
+		testArray[4][5] = "P";
+		int [] playerPosition = {4*BasicMap.TILESIZE,5*BasicMap.TILESIZE};
+		
+		BasicMap map = new BasicMap(testMap);
+		
+		BasicMonster b = new BasicMonster(map, 6*32, 5*32, 0);
+		b.setEntityArray(testArray);
+		int [] expected = {5*32,5*32};
+		
+		b.findClosestSpot( playerPosition);
+		
+		assertArrayEquals(expected, b.getPosition());
+	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////TESTS ABILITY TO NOT OVERLAP OBSTACLES///////////////////////////////////////////////////////////////////	
+
+	
+	///////////////TESTS ABILITY TO NOT OVERLAP OBSTACLES///////////////////////////////////////////////////////////////////	
 //	@Test
 //	public void testClosestSpotNear() throws SlickException{
 //		

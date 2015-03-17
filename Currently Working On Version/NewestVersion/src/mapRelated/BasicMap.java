@@ -64,6 +64,8 @@ public class BasicMap
 	//Checks if a given x,y coordinate collides with a block on the map
 	public boolean hasCollision (float x, float y)
 	{
+		if (x < 0 || y < 0 || x >=1120 || y >= 512)
+			return false;
 		
 		int xBlock = (int)x / TILESIZE;
 	    int yBlock = (int)y / TILESIZE;
