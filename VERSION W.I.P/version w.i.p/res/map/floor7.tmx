@@ -70,6 +70,11 @@
     <property name="blocked" value="true"/>
    </properties>
   </tile>
+  <tile id="854">
+   <properties>
+    <property name="stairs" value="true"/>
+   </properties>
+  </tile>
   <tile id="1251">
    <properties>
     <property name="blocked" value="true"/>
@@ -167,7 +172,7 @@
    <property name="blocked" value="false"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC/MVYmDwHQF4CStpmBw7jjEQh0HmewgShylxCzE0zC3hjAg7cbEpDZd1wrgxzI4uIjGl4ULIHfRyy2AOl8GUXgY6H+EKF3qXLyB6GgMCY3MLPfCoW/C7hVhxYvFBhlGMDQMAxdGepcAIAAA=
+   H4sIAAAAAAAAC/MVYmDwHQJ4GgMCk6N/CStpGJ87cPGPMRCHQeZ7CBKHcbkFW1ggix0jkoa5JZwRYScuNrJbYPbgig/k+IL5e50wbgyzo4tIjO4WfOkC3S0gMULuINYt4iyYcURsOmVnpG24kOImkDtA7kG2m5rpBZsbcLnnGFI8+eHJW+TmI2R3INPYwgg5vWATp6R8wVeWYBPD5VZ0t1ADE8rXxxhQ3UFLtxDCx+gYLsS6hVhxYvFBhlGMDQMAKWqqw8AIAAA=
   </data>
  </layer>
 </map>
