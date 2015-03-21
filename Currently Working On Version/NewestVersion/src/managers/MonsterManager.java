@@ -1,13 +1,3 @@
-/////////////////////////////////////////////////////////////
-//Monster Manager                                          //
-//Purpose: Manage Multiple Monsters in a level		       //
-//Limit: Clunky in spawning its monsters. Currently only   // 
-//handles one type of monster.                             //
-//Features: Randomly spawns three monsters per level. 	   //
-//Group: SENG 301 Group 16			            		   //
-/////////////////////////////////////////////////////////////
-
-
 
 package managers;
 
@@ -23,12 +13,16 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
-import playerRelated.Player;
+/////////////////////////////////////////////////////////////
+//Monster Manager                                          //
+//Purpose: Manage Multiple Monsters in a level		       //
+//Limit: Currently only handles one type of monster.       //
+//Features: Spawns Monsters 2*Level. Save for Level 7 	   //
+/////////////////////////////////////////////////////////////
 
 public class MonsterManager {
 
 	
-	private Player player;
 	private LinkedList<BasicMonster> monsterList = new LinkedList<BasicMonster>();
 	private int level = 1;
 	private BasicMap currentMap;
@@ -40,18 +34,9 @@ public class MonsterManager {
 	//Because they will march between two points like guards on patrol.
 	private Image basicMonsterImage;
 	private SpriteSheet basicMonsterSheet;
-	private Animation basicMonsterAnimation;
+	private Animation basicMonsterAnimation;//Will bob monsters up and down some day
 	
-	//Monster Type2
-	//Will name wanderers
-	//Since they will freely wander the entire screen
-	private Image wanderImage;
-	private Image wanderImage2;
 	
-	//Monster Type3
-	//Will name hives
-	//Since they will think collectively and 'swarm' the player
-	private Image hiveImage;
 	
 	
 	//For test purposes Only
@@ -60,11 +45,12 @@ public class MonsterManager {
 	}
 	//For test purposes only
 	
+	//Sets Map for Monster Manager
 	public MonsterManager(BasicMap map){
 		currentMap = map;
 	}
 	
-	
+	//Checks if Valid Entity Array
 	public String checkEntityArray(String [][] entityArray){
 		if (entityArray.length*entityArray[0].length != 35*16)
 			return "Entity Array Not Expected Size";
@@ -94,6 +80,7 @@ public class MonsterManager {
 	}
 	
 	
+	//Sets entityArray for later monster spawning
 	public String setEntityArray(String [][]entityArray){
 		if ( checkEntityArray(entityArray) != null)
 		{
@@ -123,7 +110,7 @@ public class MonsterManager {
 		return null;
 	}
 	
-	
+	//Checks if spawned at a valid spot
 	public String checkValidPlacement(int[]newPosition, int monsterPathSize, BasicMap map, String [][] array){
 		Boolean allClear = true;
 		int checkX = newPosition[0];
@@ -155,40 +142,72 @@ public class MonsterManager {
 	}
 	
 	
-	
+	// Loads monster Images 
 	private void loadMonsterTypes() throws SlickException{
 		basicMonsterSheet= new SpriteSheet("res/monster/dummySheet.png",32,32); 
 		basicMonsterImage = basicMonsterSheet.getSubImage(0, 0);
+		Image [] monsterAnim = {basicMonsterSheet.getSubImage(0, 0), basicMonsterSheet.getSubImage(1, 0)};
+		int [] duration = {250,250};
+		basicMonsterAnimation = new Animation(monsterAnim, duration, false);
+		
 	}
 	
-	
+	//Initializes the amount of monsters per level
 	public void init(String [][] entityArray, BasicMap currentMap) throws SlickException{
 		if (checkEntityArray(entityArray) !=null)
 			return;
 		this.entityArray = entityArray;
 		loadMonsterTypes();
-
 		BasicMonster monster1 = null;
+
+		int pathSize = 4;
 		
-		for (int i = 0; i < level*3 ; i++){
-			int[] spawnPosition = findValidPlacement (4, currentMap, entityArray);
-			while (spawnPosition == null)
-				spawnPosition = findValidPlacement (4, currentMap, entityArray);
+		//Adjusts path size for more confined maps.
+		if (level >= 3)
+			pathSize = 2;
+		
+		//Spawns number of monsters according to level
+		if (level < 7)
+		{
+			for (int i = 0; i < level*2; i++){
+				int[] spawnPosition = findValidPlacement (pathSize, currentMap, entityArray);
+				while (spawnPosition == null)
+					spawnPosition = findValidPlacement (pathSize, currentMap, entityArray);
 			
-			monster1 = new BasicMonster(currentMap,basicMonsterImage, spawnPosition[0], spawnPosition[1]);
-			monsterList.add(monster1);
-			monster1.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);
-			entityArray[monster1.getPosition()[0]/BasicMap.TILESIZE]
-					   [monster1.getPosition()[1]/BasicMap.TILESIZE] = monster1.getName();
-			
-			
+				monster1 = new BasicMonster(currentMap, basicMonsterAnimation, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
+				monsterList.add(monster1);
+				monster1.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);
+				entityArray[monster1.getPosition()[0]/BasicMap.TILESIZE]
+				     	   [monster1.getPosition()[1]/BasicMap.TILESIZE] = monster1.getName();
 			}
-	
+		}
+		
+		//Special Treatment for Level 7
+		else
+		{
+			for (int i = 0; i < 7; i++){
+				int[] spawnPosition = findValidPlacement (pathSize, currentMap, entityArray);
+				while (spawnPosition == null)
+					spawnPosition = findValidPlacement (pathSize, currentMap, entityArray);
+			
+				monster1 = new BasicMonster(currentMap,basicMonsterAnimation, basicMonsterImage, spawnPosition[0], spawnPosition[1]);
+				monsterList.add(monster1);
+				monster1.setPath(spawnPosition[0], spawnPosition[0]+3*BasicMap.TILESIZE);
+				entityArray[monster1.getPosition()[0]/BasicMap.TILESIZE]
+				     	   [monster1.getPosition()[1]/BasicMap.TILESIZE] = monster1.getName();
+			}
+		
+		}
+		
+		//Sets up monster methods
 		BasicMonster [] monsters = monsterList.toArray(new BasicMonster [monsterList.size()]);
 		for (BasicMonster m: monsters){
 			m.setEntityArray(entityArray);
+			m.setMonsterMaxHealth(level*20);
+			m.damageLimit += level*2;
+			m.setMap(currentMap);
 			}
-		setMap(currentMap);
+		
 	}
 	
 	//Calls render method for every monster inside the list.
@@ -218,20 +237,15 @@ public class MonsterManager {
 	public LinkedList<BasicMonster> getMonsterList() {return monsterList;}
 	
 	
-	//May or may not be needed. Depending.
-	//////Method to change level and change the amount of monsters.
-	public void setLevel(int currentLevel, BasicMap map){
-		//Current level = #ofmonsters*(level/2)
-	}
+	//Method to change level and change the amount of monsters.
+	public void increaseFloorLevel(){level++;}
 	
 	//Calls the setMap function for all the monsters inside the list
 	public void setMap(BasicMap newMap){
-
 		BasicMonster [] monsters = monsterList.toArray(new BasicMonster [monsterList.size()]);
 		for (BasicMonster m: monsters){
 			m.setMap(newMap);
 			}
-		
 	}
 	
 	//Clears the monsters for the next Level
@@ -249,8 +263,5 @@ public class MonsterManager {
 	        monsterList.removeFirst();//Just removes all monsters.
 	    }
 		return null;
-	}
-	
-	
-	
+	}	
 }

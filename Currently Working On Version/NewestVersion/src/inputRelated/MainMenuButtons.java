@@ -1,7 +1,7 @@
 package inputRelated;
 
 import gameStates.LoadGame;
-import gameStates.Menu;
+import gameStates.MainMenuScreen;
 import gameStates.TransitionScreen;
 
 
@@ -40,9 +40,9 @@ public class MainMenuButtons {
 	
 	
 	newGameButton = new BasicButton(gc, 390, 350, 
-									    stateGame, Menu.ID, inactiveNewGame, activeNewGame);
+									    stateGame, MainMenuScreen.ID, inactiveNewGame, activeNewGame);
 	loadGameButton = new BasicButton(gc, 590, 350, 
-										stateGame, Menu.ID, inactiveLoad, activeLoad);
+										stateGame, MainMenuScreen.ID, inactiveLoad, activeLoad);
 	
 	newGameButton.setMouseDownImage(activeNewGame);
 	newGameButton.setMouseOverImage(activeNewGame);

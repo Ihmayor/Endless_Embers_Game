@@ -3,6 +3,13 @@ package mapRelated;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
+//////////////////////////////////////////////////////////////////////////////////
+//BasicMap																		//
+//Purpose: Basic Template for loading Maps from Tiled. 							//
+//Has Methods that manages operations related to maps							//
+//Limit: Limited to Tiled Program Loading										//
+//////////////////////////////////////////////////////////////////////////////////
+
 public class BasicMap
 {
 	private TiledMap map;
@@ -28,7 +35,7 @@ public class BasicMap
 	
 	
 	
-	
+	//Loads Map based on .tmx file
 	public BasicMap(String tmxLocation) throws SlickException{
 		map = new TiledMap(tmxLocation);
 		mapArray = new char[widthByTiles][heightByTiles];
@@ -94,7 +101,7 @@ public class BasicMap
 	    //Just a test conditional code.
 	    if (mapArray[xStairs][yStairs] == 'S')
 	    {
-	    	System.out.println("Player has stepped on the stairs!");
+//	    	System.out.println("Player has stepped on the stairs!");
 	    	return true;
 	    }
 	    else

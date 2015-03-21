@@ -19,10 +19,10 @@ public class Entity {
 	protected int maxHealthPoints = 200;
 	protected boolean alive = true;
 	
-	
+	//Map entity stands uppon currently
 	protected BasicMap map;
 	
-	//Every Entity Uses this.
+	//Location of entity
 	public Entity (int x,int y){
 		this.x = x;
 		this.y = y;
@@ -31,9 +31,15 @@ public class Entity {
 /////////////////////////////////////////////////
 //METHODS USED FOR SEARCHING UPDATING LOCATION IN ENTITY ARRAY
 /////////////////////////////////////////////////
+	
+	//Updates position of entity in entityArray
 	protected String updatePosition(int x, int y){
 		if (!alive)
 			return null;
+		
+		if (x < 0 || oldx < 0 || y< 0|| oldy < 0)
+			return null;
+		
 		oldx = this.x;
 		oldy = this.y;
 		entityArray[oldx/BasicMap.TILESIZE][oldy/BasicMap.TILESIZE] = " ";
@@ -43,7 +49,8 @@ public class Entity {
 		
 		return null;
 	}
-
+	
+	//Checks if the given spot current has an entity (player or monster) in it.
 	protected boolean isTaken(int x, int y){
 		if (x <0 || y <0 || x >= 1120 || y >=512)
 			return false;
@@ -55,7 +62,7 @@ public class Entity {
 		return isTaken;
 	}
 	
-	
+	//Searches entityArray and sees if another entity is near it.
 	public boolean search(String name){
 			boolean found = false;
 			//Search looks within the range of 2
@@ -81,6 +88,8 @@ public class Entity {
 /////////////////////////////////////////
 ///////////Combat Methods////////////////
 /////////////////////////////////////////
+	
+	//Subtract entity's health Points
 	public String subtractHealth(int points){
 		if (points < 0)
 			return "Cannot subtract negative health points";
@@ -95,7 +104,7 @@ public class Entity {
 		return null;
 	}
 	
-	
+	//Add entity's healthPoints
 	public String addHealthPoints(int points){
 		if (points < 0)
 			return "Cannot add negative health points";
@@ -108,6 +117,7 @@ public class Entity {
 		return null;
 	}
 	
+	//Gets the health points of the entity
 	public int getHealthPoints(){return healthPoints;}
 	public int getMaxHealthPoints() {return maxHealthPoints;}
 	
@@ -134,10 +144,14 @@ public class Entity {
 		return null;}
 	
 	public String[][]getEntityArray(){return entityArray;}
+	
+	//Method helps check if entity is alive
 	public boolean getAlive(){return alive;}
 	
+	//Get name of entity
 	public String getName(){return name;}	
 	
+	//Get location of entity
 	public int[] getPosition(){
 		int[] position = new int[2];
 		position[0] = x;
@@ -145,8 +159,9 @@ public class Entity {
 		return position;
 	}
 	
+	//Update Map on which entity stands on
 	public void setMap(BasicMap map){
-		this.map = map;//Just In case we're loading new floors.
+		this.map = map;
 	}	
 	
 }

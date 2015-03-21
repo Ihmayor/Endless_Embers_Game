@@ -11,21 +11,33 @@ import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.StateBasedGame;
 
+//////////////////////////////////////////////////////////////////////////////////////////
+//BASIC BUTTON TEMPLATE				      												//
+//Purpose: Creates Button Template        												//			
+//Limits: Relies on SLICK2D API           												//
+//Author: Deque							  												//
+//Source :https://evilzone.org/java/%28java-fames-tut%29-slick2d-buttons-buttons-buttons//
+//////////////////////////////////////////////////////////////////////////////////////////
+
 public class BasicButton extends MouseOverArea {
 
-
-	//Source :https://evilzone.org/java/%28java-fames-tut%29-slick2d-buttons-buttons-buttons/
+	 //Variables for Button Functionality
 	 private boolean activated = false;
-	 private boolean lastMouseOver = false;
-	 private final Image inactiveButton;
 	 private boolean unclickable = false;
+	 private boolean lastMouseOver = false;
+
+	 //Variables for Image of Button
+	 private final Image inactiveButton;
 	 private final Image activeButton;
+	 
+	 //Variables to reference gameScreen where its used
      private final StateBasedGame sbg;
      private final int stateID;
 
+     //Used for holding button press actions
      private final List <ButtonAction> actions = new ArrayList <ButtonAction>();
  	
-     
+     //Initializes Button
      public BasicButton(GUIContext container, int x, int y,
 			StateBasedGame sbg, int stateID, Image inactiveButton, Image activeButton) throws SlickException {
 		 	super(container, inactiveButton, x, y);
@@ -38,16 +50,21 @@ public class BasicButton extends MouseOverArea {
 	        this.inactiveButton = inactiveButton;
 	        this.activeButton = activeButton;
 	}
+     
+    //Method to add actions to a button to perform
 	public void add(ButtonAction action){
 		actions.add(action);
 	}
 	
+	//Disables button
 	public void setUnClickable(boolean unclickable){
 			this.unclickable = unclickable;
 	}
 	
-	 @Override
-	    public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+	
+	//Method used to tell when the mouse is hovering over the button
+	@Override
+    public void mouseMoved(int oldx, int oldy, int newx, int newy) {
 	        if (sbg.getCurrentStateID() == stateID) {
 	            if (isMouseOver() && !lastMouseOver && !isActivated()) {
 	                lastMouseOver = true;
@@ -57,9 +74,11 @@ public class BasicButton extends MouseOverArea {
 	        }
 	        super.mouseMoved(oldx, oldy, newx, newy);
 	    }
-	 
-	    @Override
-	    public void render(GUIContext guic, Graphics g) {
+
+	
+	//Renders button image depending on its activation
+	@Override
+    public void render(GUIContext guic, Graphics g) {
 	        if (activated&&!unclickable) {
 	            g.drawImage(activeButton, getX(), getY());
 	        } else {
@@ -68,27 +87,27 @@ public class BasicButton extends MouseOverArea {
 	        }
 	    }
 	 
-	    public boolean isActivated() {
-	        return activated;
-	    }
+	//Checks if button is activated
+	public boolean isActivated() {return activated;}
 	 
-	    protected void setActivated(boolean b) {
-	        activated = b;
-	    }
+	//Sets the button activated or not.
+    protected void setActivated(boolean b) {activated = b;}
 	    
-	
-	    @Override
-	    public void mousePressed(int button, int x, int y) {
-	        if (isMouseOver() && sbg.getCurrentStateID() == stateID) {
-	            activated = !activated;
-	            for (ButtonAction action: actions){
-	            	action.perform();
+	    
+	//Method that gets button to perform its action when pressed
+	@Override
+	public void mousePressed(int button, int x, int y) {
+	    if (isMouseOver() && sbg.getCurrentStateID() == stateID) {
+	         activated = !activated;
+	         for (ButtonAction action: actions){
+	          	action.perform();
 	            }
 	        }
 	        super.mousePressed(button, x, y);
 	    }
-	    public List <ButtonAction>getActions(){return actions;}
-	 
+	
+	//Gets the list of actions for the button
+    public List <ButtonAction>getActions(){return actions;}
 }
 	
 	

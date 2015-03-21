@@ -6,10 +6,21 @@ import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.util.ResourceLoader;
 
+
+///////////////////////////////////////////
+//SoundManager							 //
+//Purpose: Manages the sounds in the game//
+//Limit: Limited to Slick2dAPI			 //
+//Will crash if sound file not found     //
+///////////////////////////////////////////
+
+
 public class SoundManager {
 	 
 		/** The wav sound effect */
 		private static Audio wavEffect;
+		
+		//Loads initial Backgroud music
 	    public SoundManager(String filename) {
 	 
 	        try {
@@ -24,11 +35,13 @@ public class SoundManager {
 			
 	    }
 	 
+	    //Updates music and keeps it playing
 		public void update() {
 			wavEffect.playAsMusic(1.0f,1.0f, true);  
 			SoundStore.get().poll(0);
 		}
 		
+		//Changes music playing in the background
 		public static void changeSound (String filename){
 			try{
 			wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream(filename));
@@ -38,7 +51,8 @@ public class SoundManager {
 				e.printStackTrace();
 			}
 		}
-		
+
+		//Plays sound once
 		public static void playSoundEffect(String filename){
 			try{
 				wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream(filename));
@@ -50,11 +64,5 @@ public class SoundManager {
 
 		}
 	 
-		
-		public static void lowerVolume (){
-			
-			
-		}
-		
 }
 

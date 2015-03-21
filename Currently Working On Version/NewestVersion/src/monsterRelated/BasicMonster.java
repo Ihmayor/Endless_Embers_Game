@@ -1,8 +1,6 @@
 package monsterRelated;
 
 
-import java.util.Random;
-
 import mapRelated.BasicMap;
 
 import org.newdawn.slick.Animation;
@@ -14,17 +12,25 @@ import org.newdawn.slick.SpriteSheet;
 
 public class BasicMonster extends Entity{
 
-	protected boolean isActiveState = false;
+	//Variables related to Images
 	protected Image monsterImage;
 	protected Animation monsterAnimation;
+	
+	//Variables related to spotting the player
 	protected double monsterSightRange;
+	protected boolean isActiveState = false;
+	
+
+	//Variables related to movement	
+	private int counter;
 	protected char direction;
-	public int damageLimit = 20;//This can be overridden by its children later. Just watch for it.
-	private BasicMap map;
 	private int pathStart = 7*BasicMap.TILESIZE, pathEnd = 9*BasicMap.TILESIZE;
+	private BasicMap map;
+	
+	//Variables related to combat
+	public int damageLimit = 18;//This can be overridden by its children later. Just watch for it.
 	protected boolean isAttacked = false;
 	
-	private int counter;
 	
 
 	///////////////////////////////////
@@ -41,14 +47,6 @@ public class BasicMonster extends Entity{
 		healthPoints = maxHealthPoints;
 		}
 
-	//////////For TEST ONLY////////////
-	///////////////////////////////////
-	
-	
-	
-	
-
-	
 	
 	public BasicMonster(BasicMap currentMap, Animation monsterLook,int x, int y) throws SlickException
 	{
@@ -66,17 +64,27 @@ public class BasicMonster extends Entity{
 		healthPoints = maxHealthPoints;
 	}
 	//////////////////////////////////// STILL TEST METHODS ABOVE//////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	public BasicMonster(BasicMap currentMap, Image monsterLook,int x, int y)
+	
+	
+	
+	
+	
+	
+	//Initializes Monster
+	public BasicMonster(BasicMap currentMap,Animation monsterAnimation, Image monsterLook,int x, int y)
 	{
 		super(x,y);
 		map = currentMap;
 		name = "M";
 		monsterSightRange = 2;
 		monsterImage = monsterLook;
+		this.monsterAnimation = monsterAnimation;
+		monsterAnimation.setAutoUpdate(true);
 		counter = 0;
 		direction = 'R';
-		maxHealthPoints = 100;
+		maxHealthPoints = 10;
 		healthPoints = maxHealthPoints;
 	}
 
@@ -94,18 +102,19 @@ public class BasicMonster extends Entity{
 	}
 	
 	
+	//Methods dealing with monster combat
+	public void setMonsterMaxHealth(int monsterMaxHealth) {monsterMaxHealth = maxHealthPoints;}
 	public int getExpPointGain() {return maxHealthPoints/2;}
 	
 	
-	
+	//Draws Monster to Screen
 	public void render(Graphics g) throws SlickException{
 		if (!alive)
 			actDead();
-		g.drawImage(monsterImage, (int)x, (int)y);
-	//	monsterAnimation.draw((int)x, (int)y);
+		monsterAnimation.draw((int)x, (int)y);
 	}
 	
-	
+	//Updates Monster's Position
 	public String update(int [] playerPosition, int counter)
 	{
 		this.counter = counter;
@@ -129,33 +138,24 @@ public class BasicMonster extends Entity{
 		return null;
 	}
 		
-////////////////////////////////////////////////	
-	///More advanced version of search not properly implmented or used
-//	private boolean monsterSees(int[] playerPosition){
-//		double distance = Math.sqrt((double)( (playerPosition[0]- x)^2+(playerPosition[1]-y)^2));
-//		if (distance < monsterSightRange)
-//			return true;
-//		else
-//			return false;
-//	}
-//	
 	
 	////////////////////////////////////////////
 	/////////////Movement Methods///////////////
 	////////////////////////////////////////////
-	
+
+	//Sets path that monsters wanders along
 	public void setPath (int start, int end){
 		pathStart = start;
 		pathEnd = end;}
 	
-	
+	//Moves monster according to its path
 	private void wander(int [] playerPosition){
 	if (!alive)
 		return;
 	
 	int newX1 = x+BasicMap.TILESIZE;
 	int newX2 = x-BasicMap.TILESIZE;	
-	if ((newX2>= 0 || newX1<=1048)&&counter >= 400){
+	if ((newX2>= 0 && newX1<=1048)&&counter >= 400){
 		//Change Direction
 		if (x > pathEnd)
 			direction = 'L';
@@ -192,13 +192,8 @@ public class BasicMonster extends Entity{
 		counter++;
 	}
 	
-	
-/////////////////////////////////////////////////////////////////////////
-//////////////////////// To Be Implemented //////////////////////////////	
-/////////////////////////////////////////////////////////////////////////
-	
-	////Used for a more intelligent wander
-	////Will most likely be adapted for following fleeing players.
+		
+	//Used to find closestSpot near the player
 	public void findClosestSpot(int[] player)
 	{
 		int newX = 0;
@@ -218,7 +213,7 @@ public class BasicMonster extends Entity{
 		    }
 	}	
 	
-	
+	//Finds closest diagonal spots towards player
 	private void closestSpotDiagonal(int [] player, int newX, int newY)
 	{
 
@@ -253,7 +248,8 @@ public class BasicMonster extends Entity{
 	}
 	
 	
-	
+
+	//Finds closest horizontal spots towards player
 	private void closestSpotHorizontal(int [] player, int newX, int newY){
 		if (player[1] > y)
 			newY = y+ BasicMap.TILESIZE;
@@ -267,7 +263,8 @@ public class BasicMonster extends Entity{
 	}
 	
 	
-	
+
+	//Finds closest vertical spots towards player
 	private void closestSpotVertical(int [] player, int newX, int newY){
 		
 		if (player[0] > x)

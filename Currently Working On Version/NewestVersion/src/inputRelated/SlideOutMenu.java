@@ -12,18 +12,30 @@ import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.StateBasedGame;
 
+////////////////////////////////////////////////////////
+//Slide Out Menu									  //
+//Purpose: Controls Slide Out Menu/Associated Buttons //
+//Limit: Does not smoothly pop out					  //
+//Has not other buttons than exiting the game		  //
+////////////////////////////////////////////////////////
+
 public class SlideOutMenu extends MouseOverArea{
 
-	
+	//Used Changing States/Closing Game
 	private StateBasedGame sbg;
 	private GUIContext gc;
-	private final List <ButtonAction> actions = new ArrayList <ButtonAction>();
- 	private boolean activated = false;
-	private int stateID;
+	
+	//Sets menu's state
+	private boolean activated = false;
 	private boolean menuOpen = false;
-//	private BasicButton returnButton;
+
 	private BasicButton exitGameButton;
- 	
+	
+	//Button Variables used for Constructor
+	private final List <ButtonAction> actions = new ArrayList <ButtonAction>();
+	private int stateID;
+	
+	
 	public SlideOutMenu(GUIContext container,StateBasedGame game, int stateID,  Image image, int x, int y) throws SlickException {
 		super(container, image, x, y);
 		sbg = game;
@@ -59,21 +71,29 @@ public class SlideOutMenu extends MouseOverArea{
     public void mousePressed(int button, int x, int y) {
 		if (isMouseOver() && sbg.getCurrentStateID() == stateID) {
             activated = !activated;
-            System.out.println("Test");
             if (menuOpen == false){
-            	setX(300);
-            	exitGameButton.setX(610);
-            	menuOpen = true;
+            	popOut();
             }
             else{
-            	setX(1065);
-            	exitGameButton.setX(1150);
-            	menuOpen = false;
+            	popIn();
             }
         super.mousePressed(button, x, y);
        }
     }
     
-	public void setMenuOpenTrue(){menuOpen = true;}
+	public boolean getMenuOpen(){return menuOpen;}
+	
+	public void popOut(){
+		setX(300);
+    	exitGameButton.setX(610);
+    	menuOpen = true;
+    	
+	}
+	
+	public void popIn(){
+		setX(1065);
+    	exitGameButton.setX(1150);
+    	menuOpen = false;
+	}
 	
 }

@@ -13,15 +13,21 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class TransitionScreen extends BasicGameState {
+	//State's ID
 	public static final int ID = 4;
 	
+	//Used to enter other states
 	private StateBasedGame sbg;
+	
+	//Different Images and Variables Used For Intro
 	private Image controlImage;
 	private Image explanationImage;
 	private Animation animationIntro;
 	private Image panicImage;
 	private int slide = 0;
 	
+	
+	//Initializes Transition Screen for Intro
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
@@ -45,6 +51,7 @@ public class TransitionScreen extends BasicGameState {
 	}
 	
 
+	//Draws Transition Screen based on Player Input
 	@Override
 	public void render(GameContainer arg0, StateBasedGame sbg, Graphics g)
 			throws SlickException {
@@ -57,32 +64,36 @@ public class TransitionScreen extends BasicGameState {
 			controlImage.draw(0,0);
 	}
 	
+	//Controls Keyboard Input
 	@Override
 	public void keyReleased (int key,char c){
 		switch (key){		
 		
 		case Input.KEY_W:
-			sbg.enterState(Game.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));	
+			sbg.enterState(GameScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));	
 			break;
 		default:
 			if (slide >=4)
-				sbg.enterState(Game.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));	
+				sbg.enterState(GameScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));	
 			else
 				slide++;
 		}
 	}
 
+	
+	//Updates Animation on Transition Screen
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
 		animationIntro.update(delta);
 	}
 
+	
+	//Returns ID of state for state manager that controls
+	//Flow of game
 	@Override
 	public int getID() {
 		return ID;
 	}
 
-	
-	
 }

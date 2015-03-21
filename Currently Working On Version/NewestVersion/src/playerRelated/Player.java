@@ -1,6 +1,6 @@
 package playerRelated;
 
-import gameStates.GameOver;
+import gameStates.GameOverScreen;
 import gameStates.GameScreenAssets;
 import managers.CombatManager;
 import managers.SoundManager;
@@ -30,10 +30,9 @@ public class Player extends Entity{
 	
 	//Variables used for Combat and related aspects
 	private int experiencePoints = 0;
-	private int pointsNextLevel = 1000;
+	private int pointsNextLevel = 10;
 
 	private int playerLevel = 1;
-	private int damageIncrease = 0;//Could be increased for level ups
 	private int criticalHitLimit= 30;
 	private int missFactor = 5;
 	
@@ -122,7 +121,7 @@ public class Player extends Entity{
 			GameScreenAssets.queueTextLog.add( "Your player be dead");
 			
 			//Change state of game to game over state.
-			sbg.enterState(GameOver.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+			sbg.enterState(GameOverScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
 			//Change Sound to Game Over State's sound
 			SoundManager.changeSound("res/sound/A Time To Lose.wav");
 			}
@@ -341,19 +340,20 @@ public class Player extends Entity{
 			GameScreenAssets.queueTextLog.add("Woohoo! Player has leveled Up!");
 			return "Player has leveled up";
 		}
-		
-			
 		return null;
 	}
 	
+	//Method used when the player levels up
 	private boolean levelUp(){
 		
 		if (experiencePoints >= pointsNextLevel){
 			playerLevel++;
+			
 			//Increase Maximum Health & Heal Up Completely
-			maxHealthPoints += playerLevel*maxHealthPoints/3;
+			maxHealthPoints += 50;
 			healthPoints = maxHealthPoints;
-				
+			criticalHitLimit += 5;
+	
 			//Decrease Experience Points used up
 			//Increase amount needed to next level
 			experiencePoints = experiencePoints-pointsNextLevel;
@@ -361,11 +361,10 @@ public class Player extends Entity{
 			return true;
 			}
 		return false;
-		
 	}
 
 		
-	
+	public int getCurrentLevel(){return playerLevel;}
 	
 	public int getExperiencePoints(){return experiencePoints;}
 	
