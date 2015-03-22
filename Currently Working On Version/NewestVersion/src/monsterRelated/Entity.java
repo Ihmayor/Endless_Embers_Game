@@ -15,11 +15,11 @@ public class Entity {
 	protected String name;
 	
 	//Variables related with the health of the character
-	protected int healthPoints = 200;
-	protected int maxHealthPoints = 200;
+	protected int healthPoints = 30;
+	protected int maxHealthPoints = 30;
 	protected boolean alive = true;
 	
-	//Map entity stands uppon currently
+	//Map entity stands upon currently
 	protected BasicMap map;
 	
 	//Location of entity

@@ -33,19 +33,19 @@ public class MainMenuButtons {
 	
 
 	//Get the images of the buttons in their inactive/active states
-	Image inactiveNewGame = new Image("res/interface/newGame.png");
-	Image activeNewGame = new Image("res/interface/newGameMouseOver.png");
+	Image activeNewGame = new Image("res/interface/newGame.png");
+	Image mouseOverNewGame = new Image("res/interface/newGameMouseOver.png");
 	Image inactiveLoad = new Image ("res/interface/continueInActive.png");
 	Image activeLoad = new Image("res/interface/continueActive.png");
 	
 	
-	newGameButton = new BasicButton(gc, 390, 350, 
-									    stateGame, MainMenuScreen.ID, inactiveNewGame, activeNewGame);
-	loadGameButton = new BasicButton(gc, 590, 350, 
+	newGameButton = new BasicButton(gc, 330, 350, 
+									    stateGame, MainMenuScreen.ID, activeNewGame, mouseOverNewGame);
+	loadGameButton = new BasicButton(gc, 540, 350, 
 										stateGame, MainMenuScreen.ID, inactiveLoad, activeLoad);
 	
-	newGameButton.setMouseDownImage(activeNewGame);
-	newGameButton.setMouseOverImage(activeNewGame);
+	newGameButton.setMouseDownImage(mouseOverNewGame);
+	newGameButton.setMouseOverImage(mouseOverNewGame);
 	
 	if (!savedGameExists){//Given that a saved game does not exist deactivate this button
 		loadGameButton.setUnClickable(true);	

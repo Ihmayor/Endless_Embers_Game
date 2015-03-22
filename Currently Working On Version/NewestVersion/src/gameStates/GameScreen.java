@@ -58,7 +58,6 @@ public class GameScreen extends BasicGameState {
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame stateGame) throws SlickException {
-		
 		if (loadedGame)
 			LoadingGame.initLoadingGame();
 		else{
@@ -162,8 +161,7 @@ public class GameScreen extends BasicGameState {
 				gameAssets.getMenu().popIn();
 			else
 				gameAssets.getMenu().popOut();
-			break;		
-		
+			break;
 		//Decrease volume
 		case Input.KEY_A:
 			volume -= 0.1f;

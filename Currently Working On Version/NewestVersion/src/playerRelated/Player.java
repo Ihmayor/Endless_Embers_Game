@@ -350,7 +350,7 @@ public class Player extends Entity{
 			playerLevel++;
 			
 			//Increase Maximum Health & Heal Up Completely
-			maxHealthPoints += 50;
+			maxHealthPoints += 20;
 			healthPoints = maxHealthPoints;
 			criticalHitLimit += 5;
 	

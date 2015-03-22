@@ -1,10 +1,11 @@
 package gameStates;
 
 import java.awt.Font;
-
+import inputRelated.GameOverButtons;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
@@ -30,6 +31,8 @@ public class GameOverScreen extends BasicGameState{
 	//Game container is used to shut down program
 	private GameContainer gc;
 	
+	private Image skull;
+	private GameOverButtons buttons;
 	
 	//Initialize Game Over State
 	@Override
@@ -38,7 +41,9 @@ public class GameOverScreen extends BasicGameState{
 	    // load a default java font
 		this.gc = gc;
 	    Font awtFont = new Font("Times New Roman", Font.BOLD, 50);
-	    font = new TrueTypeFont(awtFont, false);		
+	    font = new TrueTypeFont(awtFont, false);
+	    skull = new Image ("res/interface/skull.png");
+	    buttons = new GameOverButtons(gc, sbg);
 	}
 
 	
@@ -46,10 +51,9 @@ public class GameOverScreen extends BasicGameState{
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-		//TO DO: Draw Skull
-		font.drawString(300, 50, "GAME OVER!", Color.white);
-		g.setColor(Color.white);
-		g.drawString("Press 'Q' to quit",300,100);
+		skull.draw(330, 100);
+		font.drawString(360, 60, "GAME OVER!", Color.red);
+		buttons.render(gc, g);
 	}
 
 

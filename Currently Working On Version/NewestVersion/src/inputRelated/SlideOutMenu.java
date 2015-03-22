@@ -43,7 +43,7 @@ public class SlideOutMenu extends MouseOverArea{
 		this.stateID = stateID;
 	    super.setMouseOverColor(Color.yellow);
 	    exitGameButton = new BasicButton(container, 1140, y+315, game, 
-	    		stateID, new Image ("res/interface/exitGame.png"), new Image ("res/interface/exitGameMouseOver.png"));
+	    		stateID, new Image ("res/interface/saveExit.png"), new Image ("res/interface/saveExitMouseOver.png"));
 	  	 
 		exitGameButton.add(new ButtonAction(){
 			public void perform(){

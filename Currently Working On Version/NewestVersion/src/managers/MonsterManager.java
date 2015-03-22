@@ -149,7 +149,6 @@ public class MonsterManager {
 		Image [] monsterAnim = {basicMonsterSheet.getSubImage(0, 0), basicMonsterSheet.getSubImage(1, 0)};
 		int [] duration = {250,250};
 		basicMonsterAnimation = new Animation(monsterAnim, duration, false);
-		
 	}
 	
 	//Initializes the amount of monsters per level
@@ -159,7 +158,6 @@ public class MonsterManager {
 		this.entityArray = entityArray;
 		loadMonsterTypes();
 		BasicMonster monster1 = null;
-
 		int pathSize = 4;
 		
 		//Adjusts path size for more confined maps.
