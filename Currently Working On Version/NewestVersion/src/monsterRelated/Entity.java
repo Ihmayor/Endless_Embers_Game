@@ -37,7 +37,7 @@ public class Entity {
 		if (!alive)
 			return null;
 		
-		if (x < 0 || oldx < 0 || y< 0|| oldy < 0)
+		if (x < 0 || oldx < 0 || y< 0|| oldy < 0 || x >= 1120 || y >=512)	
 			return null;
 		
 		oldx = this.x;
@@ -52,7 +52,7 @@ public class Entity {
 	
 	//Checks if the given spot current has an entity (player or monster) in it.
 	protected boolean isTaken(int x, int y){
-		if (x <0 || y <0 || x >= 1120 || y >=512)
+		if (x < 0 || y < 0 || x >= 1120 || y >=512)
 			return false;
 		int xTile = x/BasicMap.TILESIZE;
 		int yTile = y/BasicMap.TILESIZE;

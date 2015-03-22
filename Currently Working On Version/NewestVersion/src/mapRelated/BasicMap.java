@@ -94,19 +94,15 @@ public class BasicMap
 	//Checks if a give x,y coord is a staircase
 	public boolean isStairs (float x, float y)
 	{
+		if (x < 0 || y < 0 || x >=1120 || y >= 512)
+			return false;
 		
 		int xStairs = (int)x / TILESIZE;
 	    int yStairs = (int)y / TILESIZE;
 	    
-	    //Just a test conditional code.
 	    if (mapArray[xStairs][yStairs] == 'S')
-	    {
-//	    	System.out.println("Player has stepped on the stairs!");
 	    	return true;
-	    }
 	    else
-	    {
 	    	return false;
-	    }
-	}
+		}
 	}

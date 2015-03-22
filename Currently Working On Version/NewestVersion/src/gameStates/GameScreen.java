@@ -83,6 +83,10 @@ public class GameScreen extends BasicGameState {
 		BasicMap floorSix = new BasicMap("res/map/floor6.tmx");
 		BasicMap floorSeven = new BasicMap("res/map/floor7.tmx");
 		
+		//Clear the totalLevels array if this a reset game
+		while (!totalLevels.isEmpty())
+				totalLevels.pop();
+		
 		//Add them to the Linked List, last level first.
 		totalLevels.add(floorSeven);
 		totalLevels.add(floorSix);
