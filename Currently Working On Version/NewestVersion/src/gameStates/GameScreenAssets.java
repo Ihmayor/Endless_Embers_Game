@@ -17,13 +17,11 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
 import playerRelated.Player;
-//Will also use!!
 
 ////////////////////////////////////////////////////
 //GameScreenAssets								  //
 //Purpose: Controls the various elements in the UI//
 //Limit: Textlog has unified source of updates	  //
-//No slide out menu YET  						  //
 ////////////////////////////////////////////////////
 
 public class GameScreenAssets {

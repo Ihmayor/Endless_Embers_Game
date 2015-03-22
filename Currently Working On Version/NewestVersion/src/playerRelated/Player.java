@@ -1,14 +1,11 @@
 package playerRelated;
 
-import gameStates.GameOverScreen;
 import gameStates.GameScreenAssets;
 import managers.CombatManager;
-import managers.SoundManager;
 import mapRelated.BasicMap;
 import monsterRelated.Entity;
 
 import org.newdawn.slick.Animation;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -16,14 +13,11 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class Player extends Entity{
 	
 	//Variables used for Slick 2 Game Components
 	private final GameContainer gc;
-	private final StateBasedGame sbg;
 	
 	//Used for stair case movement 
 	private boolean onStairs;
@@ -47,7 +41,6 @@ public class Player extends Entity{
 	public Player (int x, int y){
 		super(x,y);
 		gc = null;
-		sbg = null;
 		name = "P";
 	}
 	////FOR TEST PURPOSES ONLY////
@@ -59,7 +52,6 @@ public class Player extends Entity{
 		
 		//Variables for the usage outside functions
 		this.gc = gc;
-		this.sbg = sbg;
 		map = currentMap;
 		
 		//Initialize Variables
@@ -377,39 +369,4 @@ public class Player extends Entity{
 	
 	public void setOnStairs(boolean var){onStairs = var;}
 
-	
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////	
-//////////////////////////////////////////////////////////////////////////////////////////////////////	
-	//ALL CODE BELOW WAS CREATED IN ATTEMPT TO SMOOTH OUT MOVEMENT/////////
-	
-	///////////THAT STILL NEEDS TO BE IMPLEMENTED./////////////
-	
-	private float getDistanceX(int current_x, int target_x)
-	{
-		float distance_x = Math.abs(current_x-target_x);
-		return distance_x;
-	}
-	
-	private float getDistanceY(int current_y, int target_y){
-		float distance_y = Math.abs(current_y-target_y);
-		return distance_y;
-	}
-	
-	
-	
-	private void delayTimer(){
-		for (long i = 0; i <10000;i++)
-		{
-		}
-	}
-	
-	
-		private void moveTowardsY(int current_y, int target_y)
-	{			
-
-		//FUNCTION RENDER SMOOTHER TRANSITIONS
-		//Has to increment y until it's reach the target y
-		//calls render appropriately.
-	}
 }
