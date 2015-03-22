@@ -101,13 +101,18 @@ public class GameScreenAssets {
 	}
 	
 	
+	public static void clearTextLog(){
+		while (!queueTextLog.isEmpty())
+			queueTextLog.pop();
+	}
+	
 	// Scrolls the text log to display more recent information
 	public int updateTextLog(int textLogCounter){
 		if (textLogCounter < 0)
 			return 0;
 		
 		if (textLogCounter > 200){
-			String temp = GameScreenAssets.queueTextLog.pollLast();
+			String temp = queueTextLog.pollLast();
 			if (temp!= null){
 				statusBackLog2 = statusBackLog1;
 				statusBackLog1 = statusUpdate;

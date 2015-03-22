@@ -53,6 +53,7 @@ public class CombatManager {
 		//Player Misses!
 		if (attack <= missFactor){
 			GameScreenAssets.queueTextLog.addFirst("You missed!");
+			SoundManager.playSoundEffect("res/sound/SFX/Swoosh.wav");
 			monsterAttacks (player,currentFoe);
 			}
 		
@@ -61,7 +62,8 @@ public class CombatManager {
 		else if (attack > missFactor && attack <= criticalHitLimit-missFactor)
 		{
 		
-		GameScreenAssets.queueTextLog.addFirst("Average Hit: "+attack); 
+		GameScreenAssets.queueTextLog.addFirst("Average Hit: "+attack);
+		SoundManager.playSoundEffect("res/sound/SFX/Sword Swing.wav");
 		currentFoe.subtractHealth(attack);
 		currentFoe.setIsAttacked(true);
 			if (currentFoe.getHealthPoints() <= 0)
@@ -79,6 +81,7 @@ public class CombatManager {
 		currentFoe.subtractHealth(attack);
 		currentFoe.setIsAttacked(true);
 		GameScreenAssets.queueTextLog.addFirst("Critical Hit: "+attack);
+		SoundManager.playSoundEffect("res/sound/SFX/Sword Swing.wav");
 			if (currentFoe.getHealthPoints() <= 0)
 			{
 				monsterDies(player, currentFoe);
@@ -102,6 +105,7 @@ public class CombatManager {
 		int attack = generateAttack(currentFoe.damageLimit);
 		player.subtractHealth(attack);	
 		GameScreenAssets.queueTextLog.addFirst("Monster attacks back! Damage Done: "+attack);
+		SoundManager.playSoundEffect("res/sound/SFX/Monster Crunch.wav");
 	
 	}
 	
@@ -109,6 +113,7 @@ public class CombatManager {
 	// Handles what happens when a monster is killed
 	private static void monsterDies(Player player, BasicMonster currentFoe){
 		GameScreenAssets.queueTextLog.addFirst("You've Killed the monster!");
+	//	SoundManager.playSoundEffect("res/sound/SFX/Monster Snarl.wav");
 		player.addExperiencePoints(currentFoe.getExpPointGain());
 		battleHappening = false;
 		monsterList.remove(currentFoe);

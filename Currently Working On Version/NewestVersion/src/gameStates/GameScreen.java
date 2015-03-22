@@ -10,6 +10,7 @@ import managers.SoundManager;
 import mapRelated.BasicMap;
 import monsterRelated.Entity;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -17,6 +18,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import playerRelated.Player;
 
@@ -55,9 +58,8 @@ public class GameScreen extends BasicGameState {
 
 	private boolean loadedGame = false;	
 	
-	
-	@Override
-	public void init(GameContainer gc, StateBasedGame stateGame) throws SlickException {
+	@Override 
+	public void enter(GameContainer gc, StateBasedGame stateGame) throws SlickException{
 		if (loadedGame)
 			LoadingGame.initLoadingGame();
 		else{
@@ -105,9 +107,16 @@ public class GameScreen extends BasicGameState {
 		CombatManager.setMonsterList(monsters.getMonsterList());
 		
 		player.setEntityArray(monsters.getEntityArray());
-		
+		GameScreenAssets.clearTextLog();
 		GameScreenAssets.statusUpdate = "Game is Now In Session";
 		}
+		
+	}
+	
+	
+	
+	@Override
+	public void init(GameContainer gc, StateBasedGame stateGame) throws SlickException {
 	}
 	
 	
@@ -186,11 +195,21 @@ public class GameScreen extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame stateGame, int delta)
 			throws SlickException {
+		textLogCounter = gameAssets.updateTextLog(textLogCounter);
+
+		if (!player.getAlive())
+		{
+			GameScreenAssets.queueTextLog.add( "Your player be dead");
+			//Change Sound to Game Over State's sound
+			SoundManager.changeSound("res/sound/A Time To Lose.wav");
+			//Change state of game to game over state.
+			stateGame.enterState(GameOverScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+		}
+		
 		//Always let the player move.
 		player.update(monsterCounter);
 		
-		textLogCounter = gameAssets.updateTextLog(textLogCounter);
-
+		
 		//Update monster movement
 		if (monsters.getMonsterList()!= null){
 			monsters.update(player.getPosition(), monsterCounter);

@@ -34,7 +34,7 @@ public class Player extends Entity{
 
 	private int playerLevel = 1;
 	private int criticalHitLimit= 30;
-	private int missFactor = 5;
+	private int missFactor = 10;
 	
 	//Basic Sprite Variables
 	private SpriteSheet sheet;
@@ -117,13 +117,8 @@ public class Player extends Entity{
 		
 		//If the player is not alive change game state.
 		if (!alive){
-			
-			GameScreenAssets.queueTextLog.add( "Your player be dead");
-			
-			//Change state of game to game over state.
-			sbg.enterState(GameOverScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
-			//Change Sound to Game Over State's sound
-			SoundManager.changeSound("res/sound/A Time To Lose.wav");
+			return;
+		
 			}
 		
 		
