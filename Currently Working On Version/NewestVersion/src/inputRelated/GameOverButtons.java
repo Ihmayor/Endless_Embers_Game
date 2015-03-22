@@ -16,9 +16,6 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class GameOverButtons {
 
-	
-	
-
 	//Button Variables
 	private BasicButton quitGameButton;
 	private BasicButton newGameButton;

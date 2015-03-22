@@ -105,7 +105,8 @@ public class CombatManager {
 		int attack = generateAttack(currentFoe.damageLimit);
 		player.subtractHealth(attack);	
 		GameScreenAssets.queueTextLog.addFirst("Monster attacks back! Damage Done: "+attack);
-		SoundManager.playSoundEffect("res/sound/SFX/Monster Crunch.wav");
+		
+		SoundManager.playSoundEffect("res/sound/SFX/Player Oof.wav");
 	
 	}
 	

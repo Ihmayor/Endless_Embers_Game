@@ -84,7 +84,7 @@ public class BasicMonster extends Entity{
 		monsterAnimation.setAutoUpdate(true);
 		counter = 0;
 		direction = 'R';
-		maxHealthPoints = 100;
+		maxHealthPoints = 20;
 		healthPoints = maxHealthPoints;
 	}
 

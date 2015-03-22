@@ -107,7 +107,7 @@ public class GameScreen extends BasicGameState {
 		CombatManager.setMonsterList(monsters.getMonsterList());
 		
 		player.setEntityArray(monsters.getEntityArray());
-		GameScreenAssets.clearTextLog();
+		gameAssets.clearTextLog();
 		GameScreenAssets.statusUpdate = "Game is Now In Session";
 		}
 		
@@ -161,7 +161,7 @@ public class GameScreen extends BasicGameState {
 			break;
 		case Input.KEY_1:
 			//Source of sound effect: https://www.freesound.org/people/JoelAudio/sounds/77611/
-			SoundManager.playSoundEffect("res/sound/SFX/Sword Swing.wav");
+			SoundManager.playSoundEffect("res/sound/SFX/Player Oof.wav");
 			break;
 		case Input.KEY_M: 
 		case Input.KEY_ESCAPE:

@@ -101,7 +101,7 @@ public class GameScreenAssets {
 	}
 	
 	
-	public static void clearTextLog(){
+	public void clearTextLog(){
 		while (!queueTextLog.isEmpty())
 			queueTextLog.pop();
 	}
