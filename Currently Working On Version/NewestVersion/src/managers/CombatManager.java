@@ -105,8 +105,7 @@ public class CombatManager {
 		int attack = generateAttack(currentFoe.damageLimit);
 		player.subtractHealth(attack);	
 		GameScreenAssets.queueTextLog.addFirst("Monster attacks back! Damage Done: "+attack);
-		
-		SoundManager.playSoundEffect("res/sound/SFX/Player Oof.wav");
+//		SoundManager.playSoundEffect("res/sound/SFX/Player Oof.wav");
 	
 	}
 	
@@ -114,7 +113,7 @@ public class CombatManager {
 	// Handles what happens when a monster is killed
 	private static void monsterDies(Player player, BasicMonster currentFoe){
 		GameScreenAssets.queueTextLog.addFirst("You've Killed the monster!");
-	//	SoundManager.playSoundEffect("res/sound/SFX/Monster Snarl.wav");
+		SoundManager.playSoundEffect("res/sound/SFX/Potential Monster Die.wav");
 		player.addExperiencePoints(currentFoe.getExpPointGain());
 		battleHappening = false;
 		monsterList.remove(currentFoe);

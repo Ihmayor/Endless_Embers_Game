@@ -2,6 +2,7 @@ package playerRelated;
 
 import gameStates.GameScreenAssets;
 import managers.CombatManager;
+import managers.SoundManager;
 import mapRelated.BasicMap;
 import monsterRelated.Entity;
 
@@ -91,6 +92,8 @@ public class Player extends Entity{
 				left = new Animation(leftSprite, duration, false);
 				right = new Animation (rightSprite,duration,false);		
 				currentSprite = down;
+				
+				//Allow animations to automatically play through
 				currentSprite.setAutoUpdate(true);
 				up.setAutoUpdate(true);
 				left.setAutoUpdate(true);
@@ -101,7 +104,7 @@ public class Player extends Entity{
 	
 	public void render(Graphics g){
 	currentSprite.draw((int) x, (int) y);//Draw what the Current sprite should look like.
-	//4g.drawImage(shadow,(int)x-1110, (int)y-850); //Draw Shadow with a particular offset for the spotlight
+	g.drawImage(shadow,(int)x-1110, (int)y-850); //Draw Shadow with a particular offset for the spotlight
 	}
 	
 	
@@ -325,6 +328,7 @@ public class Player extends Entity{
 		if (levelUp())
 		{
 			GameScreenAssets.queueTextLog.add("Woohoo! Player has leveled Up!");
+			SoundManager.playSoundEffect("res/sound/SFX/Level Up Ding.wav");
 			return "Player has leveled up";
 		}
 		return null;
@@ -340,7 +344,8 @@ public class Player extends Entity{
 			maxHealthPoints += 20;
 			healthPoints = maxHealthPoints;
 			criticalHitLimit += 5;
-	
+			if (missFactor > 5)
+				missFactor -= 1;
 			//Decrease Experience Points used up
 			//Increase amount needed to next level
 			experiencePoints = experiencePoints-pointsNextLevel;

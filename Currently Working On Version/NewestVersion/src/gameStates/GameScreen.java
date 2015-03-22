@@ -165,7 +165,7 @@ public class GameScreen extends BasicGameState {
 			break;
 		case Input.KEY_1:
 			//Source of sound effect: https://www.freesound.org/people/JoelAudio/sounds/77611/
-			SoundManager.playSoundEffect("res/sound/SFX/Player Oof.wav");
+			SoundManager.playSoundEffect("res/sound/SFX/Potential Monster Die.wav");
 			break;
 		case Input.KEY_M: 
 		case Input.KEY_ESCAPE:
