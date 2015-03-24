@@ -12,9 +12,9 @@ public class PlayerTest {
 	@Test
 	public void testExperiencePoints() throws SlickException{
 		Player player = new Player (10, 10);
-		player.addExperiencePoints(1001);
-		assertEquals(1, player.getExperiencePoints());
-		assertEquals(2000,player.getPointsNextLevel());
+		player.addExperiencePoints(10);
+		assertEquals(0, player.getExperiencePoints());
+		assertEquals(20,player.getPointsNextLevel());
 	}
 
 	@Test
@@ -28,7 +28,5 @@ public class PlayerTest {
 	public void testPlayerLevelUp() throws SlickException{
 		Player player = new Player (10,10);		
 		assertEquals("Player has leveled up",player.addExperiencePoints(2000));
-		assertEquals(1000, player.getExperiencePoints());
-		assertEquals(2000, player.getPointsNextLevel());
 	}
 }

@@ -75,7 +75,7 @@ public class EntityTest {
 	}
 	
 	//Test update position
-	@Test(expected= ArrayIndexOutOfBoundsException.class)
+	@Test
 	public void testInvalidPostion(){
 		Entity e = new Entity(5*32,5*32);
 		String [][] test = new String[BasicMap.widthByTiles][BasicMap.heightByTiles];
@@ -87,7 +87,7 @@ public class EntityTest {
 			}
 		}
 		e.setEntityArray(test);
-		e.updatePosition(-100,-100);
+		assertEquals("Out of Bounds", e.updatePosition(-100,-100));
 	}
 	
 	
@@ -276,9 +276,9 @@ public class EntityTest {
 	@Test
 	public void testAddValidHealthPoints(){
 		Entity e = new Entity(4,5);
-		assertEquals(null, e.addHealthPoints(50));
-		assertEquals(null, e.addHealthPoints(120));
-		assertEquals(200, e.getHealthPoints());
+		assertEquals(null, e.addHealthPoints(10));
+		assertEquals(null, e.addHealthPoints(10));
+		assertEquals(30, e.getHealthPoints());
 	}
 	
 	@Test

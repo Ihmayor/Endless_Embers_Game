@@ -33,17 +33,22 @@ public class GameScreenAssets {
 	SlideOutMenu menu;
 	GameContainer gc;
 	//TextLog Variables
-	public static String statusBackLog2 = " ";
-	public static String statusBackLog1 = " ";
-	public static String statusUpdate;
+	private String statusBackLog2;
+	private String statusBackLog1;
+	private String statusUpdate;
 	
 	//Linked lists for keeping track of the game's state.
 	public static LinkedList <String> queueTextLog = new LinkedList<String>();
 	
 	public void increaseFloorLevel(){ floorLevel++;}
+	
+	public int getFloorLevel(){return floorLevel;}
 
 	public void initMenu(GameContainer gc, StateBasedGame stateGame, int ID) throws SlickException{
 		  this.gc = gc;
+		  statusBackLog2 = " ";
+		  statusBackLog1 = " ";
+		  statusUpdate = "Game is Now In Session";
 	      menu = new SlideOutMenu(gc, stateGame, ID, new Image ("res/interface/menu2.png"), 1065, 50 );
 	        menu.add(new ButtonAction(){ 
 	    		public void perform(){
@@ -53,7 +58,10 @@ public class GameScreenAssets {
 	    		});
 	}
 	
+	
 	public SlideOutMenu getMenu(){return menu;}
+	
+	
 	
 	// Draws the UI elements
 	public void render(Graphics g, Player player){

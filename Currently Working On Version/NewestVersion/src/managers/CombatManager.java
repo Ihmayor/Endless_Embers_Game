@@ -30,7 +30,7 @@ public class CombatManager {
 		battleHappening = true;
 		if (getMonsterRef(monsterX, monsterY) == null)
 		{
-			GameScreenAssets.statusUpdate = "You are attacking a ghost! Oh no! Run away before it gets you!";
+			GameScreenAssets.queueTextLog.addFirst("You are attacking a ghost! Oh no! Run away before it gets you!");
 			battleHappening = false;
 			return "Error! No Monster Found to Fight";
 		}

@@ -34,6 +34,7 @@ public class GameScreen extends BasicGameState {
 	//Used for quitting the game
 	private GameContainer gc;
 	private GameScreenAssets gameAssets;
+	private StateBasedGame sbg;
 	
 	//Entity Stuff
 	private Player player;
@@ -47,6 +48,15 @@ public class GameScreen extends BasicGameState {
 	private int textLogCounter = 0;
 	private int monsterCounter = 0; //Must combine later
 
+	//Maps Used Inside Game
+	private BasicMap floorOne;
+	private BasicMap floorTwo;
+	private BasicMap floorThree;
+	private BasicMap floorFour;
+	private BasicMap floorFive;
+	private BasicMap floorSix;
+	private BasicMap floorSeven;
+
 	//Volume
 	private float volume = 1.0f;
 	
@@ -56,6 +66,7 @@ public class GameScreen extends BasicGameState {
 	//State ID
 	public static final int ID = 1;
 
+	private boolean winGame = false;
 	private boolean loadedGame = false;	
 	
 	@Override 
@@ -64,7 +75,7 @@ public class GameScreen extends BasicGameState {
 			LoadingGame.initLoadingGame();
 		else{
 			
-		
+		sbg = stateGame;
 		//Used for changing game states
 		this.gc = gc;
 		gameAssets = new GameScreenAssets();
@@ -73,15 +84,6 @@ public class GameScreen extends BasicGameState {
         //Draw Menu
 		gameAssets.initMenu(gc, stateGame, ID);
 		
-		//Load ALL  Maps of game
-		//might move to map class???
-		BasicMap floorOne = new BasicMap("res/map/floor1.tmx");
-		BasicMap floorTwo = new BasicMap("res/map/floor2.tmx");
-		BasicMap floorThree = new BasicMap("res/map/floor3.tmx");
-		BasicMap floorFour = new BasicMap("res/map/floor4.tmx");
-		BasicMap floorFive = new BasicMap("res/map/floor5.tmx");
-		BasicMap floorSix = new BasicMap("res/map/floor6.tmx");
-		BasicMap floorSeven = new BasicMap("res/map/floor7.tmx");
 		
 		//Clear the totalLevels array if this a reset game
 		while (!totalLevels.isEmpty())
@@ -112,7 +114,6 @@ public class GameScreen extends BasicGameState {
 		
 		player.setEntityArray(monsters.getEntityArray());
 		gameAssets.clearTextLog();
-		GameScreenAssets.statusUpdate = "Game is Now In Session";
 		}
 		
 	}
@@ -121,6 +122,16 @@ public class GameScreen extends BasicGameState {
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame stateGame) throws SlickException {
+		//Load ALL  Maps of game
+		//might move to map class???
+		floorOne = new BasicMap("res/map/floor1.tmx");
+		floorTwo = new BasicMap("res/map/floor2.tmx");
+		floorThree = new BasicMap("res/map/floor3.tmx");
+		floorFour = new BasicMap("res/map/floor4.tmx");
+		floorFive = new BasicMap("res/map/floor5.tmx");
+		floorSix = new BasicMap("res/map/floor6.tmx");
+		floorSeven = new BasicMap("res/map/floor7.tmx");
+	
 	}
 	
 	
@@ -164,8 +175,7 @@ public class GameScreen extends BasicGameState {
 			gc.exit();//Exits game. 	
 			break;
 		case Input.KEY_1:
-			//Source of sound effect: https://www.freesound.org/people/JoelAudio/sounds/77611/
-			SoundManager.playSoundEffect("res/sound/SFX/Potential Monster Die.wav");
+			sbg.enterState(WinScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
 			break;
 		case Input.KEY_M: 
 		case Input.KEY_ESCAPE:
@@ -234,8 +244,15 @@ public class GameScreen extends BasicGameState {
 			gameAssets.increaseFloorLevel();
 			SoundManager.changeSound("res/sound/Tank Battle.wav");
 			player.setOnStairs(false);
+			}
+		
+		//Note to self this needs testing.	
+		 if (winGame)
+			{
+			sbg.enterState(WinScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+			}
 		}
-	}
+	
 	
 	
 

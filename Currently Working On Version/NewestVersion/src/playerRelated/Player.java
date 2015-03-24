@@ -26,7 +26,7 @@ public class Player extends Entity{
 	//Variables used for Combat and related aspects
 	private int experiencePoints = 0;
 	private int pointsNextLevel = 10;
-
+	
 	private int playerLevel = 1;
 	private int criticalHitLimit= 30;
 	private int missFactor = 10;
@@ -50,6 +50,8 @@ public class Player extends Entity{
 	public Player(GameContainer gc, StateBasedGame sbg, BasicMap currentMap,int x, int y) throws SlickException{
 		//Constructor used to 
 		super(x,y);
+		super.maxHealthPoints = 30;
+		super.healthPoints = maxHealthPoints;
 		
 		//Variables for the usage outside functions
 		this.gc = gc;
@@ -104,7 +106,7 @@ public class Player extends Entity{
 	
 	public void render(Graphics g){
 	currentSprite.draw((int) x, (int) y);//Draw what the Current sprite should look like.
-	g.drawImage(shadow,(int)x-1110, (int)y-850); //Draw Shadow with a particular offset for the spotlight
+//	g.drawImage(shadow,(int)x-1110, (int)y-850); //Draw Shadow with a particular offset for the spotlight
 	}
 	
 	

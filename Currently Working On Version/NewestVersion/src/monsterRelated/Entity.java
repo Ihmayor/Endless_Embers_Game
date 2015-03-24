@@ -38,7 +38,7 @@ public class Entity {
 			return null;
 		
 		if (x < 0 || oldx < 0 || y< 0|| oldy < 0 || x >= 1120 || y >=512)	
-			return null;
+			return "Out of Bounds";
 		
 		oldx = this.x;
 		oldy = this.y;
