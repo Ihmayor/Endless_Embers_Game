@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="35" height="16" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="clifveg2" tilewidth="32" tileheight="32">
+  <image source="clifveg2.bmp" trans="5555ff" width="640" height="480"/>
+ </tileset>
+ <tileset firstgid="301" name="tilea2" tilewidth="32" tileheight="32">
+  <image source="tilea2.png" width="512" height="384"/>
+ </tileset>
+ <tileset firstgid="493" name="32x32" tilewidth="32" tileheight="32">
+  <image source="32x32.bmp" width="2048" height="2272"/>
+  <tile id="0">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="stairs" value="true"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="stairs" value="tru"/>
+   </properties>
+  </tile>
+  <tile id="4366">
+   <properties>
+    <property name="exp" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="35" height="16">
+  <properties>
+   <property name="blocked" value="false"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2UvQrDMAyE1fQNMingp+x7Z/DcpZhEcBxCllNDh2b4sONc4rN+XB8i9Q95ryKbHPM22hzBNdR42m+wfyNZTRvtLFfpeRvxUk7UWcvGYZYXpb016SPKfy9uPQ3uz17MM37fcjvqwVB6/1pirVL8ZtdwlEcvTsYVL5m6Yd/ZuprpBe8hrwf4Oaqf0XqMztzLKeaHtUpk+2W0l7B2C/VKFu/ufAZ98iv2G5cPAy7NhcAIAAA=
+  </data>
+ </layer>
+</map>
