@@ -44,6 +44,12 @@ public class Player extends Entity{
 		gc = null;
 		name = "P";
 	}
+	
+	
+	public void mockKeyboard(char c){
+		//Test movement here
+		//call appropriate moves here
+	}
 	////FOR TEST PURPOSES ONLY////
 		
 		

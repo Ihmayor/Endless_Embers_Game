@@ -63,6 +63,9 @@ public class BasicMonster extends Entity{
 		maxHealthPoints = 100;
 		healthPoints = maxHealthPoints;
 	}
+	
+	
+
 	//////////////////////////////////// STILL TEST METHODS ABOVE//////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -278,6 +281,9 @@ public class BasicMonster extends Entity{
 			x = newX;
 			}
 	}
+	
+	
+
 }
 
 	
