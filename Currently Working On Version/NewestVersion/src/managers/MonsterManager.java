@@ -155,8 +155,8 @@ public class MonsterManager {
 	public void init(String [][] entityArray, BasicMap currentMap) throws SlickException{
 		if (checkEntityArray(entityArray) !=null)
 			return;
-		this.entityArray = entityArray;
 		loadMonsterTypes();
+		this.entityArray = entityArray;
 		BasicMonster monster1 = null;
 		int pathSize = 4;
 		
@@ -167,7 +167,7 @@ public class MonsterManager {
 		//Spawns number of monsters according to level
 		if (level < 7)
 		{
-			for (int i = 0; i < level*2; i++){
+			for (int i = 0; i < level*3; i++){
 				int[] spawnPosition = findValidPlacement (pathSize, currentMap, entityArray);
 				while (spawnPosition == null)
 					spawnPosition = findValidPlacement (pathSize, currentMap, entityArray);
@@ -257,9 +257,8 @@ public class MonsterManager {
 		if (checkEntityArray (entityArray) != null){
 			return "Error! You accidentally cleared the player";//"Technically this checks if you've created an array
 		}														//Of proper size, no nulls AND a player inside it.
-		while (!monsterList.isEmpty()) {
-	        monsterList.removeFirst();//Just removes all monsters.
-	    }
+		monsterList.clear();
+		
 		return null;
 	}	
 }

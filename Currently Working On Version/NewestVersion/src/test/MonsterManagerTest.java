@@ -1,10 +1,13 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import managers.MonsterManager;
 import mapRelated.BasicMap;
 
 import org.junit.Test;
+import org.newdawn.slick.SlickException;
 
 public class MonsterManagerTest {
 
@@ -355,9 +358,10 @@ public class MonsterManagerTest {
 	
 	
 	@Test
-	public void testClearMonsters(){
+	public void testClearMonsters() throws SlickException{
 		MonsterManager m = new MonsterManager();
 		String [][] testArray = new String [35][16];
+		char  [][] testMap = new char[35][16];
 		for (int i = 0; i < BasicMap.widthByTiles; i++)
 		{
 			for (int c = 0; c < BasicMap.heightByTiles; c++)
@@ -365,7 +369,7 @@ public class MonsterManagerTest {
 				testArray[i][c] = " ";
 			}
 		}
-		testArray[4][5] = "P";
+		testArray[1][4] = "P";
 		assertEquals(null, m.setEntityArray(testArray));
 		assertEquals(null, m.clearMonsters());
 	}

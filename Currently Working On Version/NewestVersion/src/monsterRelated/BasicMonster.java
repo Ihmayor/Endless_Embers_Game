@@ -123,7 +123,6 @@ public class BasicMonster extends Entity{
 		this.counter = counter;
 		oldx = x;
 		oldy = y;
-		
 		//Check for Overlap
 		if (entityArray[playerPosition[0]/32][playerPosition[1]/32] == " " ||
 			entityArray[playerPosition[0]/32][playerPosition[1]/32] == "M"){
@@ -160,11 +159,11 @@ public class BasicMonster extends Entity{
 	int newX2 = x-BasicMap.TILESIZE;	
 	if ((newX2>= 0 && newX1<=1048)&&counter >= 400){
 		//Change Direction
-		if (x > pathEnd)
+		if (newX1 > pathEnd)
 			direction = 'L';
 
 		//move rightwards	
-		if (direction == 'R'&&x <= pathEnd&&!isTaken(newX1,y)){
+		if (direction == 'R'&&!isTaken(newX1,y)){
 			if (map.hasCollision(newX1, y))
 			{
 				direction = 'L';
@@ -175,7 +174,7 @@ public class BasicMonster extends Entity{
 			
 			}
 		//move leftwards
-		else if (direction == 'L' && x >= pathStart&&!isTaken(newX2,y)){
+		else if (direction == 'L' &&!isTaken(newX2,y)){
 				if (map.hasCollision(newX2, y))
 				{
 					direction = 'R';
@@ -255,9 +254,10 @@ public class BasicMonster extends Entity{
 	//Finds closest horizontal spots towards player
 	private void closestSpotHorizontal(int [] player, int newX, int newY){
 		if (player[1] > y)
-			newY = y+ BasicMap.TILESIZE;
+			newY = y + BasicMap.TILESIZE;
 		else
-			newY = y- BasicMap.TILESIZE;
+			newY = y - BasicMap.TILESIZE;
+		
 		if (!isTaken(x,newY)&&!map.hasCollision(x,newY))
 			{		
 			updatePosition(x,newY);

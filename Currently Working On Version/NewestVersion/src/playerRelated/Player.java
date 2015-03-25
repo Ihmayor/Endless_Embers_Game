@@ -45,11 +45,51 @@ public class Player extends Entity{
 		name = "P";
 	}
 	
-	
-	public void mockKeyboard(char c){
-		//Test movement here
-		//call appropriate moves here
+	public Player (int x, int y, BasicMap map){
+		super(x,y);
+		this.map = map;
+		gc = null;
+		name = "P";
 	}
+		
+	public void mockKeyBoard(char c){
+		switch(c) 
+		{
+		case 'u'://Up
+			moveUp();
+			break;
+		case 'd'://Down
+			moveDown();
+			break;
+		case 'l'://Left
+			moveLeft();
+			break;
+		case 'r'://Right
+			moveRight();
+			break;
+		case 'a'://Diagonal Up Left
+			moveDiagonalUpLeft();
+			break;
+		case 'b'://Diagonal Up Right
+			moveDiagonalUpRight();
+			break;
+		case 'c'://Diagonal Down Left
+			moveDiagonalDownLeft();
+			break;
+		case 'f'://Diagonal Down Right
+			moveDiagonalDownRight();
+			break;
+		case 'g':
+			moveNowhere();
+			break;
+		default:
+			break;
+		}
+		
+		
+	}
+	
+	
 	////FOR TEST PURPOSES ONLY////
 		
 		
@@ -357,7 +397,7 @@ public class Player extends Entity{
 			//Decrease Experience Points used up
 			//Increase amount needed to next level
 			experiencePoints = experiencePoints-pointsNextLevel;
-			pointsNextLevel *= playerLevel;
+			pointsNextLevel *= 2;
 			return true;
 			}
 		return false;

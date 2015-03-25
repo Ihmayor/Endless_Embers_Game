@@ -192,7 +192,7 @@ public class EntityTest {
 		assertEquals(false, e.isTaken(-10,-20));	
 	}
 	
-	
+
 	
 	@Test
 	public void testIsTakenOneCreature(){
@@ -237,6 +237,8 @@ public class EntityTest {
 	}
 	
 	
+	
+	
 ///////////////////////////////////////////////////////////////////////////////////////////////	
 //Combat METHOD TESTS
 ///////////////////////////////////////////////////////////////////////////////////////////////	
@@ -255,6 +257,8 @@ public class EntityTest {
 		assertEquals(null, e.subtractHealth(10));
 		
 	}
+	
+	
 	@Test
 	public void testDead(){
 		Entity e = new Entity(4,5);

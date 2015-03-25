@@ -66,12 +66,12 @@ public class Entity {
 	public boolean search(String name){
 			boolean found = false;
 			//Search looks within the range of 2
-			for (int row = (x/BasicMap.TILESIZE-2); row < (x/BasicMap.TILESIZE+2); row++)
+			for (int row = (x/BasicMap.TILESIZE)-2; row <= (x/BasicMap.TILESIZE)+2; row++)
 			{
-				for (int column = (y/BasicMap.TILESIZE)-2; column < y/BasicMap.TILESIZE+2; column++)
+				for (int column = (y/BasicMap.TILESIZE)-2; column <= (y/BasicMap.TILESIZE)+2; column++)
 				{
 					//If within bounds of the map.
-					if (row >= 0 && row < BasicMap.heightByTiles && column >= 0 && column <= BasicMap.widthByTiles)
+					if (row >= 0 && row < BasicMap.heightByTiles && column >= 0 && column < BasicMap.widthByTiles)
 					{
 						if (entityArray[row][column]!= null&&entityArray[row][column].equals(name))
 						{
