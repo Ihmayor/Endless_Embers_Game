@@ -278,6 +278,12 @@ public class BasicMonster extends Entity{
 			x = newX;
 			}
 	}
+	
+	
+	public void setHealthPoints(int newHealth)
+	{
+		healthPoints = newHealth;
+	}
 }
 
 	

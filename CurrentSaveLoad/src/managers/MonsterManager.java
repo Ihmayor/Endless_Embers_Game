@@ -237,12 +237,13 @@ public class MonsterManager {
 	public LinkedList<BasicMonster> getMonsterList() {return monsterList;}
 	
 	
-	public void loadMonsterList(int[] newMonsterXPositions, int[] newMonsterYPositions, int[] newMonsterHealths)
+	public void loadMonsterList(int[] newMonsterXPositions, int[] newMonsterYPositions, int[] newMonsterHealths, String[][] newEntityArray, BasicMap newMap)
 	{
+		currentMap = newMap;
 		monsterList = new LinkedList<BasicMonster>();
 		BasicMonster monster;
 		int numOfMonsters = 0;
-		int length = newMonsterXPositions.length;
+		int length = newMonsterXPositions.length - 1;
 		//Get # of monsters to load
 		while (length >= 0)
 		{
@@ -252,7 +253,18 @@ public class MonsterManager {
 		}
 		for (int i = numOfMonsters - 1;i != 0;i--)
 		{
-			
+			monster = new BasicMonster(currentMap, basicMonsterAnimation, basicMonsterImage, newMonsterXPositions[i], newMonsterYPositions[i]);
+			monster.setHealthPoints(newMonsterHealths[i]);
+			monster.setPath(newMonsterXPositions[i], newMonsterYPositions[i]+3*BasicMap.TILESIZE);
+			newEntityArray[monster.getPosition()[0]/BasicMap.TILESIZE]
+			     	   [monster.getPosition()[1]/BasicMap.TILESIZE] = monster.getName();
+		}
+		BasicMonster [] monsters = monsterList.toArray(new BasicMonster [monsterList.size()]);
+		for (BasicMonster m: monsters){
+			m.setEntityArray(newEntityArray);
+			m.setMonsterMaxHealth(level*20);
+			m.damageLimit += level*2;
+			m.setMap(currentMap);
 		}
 		
 		

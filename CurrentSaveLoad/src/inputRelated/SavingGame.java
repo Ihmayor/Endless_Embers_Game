@@ -39,9 +39,6 @@ public class SavingGame {
 				//Write monster health
 				pw.println(currentNode.getHealthPoints());
 			}
-			//Write another *** to stop reading.
-			//pw.print("***");
-			
 			pw.close();
 			fw.close();
 		}

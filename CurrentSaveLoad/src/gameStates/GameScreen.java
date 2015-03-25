@@ -60,12 +60,8 @@ public class GameScreen extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame stateGame) throws SlickException {
 		
-		if (loadedGame)
-			LoadingGame.initLoadingGame();
-		else{
-			
-		
 		//Used for changing game states
+		setLoadedGame(true);
 		this.gc = gc;
 		gameAssets = new GameScreenAssets();
 
@@ -109,6 +105,11 @@ public class GameScreen extends BasicGameState {
 		player.setEntityArray(monsters.getEntityArray());
 		
 		GameScreenAssets.statusUpdate = "Game is Now In Session";
+		
+		if (loadedGame)
+		{
+			reInitEntityArray();
+			LoadingGame.initLoadingGame(gameAssets, currentMap, totalLevels, player, monsters, entityArray);
 		}
 	}
 	
@@ -129,6 +130,19 @@ public class GameScreen extends BasicGameState {
 			}
 		}
 		entityArray[((Entity)player).getPosition()[0]/32][((Entity)player).getPosition()[1]/32] = player.getName();
+	}
+	
+	
+	private void reInitEntityArray(){
+		String [][] newArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
+		entityArray = newArray;
+		for (int i = 0; i < BasicMap.widthByTiles; i++)
+		{
+			for (int c = 0; c < BasicMap.heightByTiles; c++)
+			{
+				entityArray[i][c] = " ";
+			}
+		}
 	}
 	
 	
