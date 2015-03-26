@@ -3,7 +3,6 @@ package inputRelated;
 import java.io.File;
 
 import gameStates.GameScreen;
-import gameStates.LoadGame;
 import gameStates.MainMenuScreen;
 import gameStates.TransitionScreen;
 
@@ -88,6 +87,7 @@ public class MainMenuButtons {
 		});
 	}	
 	
+	//Draw buttons on main menu screen
 	public void render(GameContainer gc, Graphics g){
 		 newGameButton.render(gc, g);//Draw the buttons on screen.
 		 loadGameButton.render(gc,g);

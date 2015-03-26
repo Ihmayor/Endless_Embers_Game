@@ -22,7 +22,6 @@ public class StateManager extends StateBasedGame {
 		addState(new MainMenuScreen());
 		addState(new TransitionScreen());
 		addState(new GameScreen());
-		addState(new LoadGame());
 		addState(new GameOverScreen());
 		addState(new WinScreen());
 	}

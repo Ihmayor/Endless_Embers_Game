@@ -70,7 +70,7 @@ public class TransitionScreen extends BasicGameState {
 		switch (key){		
 		
 		case Input.KEY_T:
-			sbg.enterState(GameOverScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));	
+			sbg.enterState(WinScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));	
 			break;
 		case Input.KEY_W:
 			sbg.enterState(GameScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));	

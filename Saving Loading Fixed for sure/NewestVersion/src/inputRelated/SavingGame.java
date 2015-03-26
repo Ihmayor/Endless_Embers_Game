@@ -2,7 +2,9 @@ package inputRelated;
 
 import gameStates.GameScreenAssets;
 
-import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 
 import managers.MonsterManager;

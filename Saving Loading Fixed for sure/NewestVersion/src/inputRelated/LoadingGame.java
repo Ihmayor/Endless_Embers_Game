@@ -98,14 +98,12 @@ public class LoadingGame {
 			changeMap = xTotalLevels.removeLast();
 		}
 		//Set player related data
-		System.out.println("Player health: "+readPlayerHealth);
 		player.loadStats(readPlayerLevel, readPlayerExp, readPlayerHealth);
 		player.setPosition(readPlayerPositionX, readPlayerPositionY);
 		player.setMap(changeMap);
 		entityArray[((Entity)player).getPosition()[0]/32][((Entity)player).getPosition()[1]/32] = player.getName();
 		//Set monster related data
-		monsters.loadMonsterList(readMonsterXPositions, readMonsterYPositions, readMonsterHealths, entityArray, changeMap);
-
+		monsters.loadMonsterList(readMonsterXPositions, readMonsterYPositions, readMonsterHealths, entityArray, changeMap, readFloor);
 		CombatManager.setMonsterList(monsters.getMonsterList());
 
 		player.setEntityArray(entityArray);		

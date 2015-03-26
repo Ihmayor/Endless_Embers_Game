@@ -75,6 +75,11 @@
     <property name="stairs" value="true"/>
    </properties>
   </tile>
+  <tile id="925">
+   <properties>
+    <property name="win" value="true"/>
+   </properties>
+  </tile>
   <tile id="1251">
    <properties>
     <property name="blocked" value="true"/>
@@ -166,13 +171,18 @@
     <property name="blocked" value="true"/>
    </properties>
   </tile>
+  <tile id="925">
+   <properties>
+    <property name="win" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Tile Layer 1" width="35" height="16">
   <properties>
    <property name="blocked" value="false"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC/MVYmDwHQJ4GgMCk6N/CStpGJ87cPGPMRCHQeZ7CBKHcbkFW1ggix0jkoa5JZwRYScuNrJbYPbgig/k+IL5e50wbgyzo4tIjO4WfOkC3S0gMULuINYt4iyYcURsOmVnpG24kOImkDtA7kG2m5rpBZsbcLnnGFI8+eHJW+TmI2R3INPYwgg5vWATp6R8wVeWYBPD5VZ0t1ADE8rXxxhQ3UFLtxDCx+gYLsS6hVhxYvFBhlGMDQMAKWqqw8AIAAA=
+   H4sIAAAAAAAAC/MVYmDwHQJ4GgMCk6N/CStpGJ87cPGPMRCHQeZ7CBKHcbkFW1ggix0jkoa5JZwRYScuNrJbYPbgig/k+IL5e50wbgyzo4tIjO4WfOkC3S0gMULuINYtXuKYcURsOmVnpG24kOImkDtA7kG2m5rpBZsbcLnnGFI8+eHJW+TmI2R3INPYwgg5vWATp6R8wVeWYBPD5VZ0t1ADE8rXxxhQ3UFLtxDCx+gYLsS6hVhxYvFBhlGMDQMAMVG8hcAIAAA=
   </data>
  </layer>
 </map>

@@ -361,7 +361,6 @@ public class MonsterManagerTest {
 	public void testClearMonsters() throws SlickException{
 		MonsterManager m = new MonsterManager();
 		String [][] testArray = new String [35][16];
-		char  [][] testMap = new char[35][16];
 		for (int i = 0; i < BasicMap.widthByTiles; i++)
 		{
 			for (int c = 0; c < BasicMap.heightByTiles; c++)

@@ -69,13 +69,15 @@ public class GameScreen extends BasicGameState {
 	public static final int ID = 1;
 
 	//Win Game Boolean
-	private boolean winGame = false;
+	private static boolean winGame = false;
 	
 	//Loaded Saved Game Boolean
 	private static boolean loadedGame = false;	
 	
 	//Set by the LoadingGame class
+	//Also used by GameOver class
 	public static void setLoadedGame(boolean value){loadedGame =value;}
+	public static void setWin(boolean value) {winGame = value;}
 	
 	//Initialize variables that aren't reliant on it being a new game or an old game
 	@Override
@@ -92,7 +94,7 @@ public class GameScreen extends BasicGameState {
 		floorSix = new BasicMap("res/map/floor6.tmx");
 		floorSeven = new BasicMap("res/map/floor7.tmx");
 	
-		
+		//Needed to init totalLevels for usage in loading games
 		totalLevels.add(floorSeven);
 		totalLevels.add(floorSix);
 		totalLevels.add(floorFive);
@@ -109,7 +111,7 @@ public class GameScreen extends BasicGameState {
 		//If new game (from a previously lost game) then clear the totalLevels
 		totalLevels.clear();
 		
-		//Add them to the Linked List, last level first.
+		//Add floors to Linked List, last level first.
 		totalLevels.add(floorSeven);
 		totalLevels.add(floorSix);
 		totalLevels.add(floorFive);
@@ -133,14 +135,11 @@ public class GameScreen extends BasicGameState {
 			}
 		//Update Monster Manager with currentMap
 		monsters = new MonsterManager(currentMap);
-		
 		//Spawn Monsters
 		monsters.init(entityArray, currentMap);
-		
 		//Set Combat manager
 		CombatManager.setMonsterList(monsters.getMonsterList());
 		gameAssets = new GameScreenAssets();
-	
 		//Re-writes initialization defaults with read information from saved file
 		if (loadedGame)
 		{
@@ -150,10 +149,7 @@ public class GameScreen extends BasicGameState {
 				SoundManager.changeSound("res/sound/Catacombs.wav");
 			else 
 				SoundManager.changeSound("res/sound/Tank Battle.wav");
-		
 		}
-	
-        
         //Initializes the Menu
 		gameAssets.initMenu(gc, stateGame, ID);
 		
@@ -202,9 +198,6 @@ public class GameScreen extends BasicGameState {
 		case Input.KEY_Q:
 			SavingGame.SaveGame(gameAssets, player, monsters);
 			gc.exit();//Exits game. 	
-			break;
-		case Input.KEY_1:
-			sbg.enterState(WinScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
 			break;
 		case Input.KEY_M: 
 		case Input.KEY_ESCAPE:

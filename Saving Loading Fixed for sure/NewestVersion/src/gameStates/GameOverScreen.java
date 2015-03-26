@@ -38,6 +38,7 @@ public class GameOverScreen extends BasicGameState{
 	private GameOverButtons buttons;
 	
 	//Initialize Game Over State
+	//Runs at the beginning of the program
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
@@ -49,8 +50,10 @@ public class GameOverScreen extends BasicGameState{
 	    buttons = new GameOverButtons(gc, sbg);
 	}
 	
+	//Method runs every time this state is entered
 	@Override
 	public void enter(GameContainer gc, StateBasedGame sbg){
+		//Delete saved games when player loses
 		try{
 			 
     		File file = new File("save.txt");
@@ -60,14 +63,13 @@ public class GameOverScreen extends BasicGameState{
     		}else{
     			System.out.println("Delete operation is failed.");
     		}
- 
     	}catch(Exception e){
  
     		e.printStackTrace();
     	}
-		
+		//Reset loadedGame/Win values
+		GameScreen.setWin(false);
 		GameScreen.setLoadedGame(false);
-    	
 		}
 
 	
@@ -82,7 +84,7 @@ public class GameOverScreen extends BasicGameState{
 
 
 	// Updates the state of the game (the player is now dead)
-	// No images appear
+	// No images should appear
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {

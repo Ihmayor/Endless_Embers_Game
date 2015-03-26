@@ -35,7 +35,7 @@ public class SlideOutMenu extends MouseOverArea{
 	private final List <ButtonAction> actions = new ArrayList <ButtonAction>();
 	private int stateID;
 	
-	
+	//Slide Out Menu Initialization
 	public SlideOutMenu(GUIContext container,StateBasedGame game, int stateID,  Image image, int x, int y) throws SlickException {
 		super(container, image, x, y);
 		sbg = game;
@@ -43,8 +43,9 @@ public class SlideOutMenu extends MouseOverArea{
 		this.stateID = stateID;
 	    super.setMouseOverColor(Color.yellow);
 	    exitGameButton = new BasicButton(container, 1140, y+315, game, 
-	    		stateID, new Image ("res/interface/saveExit.png"), new Image ("res/interface/saveExitMouseOver.png"));
-	  	 
+	    		stateID, new Image ("res/interface/saveExit.png"), new Image ("res/interface/saveExit.png"));
+	    
+	    exitGameButton.setMouseOverImage(new Image("res/interface/saveExitMouseOver.png"));
 		exitGameButton.add(new ButtonAction(){
 			public void perform(){
 				((GameContainer)gc).exit();	
@@ -53,20 +54,25 @@ public class SlideOutMenu extends MouseOverArea{
 
 	}
 
+	   //Draw Game Menu (Used for mouseOverDownImage and highlighting color)
 	   public void render(GameContainer gc, Graphics g) {
 	          super.render(gc, g);
 	          exitGameButton.render(gc,g);
 	   }
 	
 	
+	   //The menu is essentially one big button so it has to inherit/implement this method
 	   public boolean isActivated() {
 	        return activated;
 	    }
-	 
-	public void add(ButtonAction action){
+	   
+	   //Used for the slide out menu
+	   public void add(ButtonAction action){
 		actions.add(action);
-	}
+	   }
 	
+	//Method that handles what happens you click on the slide out menu
+	//Depending on whether it's already open or not
 	@Override
     public void mousePressed(int button, int x, int y) {
 		if (isMouseOver() && sbg.getCurrentStateID() == stateID) {
@@ -81,15 +87,18 @@ public class SlideOutMenu extends MouseOverArea{
        }
     }
     
+	//Checks boolean
+	//Used for hot keys in game screen 
 	public boolean getMenuOpen(){return menuOpen;}
 	
+	//Pops the slide menu out
 	public void popOut(){
 		setX(300);
     	exitGameButton.setX(610);
     	menuOpen = true;
-    	
 	}
 	
+	//Pops the slide menu in
 	public void popIn(){
 		setX(1065);
     	exitGameButton.setX(1150);

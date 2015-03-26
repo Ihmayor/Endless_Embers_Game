@@ -1,5 +1,6 @@
 package playerRelated;
 
+import gameStates.GameScreen;
 import gameStates.GameScreenAssets;
 import managers.CombatManager;
 import managers.SoundManager;
@@ -239,6 +240,10 @@ public class Player extends Entity{
 				if (map.isStairs(x, y)){
 					onStairs = true;
 					}
+				if (map.isWin(x, y))
+					{
+					GameScreen.setWin(true);
+					}
 				}
 		 }
 	
@@ -254,7 +259,13 @@ public class Player extends Entity{
 				if (map.isStairs(x, y)){
 					onStairs = true;
 					}
+				if (map.isWin(x, y))
+				{
+				GameScreen.setWin(true);
+				}
+			
 			}
+			
 		}
 		
 		
@@ -273,6 +284,11 @@ public class Player extends Entity{
 					if (map.isStairs(x, y)){
 						onStairs = true;
 						}
+					if (map.isWin(x, y))
+					{
+					GameScreen.setWin(true);
+					}
+				
 				}
 		}
 
@@ -287,6 +303,11 @@ public class Player extends Entity{
 				if (map.isStairs(x, y)){
 					onStairs = true;
 					}
+				if (map.isWin(x, y))
+				{
+				GameScreen.setWin(true);
+				}
+			
 			}
 			
 		}
@@ -297,6 +318,10 @@ public class Player extends Entity{
 			if (map.isStairs(x, y)){
 				onStairs = true;
 				}
+			if (map.isWin(x, y))
+			{
+			GameScreen.setWin(true);
+			}
 		
 			}
 		
@@ -311,6 +336,11 @@ public class Player extends Entity{
 				if (map.isStairs(x, y)){
 					onStairs = true;
 					}
+				if (map.isWin(x, y))
+				{
+				GameScreen.setWin(true);
+				}
+			
 				}
 			}	
 		
@@ -329,6 +359,11 @@ public class Player extends Entity{
 					if (map.isStairs(x, y)){
 						onStairs = true;
 						}
+					if (map.isWin(x, y))
+					{
+					GameScreen.setWin(true);
+					}
+				
 					}
 				}
 				
@@ -343,6 +378,11 @@ public class Player extends Entity{
 				if (map.isStairs(x, y)){
 					onStairs = true;
 					}
+				if (map.isWin(x, y))
+				{
+				GameScreen.setWin(true);
+				}
+			
 				}
 			
 			}
@@ -362,6 +402,11 @@ public class Player extends Entity{
 					if (map.isStairs(x, y)){
 						onStairs = true;
 						}
+					if (map.isWin(x, y))
+					{
+					GameScreen.setWin(true);
+					}
+				
 					}
 			
 				}

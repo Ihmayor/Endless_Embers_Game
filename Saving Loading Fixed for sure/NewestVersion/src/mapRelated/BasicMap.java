@@ -43,6 +43,7 @@ public class BasicMap
 	}
 
 	//Initializes the Map
+	//Reads the load .tmx file
 	private void initMapArray (){
 		String value;
 		for (int c = 0; c < widthByTiles; c++){
@@ -62,6 +63,12 @@ public class BasicMap
                 if ("true".equals(value))
                 {
                 	mapArray[c][r] = 'S';
+                }
+                
+                value = map.getTileProperty(tileID, "win", "false");
+                if ("true".equals((value)))
+                {
+                	mapArray[c][r] = 'W';
                 }
 			}
 		}
@@ -104,5 +111,22 @@ public class BasicMap
 	    	return true;
 	    else
 	    	return false;
-		}
 	}
+	
+
+
+	//Checks if a give x,y coord is a staircase
+	public boolean isWin (float x, float y)
+	{	
+	if (x < 0 || y < 0 || x >=1120 || y >= 512)
+		return false;
+	
+	int xStairs = (int)x / TILESIZE;
+    int yStairs = (int)y / TILESIZE;
+    
+    if (mapArray[xStairs][yStairs] == 'W')
+    	return true;
+    else
+    	return false;
+	}
+}

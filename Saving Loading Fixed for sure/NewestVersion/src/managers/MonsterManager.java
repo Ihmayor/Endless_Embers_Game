@@ -201,8 +201,12 @@ public class MonsterManager {
 		BasicMonster [] monsters = monsterList.toArray(new BasicMonster [monsterList.size()]);
 		for (BasicMonster m: monsters){
 			m.setEntityArray(entityArray);
-			m.setMonsterMaxHealth(level*20);
-			m.damageLimit += level*2;
+			m.setMonsterMaxHealth(level*10);
+			m.setHealthPoints(level*10);
+			if (level == 1)//Special Level 1 treatment
+				m.damageLimit = 4;
+			else
+				m.damageLimit = 20+level*2;
 			m.setMap(currentMap);
 			}
 		
@@ -219,28 +223,17 @@ public class MonsterManager {
 	}
 
 	
-	public void loadMonsterList(int[] newMonsterXPositions, int[] newMonsterYPositions, int[] newMonsterHealths, String[][] newEntityArray, BasicMap newMap)
+	public void loadMonsterList(int[] newMonsterXPositions, int[] newMonsterYPositions, 
+								int[] newMonsterHealths, String[][] newEntityArray, BasicMap newMap, int newLevel)
 	throws SlickException
 	{
+		this.level = newLevel;
 		loadMonsterTypes();
 		currentMap = newMap;
 		monsterList = new LinkedList<BasicMonster>();
-		BasicMonster monster;
-		if (newEntityArray == null)
-			System.out.println("AAAAAAAAAAAAAAAAAAA");
-		
-		//Get # of monsters to load		
-		int counter = 0;
-		
-		for (int i = 0; i < newMonsterXPositions.length-1; i++)
-			{
-			if ((Object)newMonsterXPositions[i] == null)
-				break;
-			counter++;
-			}
-		
-		int numOfMonsters = counter+1;
-		System.out.println("Just passing through" + numOfMonsters);
+		BasicMonster monster;		
+
+		int numOfMonsters = newMonsterXPositions.length;
 		for (int i = 0;i < numOfMonsters;i++)
 		{
 			if (newMonsterXPositions[i] == 0 && newMonsterYPositions[i] == 0)
@@ -259,6 +252,10 @@ public class MonsterManager {
 			m.setMonsterMaxHealth(level*20);
 			m.damageLimit = level*2;
 			m.setMap(currentMap);
+			if (level == 1)//Special Level 1 treatment
+				m.damageLimit = 4;
+			else
+				m.damageLimit = 20+level*2;
 		}
 		this.entityArray = newEntityArray;
 		
