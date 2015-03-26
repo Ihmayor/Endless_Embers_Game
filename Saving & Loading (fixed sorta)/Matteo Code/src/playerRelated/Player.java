@@ -61,7 +61,8 @@ public class Player extends Entity{
 		this.gc = gc;
 		this.sbg = sbg;
 		map = currentMap;
-		
+		maxHealthPoints = 30;
+		healthPoints = maxHealthPoints;
 		//Initialize Variables
 		name = "P";
 		sheet = new SpriteSheet("res/player/template2.png", 32,32);
@@ -422,13 +423,9 @@ public class Player extends Entity{
 	public void loadStats(int newLevel, int newExp, int newHealth)
 	{
 		playerLevel = newLevel;
-		System.out.println("Player's Level: "+newLevel);
-		System.out.println("Experience Points Loaded: "+newExp);
 		experiencePoints = newExp;
 		pointsNextLevel = 10*(2*(newLevel));
-		System.out.println("pointsNextLevel"+pointsNextLevel);
 		maxHealthPoints = 30 + 50*(newLevel-1);
-		System.out.println("Loaded Max Health: "+maxHealthPoints);
 		healthPoints = newHealth;
 		criticalHitLimit = 30+5*(newLevel-1);	
 	}

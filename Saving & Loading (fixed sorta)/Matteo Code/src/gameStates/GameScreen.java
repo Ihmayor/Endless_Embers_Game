@@ -48,31 +48,56 @@ public class GameScreen extends BasicGameState {
 	//Volume
 	private float volume = 1.0f;
 	
+	//Load Maps
+	BasicMap floorOne;
+	BasicMap floorTwo;
+	BasicMap floorThree;
+	BasicMap floorFour;
+	BasicMap floorFive;
+	BasicMap floorSix;
+	BasicMap floorSeven;
+
 	private LinkedList<BasicMap> totalLevels = new LinkedList<BasicMap>();
+	
 	
 	
 	//State ID
 	public static final int ID = 1;
 
-	private boolean loadedGame = false;	
+	private static boolean loadedGame = false;	
+	
+	public static void setLoadedGame (boolean value) {loadedGame = value;}
+	
+	@Override
+	public void init(GameContainer gc, StateBasedGame stateGame) throws SlickException{
+		this.gc = gc;
+		//Load Map Files
+		floorOne = new BasicMap("res/map/floor1.tmx");
+		floorTwo = new BasicMap("res/map/floor2.tmx");
+		floorThree = new BasicMap("res/map/floor3.tmx");
+		floorFour = new BasicMap("res/map/floor4.tmx");
+		floorFive = new BasicMap("res/map/floor5.tmx");
+		floorSix = new BasicMap("res/map/floor6.tmx");
+		floorSeven = new BasicMap("res/map/floor7.tmx");
+		
+		totalLevels.add(floorSeven);
+		totalLevels.add(floorSix);
+		totalLevels.add(floorFive);
+        totalLevels.add(floorFour);
+		totalLevels.add(floorThree);
+		totalLevels.add(floorTwo);
+		totalLevels.add(floorOne);
+		
+		
+	}
 	
 	
 	@Override
-	public void init(GameContainer gc, StateBasedGame stateGame) throws SlickException {
-		
+	public void enter(GameContainer gc, StateBasedGame stateGame) throws SlickException {
 		//Used for changing game states
-		setLoadedGame(true);
+		//setLoadedGame(true);
 		this.gc = gc;
-				
-		//Load ALL  Maps of game
-		//might move to map class???
-		BasicMap floorOne = new BasicMap("res/map/floor1.tmx");
-		BasicMap floorTwo = new BasicMap("res/map/floor2.tmx");
-		BasicMap floorThree = new BasicMap("res/map/floor3.tmx");
-		BasicMap floorFour = new BasicMap("res/map/floor4.tmx");
-		BasicMap floorFive = new BasicMap("res/map/floor5.tmx");
-		BasicMap floorSix = new BasicMap("res/map/floor6.tmx");
-		BasicMap floorSeven = new BasicMap("res/map/floor7.tmx");
+		System.out.println(loadedGame);
 		
 		//Add them to the Linked List, last level first.
 		totalLevels.add(floorSeven);
@@ -103,8 +128,14 @@ public class GameScreen extends BasicGameState {
 	
 		if (loadedGame)
 		{
+			System.out.println("test");
 			reInitEntityArray();
-			LoadingGame.initLoadingGame(gameAssets, currentMap, totalLevels, player, monsters, entityArray);
+			currentMap = LoadingGame.initLoadingGame(gameAssets, currentMap, totalLevels, player, monsters, entityArray);
+			if (gameAssets.getFloorLevel() == 1)
+				SoundManager.changeSound("res/sound/Catacombs.wav");
+			else 
+				SoundManager.changeSound("res/sound/Tank Battle.wav");
+		
 		}
 	
         
@@ -115,7 +146,6 @@ public class GameScreen extends BasicGameState {
 	}
 	
 	
-	public void setLoadedGame(boolean value){loadedGame =value;}
 	
 	
 	// Initializes the entity array, this will hold the information 
@@ -171,7 +201,7 @@ public class GameScreen extends BasicGameState {
 			break;
 		case Input.KEY_1:
 			//Source of sound effect: https://www.freesound.org/people/JoelAudio/sounds/77611/
-			SoundManager.playSoundEffect("res/sound/SFX/Sword Swing.wav");
+			SavingGame.SaveGame(gameAssets, player, monsters);
 			break;
 		case Input.KEY_M: 
 		case Input.KEY_ESCAPE:

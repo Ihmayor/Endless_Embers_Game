@@ -14,7 +14,7 @@ public class SavingGame {
 	public static void SaveGame(GameScreenAssets gsa, Player p, MonsterManager mm){
 		try
 		{
-			FileWriter fw = new FileWriter("save.txt");
+			FileWriter fw = new FileWriter("test.txt");
 			PrintWriter pw = new PrintWriter(fw);
 			//First Write Floor number. Newline.
 			pw.println(gsa.getFloorLevel());
@@ -28,7 +28,7 @@ public class SavingGame {
 			//Player health points. new line.
 			pw.println(p.getHealthPoints());
 			//Start loop for saving monster info
-			LinkedList<BasicMonster> mmLL = mm.getMonsterList();
+			LinkedList<BasicMonster> mmLL = (LinkedList<BasicMonster>) mm.getMonsterList().clone();
 			while (mmLL.peekFirst() != null)
 			{
 				BasicMonster currentNode = mmLL.removeFirst();

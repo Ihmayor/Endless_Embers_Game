@@ -16,7 +16,7 @@ import monsterRelated.Entity;
 public class LoadingGame {
 
 
-	public static void initLoadingGame(GameScreenAssets gameAssets, BasicMap changeMap, LinkedList<BasicMap> xTotalLevels,
+	public static BasicMap initLoadingGame(GameScreenAssets gameAssets, BasicMap changeMap, LinkedList<BasicMap> xTotalLevels,
 									   Player player, MonsterManager monsters, String[][] entityArray)
 									   throws SlickException
 	{
@@ -34,7 +34,7 @@ public class LoadingGame {
 		/*READ FROM SAVE FILE*/
 		try
 		{
-			FileReader fr = new FileReader("save.txt");
+			FileReader fr = new FileReader("test.txt");
 			BufferedReader br = new BufferedReader(fr);
 			
 			//Reading player saved data
@@ -102,5 +102,6 @@ public class LoadingGame {
 		CombatManager.setMonsterList(monsters.getMonsterList());
 		
 		player.setEntityArray(entityArray);		
+		return changeMap;
 	}
 }

@@ -244,33 +244,41 @@ public class MonsterManager {
 		currentMap = newMap;
 		monsterList = new LinkedList<BasicMonster>();
 		BasicMonster monster;
-		int numOfMonsters = 0;
-		int length = newMonsterXPositions.length - 1;
-		//Get # of monsters to load
 		if (newEntityArray == null)
 			System.out.println("AAAAAAAAAAAAAAAAAAA");
-		while (length >= 0)
+		
+		//Get # of monsters to load		
+		int counter = 0;
+		
+		for (int i = 0; i < newMonsterXPositions.length-1; i++)
+			{
+			if ((Object)newMonsterXPositions[i] == null)
+				break;
+			counter++;
+			}
+		
+		int numOfMonsters = counter+1;
+		System.out.println("Just passing through" + numOfMonsters);
+		for (int i = 0;i < numOfMonsters;i++)
 		{
-			if (newMonsterXPositions[length] != 0)
-				numOfMonsters++;
-			length--;
-		}
-		for (int i = numOfMonsters - 1;i >= 0;i--)
-		{
+			if (newMonsterXPositions[i] == 0 && newMonsterYPositions[i] == 0)
+				break;
 			monster = new BasicMonster(currentMap, basicMonsterAnimation, basicMonsterImage, newMonsterXPositions[i], newMonsterYPositions[i]);
 			monster.setHealthPoints(newMonsterHealths[i]);
-			monster.setPath(newMonsterXPositions[i], newMonsterYPositions[i]+3*BasicMap.TILESIZE);
+			monster.setPath(newMonsterXPositions[i], newMonsterXPositions[i]+3*BasicMap.TILESIZE);
 			newEntityArray[monster.getPosition()[0]/BasicMap.TILESIZE]
 			     	   [monster.getPosition()[1]/BasicMap.TILESIZE] = monster.getName();
+			monsterList.add(monster);
 		}
+		
 		BasicMonster [] monsters = monsterList.toArray(new BasicMonster [monsterList.size()]);
 		for (BasicMonster m: monsters){
 			m.setEntityArray(newEntityArray);
 			m.setMonsterMaxHealth(level*20);
-			m.damageLimit += level*2;
+			m.damageLimit = level*2;
 			m.setMap(currentMap);
 		}
-		
+		this.entityArray = newEntityArray;
 		
 	}
 	

@@ -1,9 +1,10 @@
 package inputRelated;
 
-import gameStates.LoadGame;
+import gameStates.GameScreen;
 import gameStates.MainMenuScreen;
 import gameStates.TransitionScreen;
 
+import java.io.File;
 
 import managers.SoundManager;
 
@@ -29,6 +30,14 @@ public class MainMenuButtons {
 	
 	public MainMenuButtons (GameContainer gc, StateBasedGame stateGame) throws SlickException{
 	
+		
+	File f = new File("test.txt");
+	
+	if(f.exists() && f.isFile())
+		{
+		savedGameExists = true;
+		}
+	
 	sbg = stateGame;
 	
 
@@ -52,6 +61,8 @@ public class MainMenuButtons {
 		loadGameButton.setMouseOverImage(inactiveLoad);
 		loadGameButton.setMouseOverColor(Color.white);
 		}
+	else
+		loadGameButton.setMouseOverImage(new Image("res/interface/continueMouseOver.png"));
 	
 	//Creates an anon class for the button's action.
 	newGameButton.add(new ButtonAction(){ 
@@ -66,8 +77,10 @@ public class MainMenuButtons {
 	//Creates an anon class for the button's action.
 	loadGameButton.add(new ButtonAction(){ 
 		public void perform(){
-		if (savedGameExists)
-			sbg.enterState(LoadGame.ID, new FadeOutTransition(Color.white), new FadeInTransition(Color.white) );	
+		if (savedGameExists){
+			GameScreen.setLoadedGame(true);
+			sbg.enterState(GameScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));	
+			}
 		}
 		});
 	}
