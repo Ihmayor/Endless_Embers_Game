@@ -3,14 +3,14 @@ package gameStates;
 import inputRelated.EndGameButtons;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Random;
 
 import managers.SoundManager;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
@@ -20,6 +20,9 @@ public class WinScreen extends BasicGameState{
 
 	public static final int ID = 5;
 	private EndGameButtons buttons;
+	private Animation winAnimation;
+	
+	
 	
 	private GameContainer gc;
 	@Override
@@ -49,20 +52,27 @@ public class WinScreen extends BasicGameState{
 			throws SlickException {
 			this.gc = gc;
 		    buttons = new EndGameButtons(gc, sbg, WinScreen.ID);
-	}
+		    Image [] winImages = {new Image("res/interface/winAnimation1.png"),
+		    					  new Image("res/interface/winAnimation2.png")};
+		    int [] duration = {400,400};
+		    
+		    winAnimation = new Animation (winImages, duration, false);
+		    }
+	
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
+		winAnimation.draw(0, 0);
+		buttons.render(gc, g);
 		g.setColor(Color.white);
 		g.drawString("YOU WON!!!", 480,200);
-		buttons.render(gc, g);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
-		
+		winAnimation.update(delta);
 	}
 	
 	// Manages the keyboard controls of the game

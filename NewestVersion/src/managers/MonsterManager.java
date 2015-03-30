@@ -160,7 +160,7 @@ public class MonsterManager {
 		this.entityArray = entityArray;
 		BasicMonster monster1 = null;
 		int pathSize = 4;
-		
+		monsterList = new LinkedList<BasicMonster>();
 		//Adjusts path size for more confined maps.
 		if (level >= 3)
 			pathSize = 2;
@@ -219,6 +219,7 @@ public class MonsterManager {
 								int[] newMonsterHealths, String[][] newEntityArray, BasicMap newMap, int newLevel)
 	throws SlickException
 	{
+		this.entityArray = newEntityArray;
 		this.level = newLevel;
 		loadMonsterTypes();
 		currentMap = newMap;
@@ -239,7 +240,6 @@ public class MonsterManager {
 		}
 		
 		setUpMonsterMethods();
-		this.entityArray = newEntityArray;
 		
 	}
 	

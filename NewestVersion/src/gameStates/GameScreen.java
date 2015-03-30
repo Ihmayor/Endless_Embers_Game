@@ -168,9 +168,10 @@ public class GameScreen extends BasicGameState {
 		{
 			for (int c = 0; c < BasicMap.heightByTiles; c++)
 			{
-				entityArray[i][c] = " ";
+				newArray[i][c] = " ";
 			}
 		}
+		this.entityArray = newArray;
 	}
 	
 	
@@ -265,7 +266,7 @@ public class GameScreen extends BasicGameState {
 		//Note to self this needs testing.	
 		 if (winGame)
 			{
-			sbg.enterState(WinScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+			sbg.enterState(WinScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.white));
 			}
 		}
 	
