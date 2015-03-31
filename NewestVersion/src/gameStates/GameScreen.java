@@ -125,13 +125,13 @@ public class GameScreen extends BasicGameState {
 		
 		
 		//Create player's character 
-		player = new Player(gc, stateGame,currentMap, 4*32, 5*32);
+		player = new Player(gc, stateGame,currentMap, 4*BasicMap.TILESIZE, 5*BasicMap.TILESIZE);
 		
 		//Place player's character onto map
 		initEntityArray();
 		if (!loadedGame)
 			{
-			entityArray[((Entity)player).getPosition()[0]/32][((Entity)player).getPosition()[1]/32] = player.getName();
+			entityArray[((Entity)player).getPosition()[0]/BasicMap.TILESIZE][((Entity)player).getPosition()[1]/BasicMap.TILESIZE] = player.getName();
 			}
 		//Update Monster Manager with currentMap
 		monsters = new MonsterManager(currentMap);

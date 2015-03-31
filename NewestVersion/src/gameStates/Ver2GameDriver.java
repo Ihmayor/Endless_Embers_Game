@@ -14,13 +14,13 @@ public class Ver2GameDriver {
 		
 		//All the code below is how we get this game rolling and running.
 		
-		int screenWidth = 1120; // Set screen width to 35 tiles long (35*32px)
-		int screenHeight = 512; // Set screen height to 16 tile long (16*32px)
+		final int screenWidth = 1120; // Set screen width to 35 tiles long (35*32px)
+		final int screenHeight = 512; // Set screen height to 16 tile long (16*32px)
 		
 			try
 			{
 				AppGameContainer appgc;
-				appgc = new AppGameContainer(new StateManager("Basic Game Template"),screenWidth,screenHeight,false);
+				appgc = new AppGameContainer(new StateManager("Endless Embers"),screenWidth,screenHeight,false);
 				appgc.start();
 			}
 			catch (SlickException ex)

@@ -1,6 +1,5 @@
 package inputRelated;
 
-import gameStates.GameOverScreen;
 import gameStates.GameScreen;
 import managers.SoundManager;
 

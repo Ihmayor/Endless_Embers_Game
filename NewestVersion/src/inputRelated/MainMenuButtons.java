@@ -7,7 +7,6 @@ import gameStates.MainMenuScreen;
 import gameStates.TransitionScreen;
 
 
-import managers.SoundManager;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;

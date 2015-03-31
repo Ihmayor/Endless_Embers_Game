@@ -27,18 +27,17 @@ public class MonsterManager {
 	private int level = 1;
 	private BasicMap currentMap;
 	private String[][] entityArray;
+	private int screenWidth = 1024;
+	private int screenHeight = 512;
+	
 	
 	
 	//Monster Type1
-	//Might Rename as "Soldiers" or "Guards"
-	//Because they will march between two points like guards on patrol.
 	private Image basicMonsterImage;
 	private SpriteSheet basicMonsterSheet;
-	private Animation basicMonsterAnimation;//Will bob monsters up and down some day
+	private Animation basicMonsterAnimation;//Bobs monsters up and down
 	
-	
-	
-	
+		
 	//For test purposes Only
 	public MonsterManager(){
 		
@@ -52,7 +51,7 @@ public class MonsterManager {
 	
 	//Checks if Valid Entity Array
 	public String checkEntityArray(String [][] entityArray){
-		if (entityArray.length*entityArray[0].length != 35*16)
+		if (entityArray.length*entityArray[0].length != BasicMap.widthByTiles*BasicMap.heightByTiles)
 			return "Entity Array Not Expected Size";
 		
 		for (String[] row: entityArray){
@@ -102,8 +101,8 @@ public class MonsterManager {
 				if (checkValidPlacement(newPosition, monsterPathSize, map, array) == null){
 					return newPosition;
 					}
-				newPosition[0] = (newX+i*BasicMap.TILESIZE)%(1120);
-				newPosition[1] = (newY+c*BasicMap.TILESIZE)%(512);
+				newPosition[0] = (newX+i*BasicMap.TILESIZE)%(screenWidth);
+				newPosition[1] = (newY+c*BasicMap.TILESIZE)%(screenHeight);
 				}
 
 			}
@@ -117,7 +116,7 @@ public class MonsterManager {
 		int checkY = newPosition[1];
 		for (int i = 0;i < monsterPathSize; i++)
 		{
-			if (checkX >= (1120) || checkY >= (512) || checkX < 0 || checkY < 0)
+			if (checkX >= (screenWidth) || checkY >= (screenHeight) || checkX < 0 || checkY < 0)
 				return "Out of Bounds";
 			else if (array[checkX/BasicMap.TILESIZE][checkY/BasicMap.TILESIZE] != " "){
 				allClear = false;
@@ -144,11 +143,14 @@ public class MonsterManager {
 	
 	// Loads monster Images 
 	private void loadMonsterTypes() throws SlickException{
-		basicMonsterSheet= new SpriteSheet("res/monster/dummySheet.png",32,32); 
+		basicMonsterSheet= new SpriteSheet("res/monster/dummySheet.png",BasicMap.TILESIZE,BasicMap.TILESIZE); 
 		basicMonsterImage = basicMonsterSheet.getSubImage(0, 0);
 		Image [] monsterAnim = {basicMonsterSheet.getSubImage(0, 0), basicMonsterSheet.getSubImage(1, 0)};
 		int [] duration = {250,250};
 		basicMonsterAnimation = new Animation(monsterAnim, duration, false);
+		
+		
+		
 	}
 	
 	//Initializes monsters per level

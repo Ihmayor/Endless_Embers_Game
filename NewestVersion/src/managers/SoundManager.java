@@ -20,7 +20,7 @@ public class SoundManager {
 		/** The wav sound effect */
 		private static Audio wavEffect;
 		
-		//Loads initial Backgroud music
+		//Loads initial Background music
 	    public SoundManager(String filename) {
 	 
 	        try {

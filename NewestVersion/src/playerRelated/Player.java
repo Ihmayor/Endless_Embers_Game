@@ -92,8 +92,6 @@ public class Player extends Entity{
 	
 	
 	////FOR TEST PURPOSES ONLY////
-		
-		
 	public Player(GameContainer gc, StateBasedGame sbg, BasicMap currentMap,int x, int y) throws SlickException{
 		//Constructor used to 
 		super(x,y);
@@ -106,12 +104,13 @@ public class Player extends Entity{
 		
 		//Initialize Variables
 		name = "P";
-		sheet = new SpriteSheet("res/player/template2.png", 32,32);
+		sheet = new SpriteSheet("res/player/template2.png", BasicMap.TILESIZE,BasicMap.TILESIZE);
 		shadow = new Image("res/player/largerShadow.png");
 		loadPlayerSprite(sheet);
 		
 	}
 	
+	//Load the animations used for the player's sprite
 	private void loadPlayerSprite(SpriteSheet playerSheet){
 				//Load Sprite Images for Player
 				Image [] upSprite = {sheet.getSubImage(0,3),
@@ -158,15 +157,11 @@ public class Player extends Entity{
 	
 	
 	public void update(long delta){
-		
 		//If the player is not alive change game state.
+		//Do not allow the player to move.
 		if (!alive){
 			return;
-		
 			}
-		
-		
-		
 		//Input used to get keyboard controls
 		Input input = gc.getInput();
 		 
@@ -224,7 +219,6 @@ public class Player extends Entity{
 
 	
 ////////////METHODS DEALING WITH MOVEMENT//////////////////////
-	
 	private void moveDiagonalUpLeft(){
 			 currentSprite = left;
 			int newX = x-BasicMap.TILESIZE;
@@ -439,6 +433,7 @@ public class Player extends Entity{
 			criticalHitLimit += 5;
 			if (missFactor > 5)
 				missFactor -= 1;
+
 			//Decrease Experience Points used up
 			//Increase amount needed to next level
 			experiencePoints = experiencePoints-pointsNextLevel;
@@ -468,7 +463,6 @@ public class Player extends Entity{
 	public void setOnStairs(boolean var){onStairs = var;}
 
 	///Methods dealing loading////
-	//METHODS FOR LOADING
 	public void loadStats(int newLevel, int newExp, int newHealth)
 		{
 		playerLevel = newLevel;

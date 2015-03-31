@@ -14,7 +14,7 @@ import org.newdawn.slick.state.StateBasedGame;
 //////////////////////////////////////////////////////////////////////////////////////////
 //BASIC BUTTON TEMPLATE				      												//
 //Purpose: Creates Button Template        												//			
-//Limits: Relies on SLICK2D API           												//
+//Limits: Relies on SLICK2D API         C  												//
 //Author: Deque							  												//
 //Source :https://evilzone.org/java/%28java-fames-tut%29-slick2d-buttons-buttons-buttons//
 //////////////////////////////////////////////////////////////////////////////////////////

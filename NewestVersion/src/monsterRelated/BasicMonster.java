@@ -49,12 +49,12 @@ public class BasicMonster extends Entity{
 
 	
 	public BasicMonster(BasicMap currentMap, Animation monsterLook,int x, int y) throws SlickException
-	{
+	{	
 		super(x,y);
 		map = currentMap;
 		name = "M";
 		monsterSightRange = 2;
-		SpriteSheet basicMonsterSheet= new SpriteSheet("res/monster/dummySheet.png",32,32); 
+		SpriteSheet basicMonsterSheet= new SpriteSheet("res/monster/dummySheet.png",BasicMap.TILESIZE,BasicMap.TILESIZE); 
 		monsterImage = basicMonsterSheet.getSubImage(0, 0);
 		monsterAnimation = monsterLook;
 		monsterAnimation.setAutoUpdate(true);
@@ -108,7 +108,7 @@ public class BasicMonster extends Entity{
 	//Methods dealing with monster combat
 	public void setHealthPoints(int points) {healthPoints = points;}
 	public void setMonsterMaxHealth(int monsterMaxHealth) {monsterMaxHealth = maxHealthPoints;}
-	public int getExpPointGain() {return maxHealthPoints/2;}
+	public int getExpPointGain() {return (maxHealthPoints/2)+20;}
 	
 	
 	//Draws Monster to Screen
@@ -128,8 +128,8 @@ public class BasicMonster extends Entity{
 		//Check for Overlap
 		if (playerPosition[0] < 0 || playerPosition [1] < 0)
 			return "Invalid Player Position! Going Off Map";
-		if (entityArray[playerPosition[0]/32][playerPosition[1]/32] == " " ||
-			entityArray[playerPosition[0]/32][playerPosition[1]/32] == "M"){
+		if (entityArray[playerPosition[0]/BasicMap.TILESIZE][playerPosition[1]/BasicMap.TILESIZE] == " " ||
+			entityArray[playerPosition[0]/BasicMap.TILESIZE][playerPosition[1]/BasicMap.TILESIZE] == "M"){
 			return "Player has disappeared from the map.";}
 
 		

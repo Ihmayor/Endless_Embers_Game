@@ -95,7 +95,7 @@ public class BasicMonsterTest {
 		
 		BasicMonster m = new BasicMonster (map, 10,10,100);
 		assertEquals(1000, m.getMaxHealthPoints());
-		assertEquals(500, m.getExpPointGain());
+		assertEquals(520, m.getExpPointGain());
 	}
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -342,62 +342,6 @@ public class BasicMonsterTest {
 		//Assert
 		assertArrayEquals(expected, b.getPosition());
 	}
-	
-	@Test
-	public void test_ChangeDirection(){
-		//Arrange Data
-		String [][] testArray = new String [35][16];
-		char [][] testMap = new char [35][16];
-		
-		for (int i = 0; i < BasicMap.widthByTiles; i++)
-		{
-			for (int c = 0; c < BasicMap.heightByTiles; c++)
-			{
-				testArray[i][c] = " ";
-				testMap [i][c] = ' ';
-			}
-		}
-		
-		testMap[8][7] = 'B';
-		testMap[6][7] = 'B';
-		testArray[7][9] = "P";
-		int [] playerPosition = {7*BasicMap.TILESIZE,9*BasicMap.TILESIZE};
-		
-		BasicMap map = new BasicMap(testMap);
-		
-		BasicMonster b = new BasicMonster(map, 5*32, 7*32, 0);
-		b.setEntityArray(testArray);
-		b.update(playerPosition, 400);
-		b.update(playerPosition, 400);
-		b.update(playerPosition, 400);
-		b.update(playerPosition, 400);
-		b.update(playerPosition, 400);
-		b.update(playerPosition, 400);
-		b.update(playerPosition, 400);
-		b.update(playerPosition, 400);
-		b.update(playerPosition, 400);
-		
-	}
-	
-	
-	public void testChangeDirection_Right(){
-		
-		fail("Not yet implemented");
-	}
-	
-	public void testChangeDirection_Left(){
-		
-		fail("Not yet implemented");
-		
-	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
- * Check change direction
- * check player stops path
- * Check Diagonal Wanders
- * 
- * 
- */
 	
 
 }
