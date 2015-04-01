@@ -27,7 +27,7 @@ public class MonsterManager {
 	private int level = 1;
 	private BasicMap currentMap;
 	private String[][] entityArray;
-	private int screenWidth = 1024;
+	private int screenWidth = 1120;
 	private int screenHeight = 512;
 	
 	
