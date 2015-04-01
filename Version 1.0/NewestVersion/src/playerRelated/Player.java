@@ -477,7 +477,6 @@ public class Player extends Entity{
 		maxHealthPoints = 30 + 50*(newLevel-1);
 		healthPoints = newHealth;
 		criticalHitLimit = 30+5*(newLevel-1);	
-		missFactor = 10 - 5*(newLevel-1);
 		}
 		
 		
