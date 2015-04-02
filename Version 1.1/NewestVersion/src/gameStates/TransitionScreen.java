@@ -94,9 +94,9 @@ public class TransitionScreen extends BasicGameState {
 
 	//Draws Transition Screen based on Player Input
 	@Override
-	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
+	public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics)
 			throws SlickException {
-		g.setColor(Color.black);
+		graphics.setColor(Color.black);
 		if (slide < 1)
 			animationIntro.draw(0,0);
 		else if (slide == 1)
@@ -107,7 +107,7 @@ public class TransitionScreen extends BasicGameState {
 			controlImage.draw(0,0);
 		else if (slide == 4)
 			controlImage2.draw(0,0);		
-		g.drawString("PRESS 'W' TO SKIP INTRO", 780, 470);
+		graphics.drawString("PRESS 'W' TO SKIP INTRO", 780, 470);
 	}
 	
 	//Controls Keyboard Input

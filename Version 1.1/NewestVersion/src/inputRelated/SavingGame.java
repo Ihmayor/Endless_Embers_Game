@@ -13,7 +13,7 @@ import playerRelated.Player;
 
 public class SavingGame {
 		
-	public static void SaveGame(GameScreenAssets gsa, Player p, MonsterManager mm){
+	public static void SaveGame(GameScreenAssets gsa, Player player, MonsterManager monsterManage){
 		try
 		{
 			FileWriter fw = new FileWriter("save.txt");
@@ -21,19 +21,19 @@ public class SavingGame {
 			//First Write Floor number. Newline.
 			pw.println(gsa.getFloorLevel());
 			//Player position. new line
-			pw.println(p.getPosition()[0]);
-			pw.println(p.getPosition()[1]);
+			pw.println(player.getPosition()[0]);
+			pw.println(player.getPosition()[1]);
 			//Player level
-			pw.println(p.getCurrentLevel());
+			pw.println(player.getCurrentLevel());
 			//Player experience points. new line
-			pw.println(p.getExperiencePoints());
+			pw.println(player.getExperiencePoints());
 			//Player health points. new line.
-			pw.println(p.getHealthPoints());
+			pw.println(player.getHealthPoints());
 			//Start loop for saving monster info
-			LinkedList<BasicMonster> mmLL = (LinkedList<BasicMonster>) mm.getMonsterList().clone();
-			while (mmLL.peekFirst() != null)
+			LinkedList<BasicMonster> monsterLinkedList = (LinkedList<BasicMonster>) monsterManage.getMonsterList().clone();
+			while (monsterLinkedList.peekFirst() != null)
 			{
-				BasicMonster currentNode = mmLL.removeFirst();
+				BasicMonster currentNode = monsterLinkedList.removeFirst();
 				//Don't have monster type as of now
 				//Write monster x-coordinate and y-coordinate
 				pw.println(currentNode.getPosition()[0]);

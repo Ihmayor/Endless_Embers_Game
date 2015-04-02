@@ -80,11 +80,13 @@ public class GameOverScreen extends BasicGameState{
 	
 	// Displays the game over screen
 	@Override
-	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
+	public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics)
 			throws SlickException {
+		//abstract numbers = x, y
 		skull.draw(330, 100);
+		//abstract numbers = x,y
 		font.drawString(360, 60, "GAME OVER!", Color.red);
-		buttons.render(gc, g);
+		buttons.render(gc, graphics);
 	}
 
 

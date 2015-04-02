@@ -150,9 +150,9 @@ public class Player extends Entity{
 	
 	
 	
-	public void render(Graphics g){
+	public void render(Graphics graphics){
 	currentSprite.draw((int) x, (int) y);//Draw what the Current sprite should look like.
-	g.drawImage(shadow,(int)x-1110, (int)y-850); //Draw Shadow with a particular offset for the spotlight
+	graphics.drawImage(shadow,(int)x-1110, (int)y-850); //Draw Shadow with a particular offset for the spotlight
 	}
 	
 	

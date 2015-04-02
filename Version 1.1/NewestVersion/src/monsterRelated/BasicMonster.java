@@ -112,7 +112,7 @@ public class BasicMonster extends Entity{
 	
 	
 	//Draws Monster to Screen
-	public void render(Graphics g) throws SlickException{
+	public void render(Graphics graphics) throws SlickException{
 		if (!alive)
 			actDead();
 		monsterAnimation.draw((int)x, (int)y);

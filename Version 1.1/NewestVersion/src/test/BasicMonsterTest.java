@@ -96,7 +96,7 @@ public class BasicMonsterTest {
 		
 		BasicMonster m = new BasicMonster (map, 10,10,100);
 		assertEquals(1000, m.getMaxHealthPoints());
-		assertEquals(520, m.getExpPointGain());
+		assertEquals(510, m.getExpPointGain());
 	}
 	
     //Tests that monsters are erased from the map when they die
@@ -344,4 +344,6 @@ public class BasicMonsterTest {
 	}
 	
 
+	
+	
 }

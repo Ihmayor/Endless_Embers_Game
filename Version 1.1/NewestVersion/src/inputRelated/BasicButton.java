@@ -78,15 +78,15 @@ public class BasicButton extends MouseOverArea {
 	
 	//Renders button image depending on its activation
 	@Override
-    public void render(GUIContext guic, Graphics g) {
+    public void render(GUIContext guic, Graphics graphics) {
 	        if (isActivated()&&!unclickable) {
-	            g.drawImage(activeButton, getX(), getY());
+	            graphics.drawImage(activeButton, getX(), getY());
 	            activated = false;
 	        }
-	        super.render(guic, g);
+	        super.render(guic, graphics);
 		    if (unclickable)
 		    {
-		    	g.drawImage(inactiveButton, getX(), getY());
+		    	graphics.drawImage(inactiveButton, getX(), getY());
 		    }
 	    }
 	 

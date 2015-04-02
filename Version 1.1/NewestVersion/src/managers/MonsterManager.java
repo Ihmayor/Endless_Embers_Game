@@ -207,11 +207,11 @@ public class MonsterManager {
 	
 	
 	//Calls render method for every monster inside the list.
-	public void render(Graphics g) throws SlickException{
+	public void render(Graphics graphics) throws SlickException{
 		
 		BasicMonster [] monsters = monsterList.toArray(new BasicMonster [monsterList.size()]);
 		for (BasicMonster m: monsters){
-			m.render(g);
+			m.render(graphics);
 			}
 		
 	}

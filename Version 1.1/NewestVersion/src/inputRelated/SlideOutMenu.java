@@ -56,9 +56,9 @@ public class SlideOutMenu extends MouseOverArea{
 	}
 
 	   //Draw Game Menu (Used for mouseOverDownImage and highlighting color)
-	   public void render(GameContainer gc, Graphics g) {
-	          super.render(gc, g);
-	          exitGameButton.render(gc,g);
+	   public void render(GameContainer gc, Graphics graphics) {
+	          super.render(gc, graphics);
+	          exitGameButton.render(gc,graphics);
 	   }
 	
 	

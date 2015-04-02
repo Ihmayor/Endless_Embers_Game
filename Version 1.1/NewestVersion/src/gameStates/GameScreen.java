@@ -177,14 +177,14 @@ public class GameScreen extends BasicGameState {
 	
 	// Draws the display of the game
 	@Override
-	public void render(GameContainer gc, StateBasedGame stateGame, Graphics g)
+	public void render(GameContainer gc, StateBasedGame stateGame, Graphics graphics)
 			throws SlickException {
 		
 		//Render Map, Monsters, Player, GameScreen Assets
 		currentMap.render();
-		monsters.render(g);
-		player.render(g);
-		gameAssets.render(g, player);
+		monsters.render(graphics);
+		player.render(graphics);
+		gameAssets.render(graphics, player);
 	}
 	
 	

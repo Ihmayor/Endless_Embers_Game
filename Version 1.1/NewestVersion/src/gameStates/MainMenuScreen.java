@@ -51,11 +51,11 @@ public class MainMenuScreen extends BasicGameState {
 	
 	// Draws the menu screen
 	@Override
-	public void render(GameContainer gc, StateBasedGame stateGame, Graphics g)
+	public void render(GameContainer gc, StateBasedGame stateGame, Graphics graphics)
 			throws SlickException {
 		gc.setShowFPS(false); //FPS counter is hidden		
 		menuAnimation.draw(300,50);
-	    menuButtons.render(gc,g);//Renders the menu buttons
+	    menuButtons.render(gc,graphics);//Renders the menu buttons
 	}
 
 	// Updates the menu's animation
