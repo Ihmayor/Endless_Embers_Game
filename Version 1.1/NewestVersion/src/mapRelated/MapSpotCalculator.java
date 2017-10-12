@@ -7,13 +7,13 @@ public class MapSpotCalculator {
 	
 	
 	//Finds closest diagonal spots towards player
-	public static int[] closestSpotDiagonal(BasicMap map, int [] player,Entity entity , int[] newPosition)
+	public static int[] closestSpotDiagonal(BasicMap map, int [] player,Entity entity)
 	{
 		int x = entity.getPosition()[0];
 		int y = entity.getPosition()[1];
 		
-		int newX = newPosition[0];
-		int newY = newPosition[1];
+		int newX = 0;
+		int newY = 0;
 		
 		int[] foundPosition = new int[] {-1,-1};
 		
@@ -50,15 +50,15 @@ public class MapSpotCalculator {
 	}
 
 	//Finds closest horizontal spots towards player
-	public static int[] closestSpotHorizontal(BasicMap map, int [] player,Entity entity , int[] newPosition) 
+	public static int[] closestSpotHorizontal(BasicMap map, int [] player,Entity entity) 
 	{
 			int[] foundPosition = new int[] {-1,-1};
 		
 			int x = entity.getPosition()[0];
 			int y = entity.getPosition()[1];
 			
-			int newX = newPosition[0];
-			int newY = newPosition[1];
+			int newX = 0;
+			int newY = 0;
 			if (player[1] > y)
 				newY = y + BasicMap.TILESIZE;
 			else
@@ -71,14 +71,14 @@ public class MapSpotCalculator {
 	}
 	
 	//Finds closest vertical spots towards player
-	public static int[] closestSpotVertical(BasicMap map, int [] player,Entity entity , int[] newPosition) {
+	public static int[] closestSpotVertical(BasicMap map, int [] player,Entity entity) {
 		int[] foundPosition = new int[] {-1,-1};
 	
 		int x = entity.getPosition()[0];
 		int y = entity.getPosition()[1];
 		
-		int newX = newPosition[0];
-		int newY = newPosition[1];
+		int newX = 0;
+		int newY = 0;
 		
 		if (player[0] > x)
 			newX = x + BasicMap.TILESIZE;
