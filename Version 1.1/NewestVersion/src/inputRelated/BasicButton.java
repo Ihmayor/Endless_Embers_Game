@@ -52,8 +52,8 @@ public class BasicButton extends MouseOverArea {
 	}
      
     //Method to add actions to a button to perform
-	public void add(ButtonAction action){
-		actions.add(action);
+	public void add(BasicButton.ButtonAction buttonAction){
+		actions.add(buttonAction);
 	}
 	
 	//Disables button
@@ -111,6 +111,12 @@ public class BasicButton extends MouseOverArea {
 	
 	//Gets the list of actions for the button
     public List <ButtonAction>getActions(){return actions;}
+  
+    
+    //Source :https://evilzone.org/java/%28java-fames-tut%29-slick2d-buttons-buttons-buttons/
+    public interface ButtonAction {
+    	public void perform();
+    }
 }
 	
 	

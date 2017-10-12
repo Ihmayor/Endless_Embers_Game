@@ -66,7 +66,7 @@ public class MainMenuButtons {
 		loadGameButton.setMouseOverImage(new Image("res/interface/continueMouseOver.png"));
 	}	
 	//Creates an anon class for the button's action.
-	newGameButton.add(new ButtonAction(){ 
+	newGameButton.add(new BasicButton.ButtonAction(){ 
 		public void perform(){
 		sbg.enterState(TransitionScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));	
 		}
@@ -74,7 +74,7 @@ public class MainMenuButtons {
 	
 	
 	//Creates an anon class for the button's action.
-	loadGameButton.add(new ButtonAction(){ 
+	loadGameButton.add(new BasicButton.ButtonAction(){ 
 		public void perform(){
 		if (savedGameExists){
 			GameScreen.setLoadedGame(true);

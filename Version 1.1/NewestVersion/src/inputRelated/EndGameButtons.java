@@ -46,14 +46,14 @@ public class EndGameButtons {
 		quitGameButton.setMouseOverImage(mouseOverQuitGame);
 		
 		//Creates an anon class for the button's action.
-		newGameButton.add(new ButtonAction(){ 
+		newGameButton.add(new BasicButton.ButtonAction(){ 
 			public void perform(){
 			sbg.enterState(GameScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));	
 			}
 			});
 		
 		//Creates an anon class for the button's action.
-		quitGameButton.add(new ButtonAction(){ 
+		quitGameButton.add(new BasicButton.ButtonAction(){ 
 			public void perform(){
 				//Delete game/Over write old game here
 				((GameContainer)gc).exit();	

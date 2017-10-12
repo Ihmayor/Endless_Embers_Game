@@ -47,7 +47,7 @@ public class SlideOutMenu extends MouseOverArea{
 	    		stateID, new Image ("res/interface/saveExit.png"), new Image ("res/interface/saveExit.png"));
 	    
 	    exitGameButton.setMouseOverImage(new Image("res/interface/saveExitMouseOver.png"));
-		exitGameButton.add(new ButtonAction(){
+		exitGameButton.add(new BasicButton.ButtonAction(){
 			public void perform(){
 				((GameContainer)gc).exit();	
 			}	

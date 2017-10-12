@@ -231,7 +231,7 @@ public class MonsterManager {
 			if (newMonsterXPositions[i] == 0 && newMonsterYPositions[i] == 0)
 				break;
 			monster = new BasicMonster(currentMap, basicMonsterAnimation, basicMonsterImage, newMonsterXPositions[i], newMonsterYPositions[i]);
-			monster.setHealthPoints(newMonsterHealths[i]);
+			monster.addHealthPoints(newMonsterHealths[i]);
 			monster.setPath(newMonsterXPositions[i], newMonsterXPositions[i]+3*BasicMap.TILESIZE);
 			newEntityArray[monster.getPosition()[0]/BasicMap.TILESIZE]
 			     	   [monster.getPosition()[1]/BasicMap.TILESIZE] = monster.getName();
