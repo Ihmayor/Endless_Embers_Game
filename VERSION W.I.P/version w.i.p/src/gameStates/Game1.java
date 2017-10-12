@@ -23,7 +23,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import playerRelated.Player;
 
-public class Game extends BasicGameState {
+public class Game1 extends BasicGameState {
 
 	//Used for quitting the game
 	private GameContainer gc;

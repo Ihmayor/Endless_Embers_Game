@@ -12,7 +12,7 @@ import org.newdawn.slick.geom.Rectangle;
 
 import playerRelated.Player;
 
-public class GameScreenAssets {
+public class GameScreenAssets1 {
 
 	//Floor Variables
 	private int floorLevel = 1;
