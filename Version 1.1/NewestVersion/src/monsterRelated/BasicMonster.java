@@ -219,39 +219,6 @@ public class BasicMonster extends Entity{
 		    }
 	}	
 	
-	//Finds closest diagonal spots towards player
-	private void closestSpotDiagonal(int [] player, int newX, int newY)
-	{
-
-		if (y > player[1])
-			newY = y - BasicMap.TILESIZE;
-		else
-			newY = y + BasicMap.TILESIZE;
-		
-		if (x > player [0])
-			newX = x - BasicMap.TILESIZE;
-		else
-			newX = x + BasicMap.TILESIZE;		
-		
-		if (!isTaken(newX, newY) && !map.hasCollision(newX, newY))
-				{
-				updatePosition(newX,newY);
-				x = newX;
-				y = newY;
-				}
-		
-		else if (!isTaken(x, newY) && !map.hasCollision(x, newY))
-				{
-				updatePosition(x,newY);
-				y = newY;
-			    }
-		
-		else if (!isTaken(newX, y) && !map.hasCollision(newX, y))
-				{
-				updatePosition(newX, y);
-				x = newX;
-				}		
-	}
 	
 	
 
