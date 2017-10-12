@@ -1,4 +1,4 @@
-package test;
+package testRelated;
 
 import static org.junit.Assert.*;
 import mapRelated.BasicMap;

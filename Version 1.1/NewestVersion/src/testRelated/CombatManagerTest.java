@@ -15,7 +15,6 @@ import playerRelated.Player;
 public class CombatManagerTest {
 
 	
-	
 	//Tests when no monster reference is found for combat
 	@Test
 	public void testMonsterRefNotFound(){

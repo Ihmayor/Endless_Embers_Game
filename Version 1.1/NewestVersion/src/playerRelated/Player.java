@@ -415,7 +415,7 @@ public class Player extends Entity{
 		if (levelUp())
 		{
 			GameScreenAssets.queueTextLog.add("Woohoo! Player has leveled Up!");
-			SoundManager.playSoundEffect("res/sound/SFX/Level Up Ding.wav");
+	//		SoundManager.playSoundEffect("res/sound/SFX/Level Up Ding.wav");
 			return "Player has leveled up";
 		}
 		return null;

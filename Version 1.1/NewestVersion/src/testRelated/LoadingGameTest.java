@@ -17,10 +17,10 @@ import managers.MonsterManager;
 import mapRelated.BasicMap;
 import playerRelated.Player;
 
-class LoadingGameTest {
+public class LoadingGameTest {
 
 	@Before
-	void writeSaveFile() throws IOException {
+	public void writeSaveFile() throws IOException {
 		FileWriter fw = new FileWriter("save.txt");
 		PrintWriter pw = new PrintWriter(fw);
 		//First Write Floor number. Newline.
@@ -47,7 +47,7 @@ class LoadingGameTest {
 	
 	
 	@Test
-	void testNotNullLoadedMap() throws SlickException{
+	public void testNotNullLoadedMap() throws SlickException{
 	
 		//Arrange
 		BasicMap mapToTest = new BasicMap();

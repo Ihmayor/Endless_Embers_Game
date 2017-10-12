@@ -84,7 +84,7 @@ public class BasicMonster extends Entity{
 		monsterSightRange = 2;
 		monsterImage = monsterLook;
 		this.monsterAnimation = monsterAnimation;
-		monsterAnimation.setAutoUpdate(true);
+	//	monsterAnimation.setAutoUpdate(true);
 		counter = 0;
 		direction = 'R';
 		maxHealthPoints = 20;

@@ -63,7 +63,7 @@ public class CombatManager {
 		{
 		
 		GameScreenAssets.queueTextLog.addFirst("Average Hit: "+attack);
-		SoundManager.playSoundEffect("res/sound/SFX/Sword Swing.wav");
+	//	SoundManager.playSoundEffect("res/sound/SFX/Sword Swing.wav");
 		currentFoe.subtractHealth(attack);
 		currentFoe.setIsAttacked(true);
 			if (currentFoe.getHealthPoints() <= 0)

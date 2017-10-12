@@ -143,14 +143,11 @@ public class MonsterManager {
 	
 	// Loads monster Images 
 	private void loadMonsterTypes() throws SlickException{
-		basicMonsterSheet= new SpriteSheet("res/monster/dummySheet.png",BasicMap.TILESIZE,BasicMap.TILESIZE); 
-		basicMonsterImage = basicMonsterSheet.getSubImage(0, 0);
-		Image [] monsterAnim = {basicMonsterSheet.getSubImage(0, 0), basicMonsterSheet.getSubImage(1, 0)};
-		int [] duration = {250,250};
-		basicMonsterAnimation = new Animation(monsterAnim, duration, false);
-		
-		
-		
+//		basicMonsterSheet= new SpriteSheet("res/monster/dummySheet.png",BasicMap.TILESIZE,BasicMap.TILESIZE); 
+//		basicMonsterImage = basicMonsterSheet.getSubImage(0, 0);
+//		Image [] monsterAnim = {basicMonsterSheet.getSubImage(0, 0), basicMonsterSheet.getSubImage(1, 0)};
+//		int [] duration = {250,250};
+//		basicMonsterAnimation = new Animation(monsterAnim, duration, false);	
 	}
 	
 	//Initializes monsters per level

@@ -79,9 +79,11 @@ public class LoadingGame {
 		//Set floor level
 		gameAssets.setFloorLevel(readFloor);
 		//Set current map
-		for (int i = readFloor - 1;i != 0;i--)
-		{
-			changeMap = xTotalLevels.removeLast();
+		if (xTotalLevels.toArray().length>0) {
+			for (int i = readFloor - 1;i != 0;i--)
+			{
+				changeMap = xTotalLevels.removeLast();
+			}			
 		}
 		//Set player related data
 		player.loadStats(readPlayerLevel, readPlayerExp, readPlayerHealth);
