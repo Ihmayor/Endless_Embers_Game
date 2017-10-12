@@ -136,7 +136,7 @@ public class BasicMonster extends Entity{
 		
 		isActiveState = search("P");
 		if (isActiveState || (isAttacked&&!isActiveState)){
-			findClosestSpot(playerPosition);
+			updatePosition(MapSpotCalculator.findClosestSpot(map,playerPosition,this)[0], MapSpotCalculator.findClosestSpot(map,playerPosition,this)[1]);
 		}
 		else{
 			wander(playerPosition);
@@ -198,16 +198,7 @@ public class BasicMonster extends Entity{
 	else
 		counter++;
 	}
-	
-	//Used to find closestSpot near the player
-	public void findClosestSpot(int[] player)
-	{
-		int[] newPosition = MapSpotCalculator.findClosestSpot(map, player, this);
-		updatePosition(newPosition[0],newPosition[1]);
 		
-	}			
-
-	
 	
 
 }
