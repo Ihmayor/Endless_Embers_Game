@@ -2,11 +2,10 @@ package gameStates;
 
 public class GameWindowSettings {
 
-	private final int screenWidth = 1120;
-	private final int screenHeight = 800;
+	private static final int screenWidth =1120;
+	private static final int screenHeight = 512;
 	
-	public int getScreenWidth() {return screenWidth;}
-	public int getScreenHeight() {return screenHeight;}
-	
+	public static int getScreenWidth() {return screenWidth;}
+	public static int getScreenHeight() {return screenHeight;}
 	
 }
