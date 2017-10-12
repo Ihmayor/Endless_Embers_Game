@@ -3,8 +3,6 @@ package mapRelated;
 import monsterRelated.Entity;
 
 public class MapSpotCalculator {
-
-	
 	
 	//Finds closest diagonal spots towards player
 	public static int[] closestSpotDiagonal(BasicMap map, int [] player,Entity entity)
@@ -57,7 +55,6 @@ public class MapSpotCalculator {
 			int x = entity.getPosition()[0];
 			int y = entity.getPosition()[1];
 			
-			int newX = 0;
 			int newY = 0;
 			if (player[1] > y)
 				newY = y + BasicMap.TILESIZE;
@@ -78,7 +75,6 @@ public class MapSpotCalculator {
 		int y = entity.getPosition()[1];
 		
 		int newX = 0;
-		int newY = 0;
 		
 		if (player[0] > x)
 			newX = x + BasicMap.TILESIZE;
