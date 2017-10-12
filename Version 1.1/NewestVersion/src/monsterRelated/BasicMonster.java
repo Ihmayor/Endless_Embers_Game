@@ -177,7 +177,7 @@ public class BasicMonster extends Entity{
 			updatePosition(newX1,y);
 			x = newX1;
 			
-			}
+		}
 		//move leftwards
 		else if (direction == 'L' &&!isTaken(newX2,y)){
 				if (map.hasCollision(newX2, y))
@@ -199,7 +199,6 @@ public class BasicMonster extends Entity{
 		counter++;
 	}
 	
-		
 	//Used to find closestSpot near the player
 	public void findClosestSpot(int[] player)
 	{
@@ -209,38 +208,18 @@ public class BasicMonster extends Entity{
 			int[] newPosition = MapSpotCalculator.closestSpotHorizontal(map, player, this, new int[] {newX,newY});
 			updatePosition(newPosition[0],newPosition[1]);				
 			}
-			
 		else if (y == player[1]&& x != player[0])
 		{
-			closestSpotVertical(player,newX, newY);
+			int[] newPosition = MapSpotCalculator.closestSpotVertical(map, player, this, new int[] {newX,newY});
+			updatePosition(newPosition[0],newPosition[1]);				
 		}
 		else if (y!= player[1]&& x!= player[0])
 		{
 			int[] newPosition = MapSpotCalculator.closestSpotDiagonal(map, player, this, new int[] {newX,newY});
 			updatePosition(newPosition[0],newPosition[1]);
 		}
-	}	
-	
-	
-	
+	}			
 
-	
-	
-
-	//Finds closest vertical spots towards player
-	private void closestSpotVertical(int [] player, int newX, int newY){
-		
-		if (player[0] > x)
-			newX = x + BasicMap.TILESIZE;
-		else
-			newX = x - BasicMap.TILESIZE;
-		
-		if (!isTaken(newX,y)&&!map.hasCollision(newX, y))
-			{
-			updatePosition(newX,y);
-			x = newX;
-			}
-	}
 	
 	
 

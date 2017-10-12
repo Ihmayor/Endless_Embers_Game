@@ -69,4 +69,27 @@ public class MapSpotCalculator {
 			
 			return foundPosition;
 	}
+	
+	//Finds closest vertical spots towards player
+	public static int[] closestSpotVertical(BasicMap map, int [] player,Entity entity , int[] newPosition) {
+		int[] foundPosition = new int[] {-1,-1};
+	
+		int x = entity.getPosition()[0];
+		int y = entity.getPosition()[1];
+		
+		int newX = newPosition[0];
+		int newY = newPosition[1];
+		
+		if (player[0] > x)
+			newX = x + BasicMap.TILESIZE;
+		else
+			newX = x - BasicMap.TILESIZE;
+		
+		if (!entity.isTaken(newX,y)&&!map.hasCollision(newX, y))
+			{
+			foundPosition = new int[]{newX,y};
+			}
+		return foundPosition;
+	}
+
 }
