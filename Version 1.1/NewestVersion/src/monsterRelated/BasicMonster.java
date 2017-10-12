@@ -2,6 +2,7 @@ package monsterRelated;
 
 
 import mapRelated.BasicMap;
+import mapRelated.MapSpotCalculator;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
@@ -214,9 +215,9 @@ public class BasicMonster extends Entity{
 		}
 		else if (y!= player[1]&& x!= player[0])
 		{
-			closestSpotDiagonal(player,newX, newY);
-				
-		    }
+			int[] newPosition = MapSpotCalculator.closestSpotDiagonal(map, player, this, new int[] {newX,newY});
+			updatePosition(newPosition[0],newPosition[1]);
+		}
 	}	
 	
 	
