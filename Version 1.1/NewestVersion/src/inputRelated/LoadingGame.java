@@ -18,9 +18,6 @@ import playerRelated.Player;
 
 public class LoadingGame {
 	
-	
-	
-	
 	public static BasicMap initLoadingGame(GameScreenAssets gameAssets, BasicMap changeMap, LinkedList<BasicMap> xTotalLevels,
 			   Player player, MonsterManager monsters, String[][] entityArray)
 			   throws SlickException
@@ -43,19 +40,8 @@ public class LoadingGame {
 			BufferedReader br = new BufferedReader(fr);
 
 			//Reading player saved data
-			String readStringFloor = br.readLine();
-			readFloor = Integer.valueOf(readStringFloor);
-			String readStringPlayerPositionX = br.readLine();
-			readPlayerPositionX = Integer.valueOf(readStringPlayerPositionX);
-			String readStringPlayerPositionY = br.readLine();
-			readPlayerPositionY = Integer.valueOf(readStringPlayerPositionY);
-			String readStringPlayerLevel = br.readLine();
-			readPlayerLevel = Integer.valueOf(readStringPlayerLevel);
-			String readStringPlayerExp = br.readLine();
-			readPlayerExp = Integer.valueOf(readStringPlayerExp);
-			String readStringPlayerHealth = br.readLine();
-			readPlayerHealth = Integer.valueOf(readStringPlayerHealth);
-
+			LoadPlayerData(br, readFloor, readPlayerPositionX, readPlayerPositionY, readPlayerLevel, readPlayerExp, readPlayerHealth);
+		
 			//Reading monster saved data
 			String lineRead = br.readLine();
 			for (int i = 0; lineRead != null; i++)
@@ -110,4 +96,22 @@ public class LoadingGame {
 		return changeMap;
 	}
 
+	private static void LoadPlayerData(BufferedReader br, int readFloor, int readPlayerPositionX, int readPlayerPositionY, int readPlayerExp, int readPlayerLevel, int readPlayerHealth) throws IOException {
+		//Reading player saved data
+		String readStringFloor = br.readLine();
+		readFloor = Integer.valueOf(readStringFloor);
+		String readStringPlayerPositionX = br.readLine();
+		readPlayerPositionX = Integer.valueOf(readStringPlayerPositionX);
+		String readStringPlayerPositionY = br.readLine();
+		readPlayerPositionY = Integer.valueOf(readStringPlayerPositionY);
+		String readStringPlayerLevel = br.readLine();
+		readPlayerLevel = Integer.valueOf(readStringPlayerLevel);
+		String readStringPlayerExp = br.readLine();
+		readPlayerExp = Integer.valueOf(readStringPlayerExp);
+		String readStringPlayerHealth = br.readLine();
+		readPlayerHealth = Integer.valueOf(readStringPlayerHealth);
+	}
+
+
 }
+

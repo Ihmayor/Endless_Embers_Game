@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Version 1.1/NewestVersion/src"/>
+	<classpathentry kind="src" path="VERSION W.I.P/version w.i.p/src"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/slick/lib/ibxm.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/User/Downloads/slick"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/slick/lib/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/User/Downloads/slick"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/slick/lib/lwjgl_util.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/User/Downloads/slick"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/slick/lib/natives-windows.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/User/Downloads/slick"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/slick/lib/slick.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/User/Downloads/slick"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="VERSION W.I.P/version w.i.p/bin"/>
+</classpath>

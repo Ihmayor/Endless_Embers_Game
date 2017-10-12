@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Version 1.1",
+    "\\Version 1.1\\NewestVersion",
+    "\\Version 1.1\\NewestVersion\\src",
+    "\\Version 1.1\\NewestVersion\\src\\inputRelated",
+    "\\Version 1.1\\NewestVersion\\src\\playerRelated"
+  ],
+  "SelectedNode": "\\Version 1.1\\NewestVersion\\src\\inputRelated\\LoadingGame.java",
+  "PreviewInSolutionExplorer": false
+}
