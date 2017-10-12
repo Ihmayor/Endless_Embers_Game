@@ -49,6 +49,24 @@ public class MapSpotCalculator {
 		return foundPosition;
 	}
 
-	
-	
+	//Finds closest horizontal spots towards player
+	public static int[] closestSpotHorizontal(BasicMap map, int [] player,Entity entity , int[] newPosition) 
+	{
+			int[] foundPosition = new int[] {-1,-1};
+		
+			int x = entity.getPosition()[0];
+			int y = entity.getPosition()[1];
+			
+			int newX = newPosition[0];
+			int newY = newPosition[1];
+			if (player[1] > y)
+				newY = y + BasicMap.TILESIZE;
+			else
+				newY = y - BasicMap.TILESIZE;
+			
+			if (!entity.isTaken(x,newY)&&!map.hasCollision(x,newY))
+				foundPosition = new int[]{x,newY};
+			
+			return foundPosition;
+	}
 }

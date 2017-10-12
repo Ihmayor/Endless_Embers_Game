@@ -206,7 +206,8 @@ public class BasicMonster extends Entity{
 		int newX = 0;
 		int newY = 0;
 		if (x == player[0]&& y!= player[1]){
-				closestSpotHorizontal (player, newX, newY);
+			int[] newPosition = MapSpotCalculator.closestSpotHorizontal(map, player, this, new int[] {newX,newY});
+			updatePosition(newPosition[0],newPosition[1]);				
 			}
 			
 		else if (y == player[1]&& x != player[0])
@@ -223,19 +224,6 @@ public class BasicMonster extends Entity{
 	
 	
 
-	//Finds closest horizontal spots towards player
-	private void closestSpotHorizontal(int [] player, int newX, int newY){
-		if (player[1] > y)
-			newY = y + BasicMap.TILESIZE;
-		else
-			newY = y - BasicMap.TILESIZE;
-		
-		if (!isTaken(x,newY)&&!map.hasCollision(x,newY))
-			{		
-			updatePosition(x,newY);
-			y = newY;
-			}
-	}
 	
 	
 
