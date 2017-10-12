@@ -4,6 +4,34 @@ import monsterRelated.Entity;
 
 public class MapSpotCalculator {
 	
+	public static int[] findClosestSpot(BasicMap map, int[] player, Entity entity)
+	{
+		int x = entity.getPosition()[0];
+		int y = entity.getPosition()[1];
+		
+		int newX = 0;
+		int newY = 0;
+		
+		int[] foundPosition = new int[] {-1,-1};
+
+		if (x == player[0]&& y!= player[1]){
+			int[] newPosition = MapSpotCalculator.closestSpotHorizontal(map, player, entity);
+			foundPosition = new int[] {newPosition[0],newPosition[1]};				
+			}
+		else if (y == player[1]&& x != player[0])
+		{
+			int[] newPosition = MapSpotCalculator.closestSpotVertical(map, player, entity);
+			foundPosition=new int[]{newPosition[0],newPosition[1]};				
+		}
+		else if (y!= player[1]&& x!= player[0])
+		{
+			int[] newPosition = MapSpotCalculator.closestSpotDiagonal(map, player, entity);
+			foundPosition=new int[]{newPosition[0],newPosition[1]};
+		}
+		return foundPosition;
+	}
+	
+	
 	//Finds closest diagonal spots towards player
 	public static int[] closestSpotDiagonal(BasicMap map, int [] player,Entity entity)
 	{

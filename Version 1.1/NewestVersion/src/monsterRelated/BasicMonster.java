@@ -202,7 +202,10 @@ public class BasicMonster extends Entity{
 	//Used to find closestSpot near the player
 	public void findClosestSpot(int[] player)
 	{
-		if (x == player[0]&& y!= player[1]){
+		int[] newPosition = MapSpotCalculator.findClosestSpot(map, player, this);
+		updatePosition(newPosition[0],newPosition[1]);
+		
+	/*	if (x == player[0]&& y!= player[1]){
 			int[] newPosition = MapSpotCalculator.closestSpotHorizontal(map, player, this);
 			updatePosition(newPosition[0],newPosition[1]);				
 			}
@@ -215,7 +218,7 @@ public class BasicMonster extends Entity{
 		{
 			int[] newPosition = MapSpotCalculator.closestSpotDiagonal(map, player, this);
 			updatePosition(newPosition[0],newPosition[1]);
-		}
+		}*/
 	}			
 
 	
