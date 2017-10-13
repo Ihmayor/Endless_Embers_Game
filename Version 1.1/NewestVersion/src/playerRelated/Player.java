@@ -34,7 +34,7 @@ public class Player extends Entity{
 	private PlayerStatus playerStats;
 	private PlayerMovement playerMovement;
 	
-	////FOR TEST PURPOSES ONLY////
+	////FOR TEST PURPOSES ONLY TO AVOID UI EXCEPTIONS////
 	public Player (int x, int y){
 		super(x,y);
 		gc = null;
@@ -51,45 +51,7 @@ public class Player extends Entity{
 		playerStats = new PlayerStatus(this);
 		playerMovement = new PlayerMovement();
 	}
-		
-	public void mockKeyBoard(char c){
-		switch(c) 
-		{
-		case 'u'://Up
-			moveUp();
-			break;
-		case 'd'://Down
-			moveDown();
-			break;
-		case 'l'://Left
-			moveLeft();
-			break;
-		case 'r'://Right
-			moveRight();
-			break;
-		case 'a'://Diagonal Up Left
-			moveDiagonalUpLeft();
-			break;
-		case 'b'://Diagonal Up Right
-			moveDiagonalUpRight();
-			break;
-		case 'c'://Diagonal Down Left
-			moveDiagonalDownLeft();
-			break;
-		case 'f'://Diagonal Down Right
-			moveDiagonalDownRight();
-			break;
-		case 'g':
-			moveNowhere();
-			break;
-		default:
-			break;
-		}
-		
-		
-	}
-	
-	
+			
 	////FOR TEST PURPOSES ONLY////
 	public Player(GameContainer gc, StateBasedGame sbg, BasicMap currentMap,int x, int y) throws SlickException{
 		//Constructor used to 

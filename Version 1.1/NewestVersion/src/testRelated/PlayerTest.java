@@ -57,6 +57,8 @@ public class PlayerTest {
 		PlayerStatus playerStats = player.getPlayerStatus(); 
 		assertEquals("Player has leveled up",playerStats.addExperiencePoints(2000));
 	}
+	
+	
 	@Test
 	public void testPlayerMovementMoveLeft()
 	{
@@ -76,22 +78,15 @@ public class PlayerTest {
 		PlayerMovement movement = new PlayerMovement();
 		p.setEntityArray(testArray);
 		int [] expected = {3*BasicMap.TILESIZE, 5*BasicMap.TILESIZE};
-		int [] current = p.getPosition();
 		movement.moveLeft(p, map);
-		int [] after = p.getPosition();
 		assertArrayEquals(expected, p.getPosition());
 		
 	}
 	
-	
+
 	@Test
-	public void testPlayerMovement(){
-		
-		//Mock keyboard was call upon private method player movement
-		//The private methods would've originally been called depending on input from the keyboard
-		//In it's place characters have been used to individually call each method.
-		//Reflections (Private Objects for Java) proved to carry too many complications than it was worth.
-		
+	public void testPlayerMovementMoveRight()
+	{
 		String [][] testArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
 		char [][] testMap = new char [BasicMap.widthByTiles][BasicMap.heightByTiles];
 		
@@ -105,61 +100,131 @@ public class PlayerTest {
 		}
 		BasicMap map = new BasicMap(testMap);
 		Player p = new Player(4*BasicMap.TILESIZE, 5*BasicMap.TILESIZE, map);
+		PlayerMovement movement = new PlayerMovement();
 		p.setEntityArray(testArray);
-		int [] expected = {3*BasicMap.TILESIZE, 5*BasicMap.TILESIZE};
-		p.mockKeyBoard('l');
+		int [] expected = {5*BasicMap.TILESIZE, 5*BasicMap.TILESIZE};
+		movement.moveRight(p, map);
 		assertArrayEquals(expected, p.getPosition());
-		p.mockKeyBoard('r');
-		expected [0] = 4*BasicMap.TILESIZE;
-		assertArrayEquals(expected, p.getPosition());
-		expected [1] = 6*BasicMap.TILESIZE;
-		p.mockKeyBoard('d');
-		assertArrayEquals(expected, p.getPosition());
-		expected [1] = 5*BasicMap.TILESIZE;
-		p.mockKeyBoard('u');
-		assertArrayEquals(expected, p.getPosition());
-		
-		p.mockKeyBoard('a');
-		expected [0] -= BasicMap.TILESIZE;
-		expected [1] -= BasicMap.TILESIZE;
-		assertArrayEquals(expected, p.getPosition());
-		
-		p.mockKeyBoard('b');
-		expected [0] += BasicMap.TILESIZE;
-		expected [1] -= BasicMap.TILESIZE;
-		assertArrayEquals(expected, p.getPosition());
-		
-		p.mockKeyBoard('c');
-		expected [0] -= BasicMap.TILESIZE;
-		expected [1] += BasicMap.TILESIZE;
-		assertArrayEquals(expected, p.getPosition());
-		
-		
-		p.mockKeyBoard('f');
-		expected [0] += BasicMap.TILESIZE;
-		expected [1] += BasicMap.TILESIZE;
-		
-		assertArrayEquals(expected, p.getPosition());
-		p.mockKeyBoard('y');
-		assertArrayEquals(expected, p.getPosition());
-		p.mockKeyBoard('g');
-		assertArrayEquals(expected, p.getPosition());		
 	}
 	
-	/*
 	@Test
-	public void testPlayerMoveUp() throws SecurityException, NoSuchMethodException, IllegalAccessException,InvocationTargetException{
-		Player p = new Player(4*BasicMap.TILESIZE,5*BasicMap.TILESIZE);
-
-		Method privateUpMethod = Player.class.getDeclaredMethod("moveUp", String.class);
-
-		privateUpMethod.setAccessible(true);
-
-	    privateUpMethod.invoke(p, null);
-
-	}
-	*/	
+	public void testPlayerMoveDiagonalDownRight()
+	{
+		String [][] testArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
+		char [][] testMap = new char [BasicMap.widthByTiles][BasicMap.heightByTiles];
 		
+		for (int i = 0; i < BasicMap.widthByTiles; i++)
+		{
+			for (int c = 0; c < BasicMap.heightByTiles; c++)
+			{
+				testArray[i][c] = " ";
+				testMap [i][c] = ' ';
+			}
+		}
+		BasicMap map = new BasicMap(testMap);
+		Player p = new Player(4*BasicMap.TILESIZE, 5*BasicMap.TILESIZE, map);
+		PlayerMovement movement = new PlayerMovement();
+		p.setEntityArray(testArray);
+		int [] expected = {5*BasicMap.TILESIZE, 6*BasicMap.TILESIZE};
+		movement.moveDiagonalDownRight(p, map);
+		assertArrayEquals(expected, p.getPosition());
+	}
+	
+	
+	@Test
+	public void testPlayerMoveDiagonalUpLeft()
+	{
+		String [][] testArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
+		char [][] testMap = new char [BasicMap.widthByTiles][BasicMap.heightByTiles];
+		
+		for (int i = 0; i < BasicMap.widthByTiles; i++)
+		{
+			for (int c = 0; c < BasicMap.heightByTiles; c++)
+			{
+				testArray[i][c] = " ";
+				testMap [i][c] = ' ';
+			}
+		}
+		BasicMap map = new BasicMap(testMap);
+		Player p = new Player(4*BasicMap.TILESIZE, 5*BasicMap.TILESIZE, map);
+		PlayerMovement movement = new PlayerMovement();
+		p.setEntityArray(testArray);
+		int [] expected = {3*BasicMap.TILESIZE, 4*BasicMap.TILESIZE};
+		movement.moveDiagonalUpLeft(p, map);
+		assertArrayEquals(expected, p.getPosition());
+	}
+	
+	@Test
+	public void testPlayerMoveDiagonalDownLeft()
+	{
+		String [][] testArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
+		char [][] testMap = new char [BasicMap.widthByTiles][BasicMap.heightByTiles];
+		
+		for (int i = 0; i < BasicMap.widthByTiles; i++)
+		{
+			for (int c = 0; c < BasicMap.heightByTiles; c++)
+			{
+				testArray[i][c] = " ";
+				testMap [i][c] = ' ';
+			}
+		}
+		BasicMap map = new BasicMap(testMap);
+		Player p = new Player(4*BasicMap.TILESIZE, 5*BasicMap.TILESIZE, map);
+		PlayerMovement movement = new PlayerMovement();
+		p.setEntityArray(testArray);
+		int [] expected = {3*BasicMap.TILESIZE, 6*BasicMap.TILESIZE};
+		movement.moveDiagonalDownLeft(p, map);
+		assertArrayEquals(expected, p.getPosition());
+	}
+	
+	@Test
+	public void testPlayerMoveUp()
+	{
+		String [][] testArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
+		char [][] testMap = new char [BasicMap.widthByTiles][BasicMap.heightByTiles];
+		
+		for (int i = 0; i < BasicMap.widthByTiles; i++)
+		{
+			for (int c = 0; c < BasicMap.heightByTiles; c++)
+			{
+				testArray[i][c] = " ";
+				testMap [i][c] = ' ';
+			}
+		}
+		BasicMap map = new BasicMap(testMap);
+		Player p = new Player(4*BasicMap.TILESIZE, 5*BasicMap.TILESIZE, map);
+		PlayerMovement movement = new PlayerMovement();
+		p.setEntityArray(testArray);
+		int [] expected = {4*BasicMap.TILESIZE, 4*BasicMap.TILESIZE};
+		movement.moveUp(p, map);
+		assertArrayEquals(expected, p.getPosition());
+	}
+	
+	@Test
+	public void testPlayerMoveDown()
+	{
+		String [][] testArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
+		char [][] testMap = new char [BasicMap.widthByTiles][BasicMap.heightByTiles];
+		
+		for (int i = 0; i < BasicMap.widthByTiles; i++)
+		{
+			for (int c = 0; c < BasicMap.heightByTiles; c++)
+			{
+				testArray[i][c] = " ";
+				testMap [i][c] = ' ';
+			}
+		}
+		BasicMap map = new BasicMap(testMap);
+		Player p = new Player(4*BasicMap.TILESIZE, 5*BasicMap.TILESIZE, map);
+		PlayerMovement movement = new PlayerMovement();
+		p.setEntityArray(testArray);
+		int [] expected = {4*BasicMap.TILESIZE, 6*BasicMap.TILESIZE};
+		movement.moveDown(p, map);
+		assertArrayEquals(expected, p.getPosition());
+	}
+	
+	
+	
 		
 }
 
