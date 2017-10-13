@@ -403,18 +403,7 @@ public class Player extends Entity{
 	
 ///////////METHOD DEALING WITH LEVELING UP////////////////////
 	public String addExperiencePoints(int points){
-		if (points <0)
-			return "Can't gain negative EXP";
-		
-		//Add points given
-		experiencePoints += points;
-		if (levelUp())
-		{
-			GameScreenAssets.queueTextLog.add("Woohoo! Player has leveled Up!");
-	//		SoundManager.playSoundEffect("res/sound/SFX/Level Up Ding.wav");
-			return "Player has leveled up";
-		}
-		return null;
+		return addExperiencePoints(points);
 	}
 	
 	//Method used when the player levels up
