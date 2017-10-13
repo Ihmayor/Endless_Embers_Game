@@ -13,6 +13,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
+import gameStates.GameWindowSettings;
+
 /////////////////////////////////////////////////////////////
 //Monster Manager                                          //
 //Purpose: Manage Multiple Monsters in a level		       //
@@ -27,9 +29,8 @@ public class MonsterManager {
 	private int level = 1;
 	private BasicMap currentMap;
 	private String[][] entityArray;
-	private int screenWidth = 1120;
-	private int screenHeight = 512;
-	
+	private int screenWidth = GameWindowSettings.getScreenWidth();
+	private int screenHeight = GameWindowSettings.getScreenHeight();
 	
 	
 	//Monster Type1
