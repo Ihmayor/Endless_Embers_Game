@@ -402,21 +402,7 @@ public class Player extends Entity{
 				}
 	
 ///////////METHOD DEALING WITH LEVELING UP////////////////////
-	public String addExperiencePoints(int points){
-		return addExperiencePoints(points);
-	}
-	
-	//Method used when the player levels up
-	private boolean levelUp(){
-		return playerStats. levelUp();
-	}
-
-		
-	public int getCurrentLevel(){return playerStats.getPlayerLevel();}
-	
-	public int getExperiencePoints(){return playerStats.getExperiencePoints();}
-	
-	public int getPointsNextLevel() {return playerStats.getPointsNextLevel();}
+	public PlayerStatus getPlayerStatus() {return playerStats;}
 	
 	
 ///////////METHODS DEALING WITH COMBAT///////////////////	

@@ -8,6 +8,7 @@ import mapRelated.BasicMap;
 import org.junit.Test;
 
 import playerRelated.Player;
+import playerRelated.PlayerStatus;
 
 public class PlayerTest {
 
@@ -16,20 +17,21 @@ public class PlayerTest {
 	@Test
 	public void testExperiencePoints(){
 		Player player = new Player (10, 10);
-		player.addExperiencePoints(10);
-		assertEquals(0, player.getExperiencePoints());
-		assertEquals(20,player.getPointsNextLevel());
-		player.addExperiencePoints(20);
-		assertEquals(40,player.getPointsNextLevel());
-		player.addExperiencePoints(40);
-		assertEquals(80,player.getPointsNextLevel());
-		player.addExperiencePoints(80);
-		assertEquals(160,player.getPointsNextLevel());
-		player.addExperiencePoints(160);
-		assertEquals(320,player.getPointsNextLevel());	
-		player.addExperiencePoints(320);
-		assertEquals(640,player.getPointsNextLevel());	
-		assertEquals(7, player.getCurrentLevel());
+		PlayerStatus playerStats = player.getPlayerStatus(); 
+		playerStats.addExperiencePoints(10);
+		assertEquals(0, playerStats.getExperiencePoints());
+		assertEquals(20,playerStats.getPointsNextLevel());
+		playerStats.addExperiencePoints(20);
+		assertEquals(40,playerStats.getPointsNextLevel());
+		playerStats.addExperiencePoints(40);
+		assertEquals(80,playerStats.getPointsNextLevel());
+		playerStats.addExperiencePoints(80);
+		assertEquals(160,playerStats.getPointsNextLevel());
+		playerStats.addExperiencePoints(160);
+		assertEquals(320,playerStats.getPointsNextLevel());	
+		playerStats.addExperiencePoints(320);
+		assertEquals(640,playerStats.getPointsNextLevel());	
+		assertEquals(7, playerStats.getPlayerLevel());
 		
 	}
 
@@ -37,19 +39,22 @@ public class PlayerTest {
 	public void testNegativeExperiencePoints(){
 		//Arrange
 		Player player = new Player (10,10);		
-		assertEquals("Can't gain negative EXP",player.addExperiencePoints(-100));
+		PlayerStatus playerStats = player.getPlayerStatus(); 
+		assertEquals("Can't gain negative EXP",playerStats.addExperiencePoints(-100));
 	}
 	@Test
 	public void test_NoLevelUp() {
 		Player player = new Player(10,10);
-		assertEquals(null, player.addExperiencePoints(1));
+		PlayerStatus playerStats = player.getPlayerStatus(); 
+		assertEquals(null,playerStats.addExperiencePoints(1));
 	}
 	
 	
 	@Test 
 	public void testPlayerLevelUp(){
 		Player player = new Player (10,10);		
-		assertEquals("Player has leveled up",player.addExperiencePoints(2000));
+		PlayerStatus playerStats = player.getPlayerStatus(); 
+		assertEquals("Player has leveled up",playerStats.addExperiencePoints(2000));
 	}
 	
 	@Test
