@@ -233,45 +233,12 @@ public class Player extends Entity{
 		
 	private void moveDiagonalUpRight(){
 			currentSprite = right;
-			int newX = x + BasicMap.TILESIZE;
-			int newY = y - BasicMap.TILESIZE;
-			
-			if (isTaken(newX, newY))
-				attack(newX, newY);
-			else if (!(map.hasCollision(newX, newY)))	
-				{
-					updatePosition(newX,newY);
-					y = newY;
-					x = newX;	
-					if (map.isStairs(x, y)){
-						onStairs = true;
-						}
-					if (map.isWin(x, y))
-					{
-					GameScreen.setWin(true);
-					}
-				
-				}
+			playerMovement.moveUp(this,map);
 		}
 
 	private void moveLeft(){	
 			currentSprite = left;
-			int newX = x-BasicMap.TILESIZE;
-			if (isTaken(newX, y))
-				attack(newX,y);
-			else if (!(map.hasCollision(newX, y))){
-				updatePosition(newX,y);
-				x = newX;
-				if (map.isStairs(x, y)){
-					onStairs = true;
-					}
-				if (map.isWin(x, y))
-				{
-				GameScreen.setWin(true);
-				}
-			
-			}
-			
+			playerMovement.moveLeft(this,map);
 		}
 		
 	private void moveNowhere()
