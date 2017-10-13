@@ -10,12 +10,14 @@ import java.util.LinkedList;
 import managers.MonsterManager;
 import monsterRelated.BasicMonster;
 import playerRelated.Player;
+import playerRelated.PlayerStatus;
 
 public class SavingGame {
 		
 	public static void SaveGame(GameScreenAssets gsa, Player player, MonsterManager monsterManage){
 		try
 		{
+			PlayerStatus playerStatus = player.getPlayerStatus();
 			FileWriter fw = new FileWriter("save.txt");
 			PrintWriter pw = new PrintWriter(fw);
 			//First Write Floor number. Newline.
@@ -24,9 +26,9 @@ public class SavingGame {
 			pw.println(player.getPosition()[0]);
 			pw.println(player.getPosition()[1]);
 			//Player level
-			pw.println(player.getCurrentLevel());
+			pw.println(playerStatus.getPlayerLevel());
 			//Player experience points. new line
-			pw.println(player.getExperiencePoints());
+			pw.println(playerStatus.getExperiencePoints());
 			//Player health points. new line.
 			pw.println(player.getHealthPoints());
 			//Start loop for saving monster info

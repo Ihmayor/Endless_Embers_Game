@@ -401,7 +401,6 @@ public class Player extends Entity{
 			
 				}
 	
-///////////METHOD DEALING WITH LEVELING UP////////////////////
 	public PlayerStatus getPlayerStatus() {return playerStats;}
 	
 	

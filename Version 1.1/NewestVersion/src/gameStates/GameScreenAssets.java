@@ -96,8 +96,8 @@ public class GameScreenAssets {
         //Draw Experience Bar
         g.setColor(Color.white);
 	    g.drawString("EXP", 80, 480);
-	    g.drawString(""+player.getExperiencePoints()+"/"+player.getPointsNextLevel(), 420, 480);
-	    Rectangle expBar = new Rectangle(110, 480, 300*player.getExperiencePoints()/player.getPointsNextLevel(), 20);
+	    g.drawString(""+player.getPlayerStatus().getExperiencePoints()+"/"+player.getPlayerStatus().getPointsNextLevel(), 420, 480);
+	    Rectangle expBar = new Rectangle(110, 480, 300*player.getPlayerStatus().getExperiencePoints()/player.getPlayerStatus().getPointsNextLevel(), 20);
         GradientFill fillGreen = new GradientFill(110, 0, new Color(90, 255, 20),
                                              480 + 300, 0, new Color(40, 180, 40));
         g.setColor(Color.darkGray);

@@ -113,7 +113,7 @@ public class CombatManager {
 	private static void monsterDies(Player player, BasicMonster currentFoe){
 		GameScreenAssets.queueTextLog.addFirst("You've Killed the monster!");
 		SoundManager.playSoundEffect("res/sound/SFX/MonsterDie.wav");
-		player.addExperiencePoints(currentFoe.getExpPointGain());
+		player.getPlayerStatus().addExperiencePoints(currentFoe.getExpPointGain());
 		battleHappening = false;
 		monsterList.remove(currentFoe);
 	
