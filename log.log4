@@ -1,0 +1,272 @@
+2017-10-13 03:46:26 -0600 Replaced original code with extracted method call in the rest of the move methods
+
+2017-10-13 03:41:55 -0600 Replaced original code with extracted method call in moveDiagonalUpRight
+
+2017-10-13 03:40:13 -0600 Extracted Duplicated Code and created new method
+
+2017-10-13 03:22:46 -0600 Removed all movement functionality from Player.java  and tested it
+
+2017-10-13 03:00:38 -0600 Got rid of mock keyboard that was used for testing
+
+2017-10-13 02:47:28 -0600 Found that I could refactor out the mock keyboard used for only testing purposes out of the player code
+
+2017-10-13 02:36:35 -0600 All tests passed
+
+2017-10-13 02:34:08 -0600 Extracted rest of movement
+
+2017-10-13 02:17:30 -0600 Extracted Move nowhere, move left, move diagonal right
+
+2017-10-12 23:11:47 -0600 Extracted moveUp
+
+2017-10-12 23:05:17 -0600 Updated Player References
+
+2017-10-12 22:47:41 -0600 Updated Player references in other classes to refer to player status instead
+
+2017-10-12 22:44:34 -0600 Removed all player stats methods except for linking ref to player status class and updated Test Methods
+
+2017-10-12 22:38:30 -0600 Tested Extracted Methods after minor extraction bug fixes
+
+2017-10-12 22:33:19 -0600 Extracted level up and using original code to call old code. Had to move variables over. Resolved most conflicts before further extraction.
+
+2017-10-12 21:17:56 -0600 Created Classes to start shortening Long Class player.java
+
+2017-10-12 21:11:59 -0600 Made Game window an inline class of basic map
+
+2017-10-12 21:08:42 -0600 Refactored GameWindow To derive its information from basicMap
+
+2017-10-12 21:03:11 -0600 Refactored Entity.java screenheight/width
+
+2017-10-12 20:53:38 -0600 Conflicting code clean up in adjacent project
+
+2017-10-12 19:42:47 -0600 Changed MonsterManager screenwidth referneces to call GameWindowSettings class
+
+2017-10-12 12:19:28 -0600 Changed Ver2GameDriver screenwidth references to call GameWindowSettings class
+
+2017-10-12 12:17:23 -0600 changed extracted values to static
+
+2017-10-12 12:16:13 -0600 Fixing screenwidth/screenheight shotgun surgery problem. Created GameWindow Class
+
+2017-10-12 12:13:13 -0600 Deleted uneeded ButtonAction.java file
+
+2017-10-12 12:12:33 -0600 Moved Lazy Class 'ButtonAction' to inside BasicButton
+
+2017-10-12 12:05:46 -0600 All tests pass extraction
+
+2017-10-12 12:03:03 -0600 Replacing original method with extracted method
+
+2017-10-12 12:02:24 -0600 All tests pass
+
+2017-10-12 12:02:09 -0600 Extracted getClosestPosition
+
+2017-10-12 11:58:04 -0600 All tests pass
+
+2017-10-12 11:57:17 -0600 Removed Unused variables
+
+2017-10-12 11:55:37 -0600 Removed Parameter Method Used
+
+2017-10-12 11:49:43 -0600 Finished extracting closestSpotVertical. All tests passed
+
+2017-10-12 11:40:55 -0600 Extracted find closestSpotHorizontal. All tests in BasicMonster for findClosestSpotHorizontal passed
+
+2017-10-12 11:35:44 -0600 All tests in BasicMonster find diagonal passed
+
+2017-10-12 11:31:35 -0600 Ran into difficult bug. To optimize time. Refactoring Basic Monster Method Map Calculations first. Started moving findClosestSpotDiagonal
+
+2017-10-12 08:45:04 -0600 Temporarily Move code to a different project to resolve unmatching junit build paths, went back to orignal project after resolution to test code. Changes is the same as last commit
+
+2017-10-12 08:38:10 -0600 Commented out all Resource/Asset dependent errors like sound files and sprite sheets to get test to pass
+
+2017-10-12 08:14:17 -0600 Created Test for LoadingGame
+
+2017-10-12 07:14:14 -0600 Refactored out load player data
+
+2015-04-01 20:22:35 -0600 Floor 4 map fix
+
+2015-04-01 19:52:41 -0600 I COULDN'T JUSTIFY IT IN MY HEAD I'M SORRY!!
+
+2015-04-01 07:03:51 -0600 Had to change a quick thing
+
+2015-04-01 05:18:12 -0600 Merge pull request #4 from Ihmayor/Irene_W.I.P
+
+2015-04-01 05:13:21 -0600 erge remote-tracking branch 'origin/Irene_W.I.P'
+
+2015-04-01 00:27:27 -0600 fixed floor 4
+
+2015-03-31 22:12:48 -0600 Revert "THIS now works" aaaaaaaaaaaaaaaaaaa
+
+2015-03-31 22:04:12 -0600 MOST COMPLETED VERSION
+
+2015-03-30 21:34:13 -0600 Updated Win Screen + Altered Stats a bit
+
+2015-03-30 01:41:35 -0600 floor 4 right edge
+
+2015-03-29 22:46:07 -0600 Updated Win Screen
+
+2015-03-28 12:27:55 -0600 Updated Music Version
+
+2015-03-26 21:12:04 -0600 THIS now works
+
+2015-03-26 20:51:06 -0600 Updating
+
+2015-03-26 14:02:30 -0600 Re-compiled the class file.
+
+2015-03-26 12:34:26 -0600 Again more stats stuff
+
+2015-03-26 12:32:16 -0600 Stats weren't matching up
+
+2015-03-26 09:01:32 -0600 Merge pull request #3 from Ihmayor/Irene_W.I.P
+
+2015-03-26 06:09:34 -0600 Fixed Up Saving & Loading Code. Added Win Ability.
+
+2015-03-25 22:17:45 -0600 A bunch of code clean up
+
+2015-03-25 22:12:02 -0600 I promised an update at 10
+
+2015-03-25 19:54:53 -0600 SAVING AND LOADING NOW WORKS
+
+2015-03-25 15:47:24 -0600 Saving & Loading Slightly Fixed.....
+
+2015-03-25 11:20:07 -0600 Update in tests
+
+2015-03-24 13:52:57 -0600 Outline of tests I'm going to be implementing
+
+2015-03-24 11:46:17 -0600 Refactoring Just tons of it
+
+2015-03-22 14:47:43 -0600 Fixed some minor sound changes
+
+2015-03-22 11:44:44 -0600 Fixed Stairs looping case
+
+2015-03-21 22:42:25 -0600 Got rid of unneeded code
+
+2015-03-21 22:36:36 -0600 Minor fixes
+
+2015-03-21 21:46:17 -0600 Fixed Game Over Screen Flow
+
+2015-03-21 20:26:40 -0600 Updated Look of the Game
+
+2015-03-20 21:43:11 -0600 MAJOR UPDATE
+
+2015-03-17 07:03:42 -0600 Fixed up Monster Class
+
+2015-03-16 20:42:51 -0600 Fixed up Monster Manager
+
+2015-03-15 18:15:34 -0600 THIS IS MY MOST RECENT VERSION
+
+2015-03-15 18:03:02 -0600 CURRENTLY WORKING ON VERSION
+
+2015-03-15 17:59:30 -0600 SOME CHANGES BUT NOT THE COMPLETE VERSION PLEASE WAIT
+
+2015-03-15 16:20:08 -0600 Updating the look of EVERYTHING
+
+2015-03-14 21:50:21 -0600 Floor seven "fixes"
+
+2015-03-14 21:27:56 -0600 Fixed the staircase glitch
+
+2015-03-14 11:43:23 -0600 Glitch Report!
+
+2015-03-14 10:23:53 -0600 Updated Some Hot Key hints
+
+2015-03-14 10:15:20 -0600 Updates! Two Possible Menu Options
+
+2015-03-14 08:36:12 -0600 Updates! Control Transition Screen before new game
+
+2015-03-12 11:46:27 -0600 More stuff added for easer code read
+
+2015-03-12 11:41:34 -0600 Added comments for Easier Code Read
+
+2015-03-12 07:38:24 -0600 FOUND SOME GLITCHES
+
+2015-03-11 23:56:28 -0600 Monsters Now ReSpawn when a new floor is loaded
+
+2015-03-11 22:40:29 -0600 I hate nulls.
+
+2015-03-11 21:59:54 -0600 I AM STUCK. HOLD ON. WILL BE M.I.A FOR HALF AN HOUR
+
+2015-03-11 15:13:09 -0600 This is the version I'm working right now
+
+2015-03-11 00:03:40 -0600 Will stop now
+
+2015-03-11 00:00:20 -0600 Added a few more tests to entity class
+
+2015-03-10 23:52:42 -0600 Added Entity Tests
+
+2015-03-10 23:51:40 -0600 Revert "Added more tests"
+
+2015-03-10 23:51:24 -0600 Added more tests
+
+2015-03-10 22:59:24 -0600 Added a bunch of tests and refactored a ton of stuff
+
+2015-03-10 14:21:02 -0600 More minor tweaks
+
+2015-03-10 07:11:28 -0600 Minor tweaks
+
+2015-03-09 20:30:06 -0600 Minor fixes
+
+2015-03-09 15:34:07 -0600 You can now lower the volume of the music
+
+2015-03-09 10:04:29 -0600 Refactored a ton of stuff
+
+2015-03-09 09:22:42 -0600 Updated with Monster Manager
+
+2015-03-09 09:02:48 -0600 Deleting old and un-needed files
+
+2015-03-08 23:09:02 -0600 fixed tmx files
+
+2015-03-08 19:23:21 -0600 Merge pull request #2 from Ihmayor/Irene's-W.I.P
+
+2015-03-08 19:10:57 -0600 Newest Version
+
+2015-03-08 17:56:57 -0600 Merge remote-tracking branch 'origin/Matteo's_Work'
+
+2015-03-08 17:56:10 -0600 Manual Compilation into Master
+
+2015-03-08 16:46:01 -0600 Map Loading
+
+2015-03-08 16:32:40 -0600 Has Health/Exp bars and a text log
+
+2015-03-07 23:15:30 -0700 deleted stuff
+
+2015-03-07 23:15:09 -0700 some binary stuff
+
+2015-03-07 23:14:50 -0700 So...I wanted to see how "easy" it was to add music
+
+2015-03-07 21:51:18 -0700 Merge pull request #1 from Ihmayor/Irene's-W.I.P
+
+2015-03-07 21:48:16 -0700 Combat 70 % Done
+
+2015-03-07 20:07:12 -0700 Basic Combat 40 % Done
+
+2015-03-07 16:10:31 -0700 I cleaned up the isTaken Method
+
+2015-03-07 15:05:20 -0700 collisionArray and stairArray merged to mapArray
+
+2015-03-07 14:32:00 -0700 Version Changes
+
+2015-03-07 14:27:41 -0700 Things added
+
+2015-03-07 12:38:34 -0700 Detect Stairs
+
+2015-03-06 23:23:44 -0700 Monster now moves!
+
+2015-03-06 18:13:48 -0700 FINALLY got through the monster glitches
+
+2015-03-05 15:08:44 -0700 Updated Player Keys +Add diagonal
+
+2015-02-28 12:18:27 -0700 ...
+
+2015-02-28 11:49:56 -0700 Version 0.3
+
+2015-02-27 23:31:48 -0700 k
+
+2015-02-27 23:22:36 -0700 I imported my workspace in here
+
+2015-02-25 14:07:18 -0700 Commented some stuff. Organized a bit more
+
+2015-02-24 20:44:05 -0700 Missing Images
+
+2015-02-23 22:28:25 -0700 First Draft Of Game
+
+2015-02-03 11:11:17 -0700 Update README.md
+
+2015-02-03 11:10:42 -0700 Initial commit
+

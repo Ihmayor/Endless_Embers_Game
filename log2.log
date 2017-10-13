@@ -1,0 +1,74 @@
+2017-10-13 03:46:26 -0600 Replaced original code with extracted method call in the rest of the move methods
+
+2017-10-13 03:41:55 -0600 Replaced original code with extracted method call in moveDiagonalUpRight
+
+2017-10-13 03:40:13 -0600 Extracted Duplicated Code and created new method
+
+2017-10-13 03:22:46 -0600 Removed all movement functionality from Player.java  and tested it
+
+2017-10-13 03:00:38 -0600 Got rid of mock keyboard that was used for testing
+
+2017-10-13 02:47:28 -0600 Found that I could refactor out the mock keyboard used for only testing purposes out of the player code
+
+2017-10-13 02:36:35 -0600 All tests passed
+
+2017-10-13 02:34:08 -0600 Extracted rest of movement
+
+2017-10-13 02:17:30 -0600 Extracted Move nowhere, move left, move diagonal right
+
+2017-10-12 23:11:47 -0600 Extracted moveUp
+
+2017-10-12 23:05:17 -0600 Updated Player References
+
+2017-10-12 22:47:41 -0600 Updated Player references in other classes to refer to player status instead
+
+2017-10-12 22:44:34 -0600 Removed all player stats methods except for linking ref to player status class and updated Test Methods
+
+2017-10-12 22:38:30 -0600 Tested Extracted Methods after minor extraction bug fixes
+
+2017-10-12 22:33:19 -0600 Extracted level up and using original code to call old code. Had to move variables over. Resolved most conflicts before further extraction.
+
+2017-10-12 21:17:56 -0600 Created Classes to start shortening Long Class player.java
+
+2017-10-12 21:11:59 -0600 Made Game window an inline class of basic map
+
+2017-10-12 21:08:42 -0600 Refactored GameWindow To derive its information from basicMap
+
+2017-10-12 21:03:11 -0600 Refactored Entity.java screenheight/width
+
+2017-10-12 20:53:38 -0600 Conflicting code clean up in adjacent project
+
+2017-10-12 19:42:47 -0600 Changed MonsterManager screenwidth referneces to call GameWindowSettings class
+
+2017-10-12 12:19:28 -0600 Changed Ver2GameDriver screenwidth references to call GameWindowSettings class
+
+2017-10-12 12:17:23 -0600 changed extracted values to static
+
+2017-10-12 12:16:13 -0600 Fixing screenwidth/screenheight shotgun surgery problem. Created GameWindow Class
+
+2017-10-12 12:13:13 -0600 Deleted uneeded ButtonAction.java file
+
+2017-10-12 12:12:33 -0600 Moved Lazy Class 'ButtonAction' to inside BasicButton
+
+2017-10-12 12:05:46 -0600 All tests pass extraction
+
+2017-10-12 12:03:03 -0600 Replacing original method with extracted method
+
+2017-10-12 12:02:24 -0600 All tests pass
+
+2017-10-12 12:02:09 -0600 Extracted getClosestPosition
+
+2017-10-12 11:58:04 -0600 All tests pass
+
+2017-10-12 11:57:17 -0600 Removed Unused variables
+
+2017-10-12 11:55:37 -0600 Removed Parameter Method Used
+
+2017-10-12 11:49:43 -0600 Finished extracting closestSpotVertical. All tests passed
+
+2017-10-12 11:40:55 -0600 Extracted find closestSpotHorizontal. All tests in BasicMonster for findClosestSpotHorizontal passed
+
+2017-10-12 11:35:44 -0600 All tests in BasicMonster find diagonal passed
+
+2017-10-12 11:31:35 -0600 Ran into difficult bug. To optimize time. Refactoring Basic Monster Method Map Calculations first. Started moving findClosestSpotDiagonal
+

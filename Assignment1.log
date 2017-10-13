@@ -1,0 +1,3033 @@
+
+
+Commit: dff0bb1 
+Date: 2017-10-12 11:31:35 -0600 
+Message: Ran into difficult bug. To optimize time. Refactoring Basic Monster Method Map Calculations first. Started moving findClosestSpotDiagonal
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java b/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java
+new file mode 100644
+index 0000000..c968277
+--- /dev/null
++++ b/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java	
+@@ -0,0 +1,52 @@
++package mapRelated;
++
++public class MapSpotCalculator {
++
++	
++	
++	//Finds closest diagonal spots towards player
++	public int[] closestSpotDiagonal(BasicMap map, int [] player,Entity entity , int[] newPosition)
++	{
++		int x = entity.getPosition()[0];
++		int y = entity.getPosition()[1];
++		
++		int newX = newPosition[0];
++		int newY = newPosition[1];
++		
++		int[] foundPosition;
++		
++		if (y > player[1])
++			newY = y - BasicMap.TILESIZE;
++		else
++			newY = y + BasicMap.TILESIZE;
++		
++		if (x > player [0])
++			newX = x - BasicMap.TILESIZE;
++		else
++			newX = x + BasicMap.TILESIZE;		
++		
++		if (!entity.isTaken(newX, newY) && !map.hasCollision(newX, newY))
++				{
++				foundPosition = new int[] {newX,newY};
++				x = newX;
++				y = newY;
++				}
++		
++		else if (!entity.isTaken(x, newY) && !map.hasCollision(x, newY))
++				{
++			foundPosition =  new int[]{x,newY};
++				y = newY;
++			    }
++		
++		else if (!entity.isTaken(newX, y) && !map.hasCollision(newX, y))
++				{
++			foundPosition =  new int[] {newX, y};
++				x = newX;
++				}		
++		
++		return foundPosition;
++	}
++
++	
++	
++}
+diff --git a/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java b/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java
+index 2bc546a..abc1978 100644
+--- a/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java	
++++ b/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java	
+@@ -219,39 +219,6 @@ public class BasicMonster extends Entity{
+ 		    }
+ 	}	
+ 	
+-	//Finds closest diagonal spots towards player
+-	private void closestSpotDiagonal(int [] player, int newX, int newY)
+-	{
+-
+-		if (y > player[1])
+-			newY = y - BasicMap.TILESIZE;
+-		else
+-			newY = y + BasicMap.TILESIZE;
+-		
+-		if (x > player [0])
+-			newX = x - BasicMap.TILESIZE;
+-		else
+-			newX = x + BasicMap.TILESIZE;		
+-		
+-		if (!isTaken(newX, newY) && !map.hasCollision(newX, newY))
+-				{
+-				updatePosition(newX,newY);
+-				x = newX;
+-				y = newY;
+-				}
+-		
+-		else if (!isTaken(x, newY) && !map.hasCollision(x, newY))
+-				{
+-				updatePosition(x,newY);
+-				y = newY;
+-			    }
+-		
+-		else if (!isTaken(newX, y) && !map.hasCollision(newX, y))
+-				{
+-				updatePosition(newX, y);
+-				x = newX;
+-				}		
+-	}
+ 	
+ 	
+ 
+
+
+Commit: 0dca5d4 
+Date: 2017-10-12 11:35:44 -0600 
+Message: All tests in BasicMonster find diagonal passed
+ 
+======================================
+
+diff --git a/VERSION W.I.P/version w.i.p/bin/managers/CombatManager.class b/VERSION W.I.P/version w.i.p/bin/managers/CombatManager.class
+index 0cbab7a..4dd5075 100644
+Binary files a/VERSION W.I.P/version w.i.p/bin/managers/CombatManager.class and b/VERSION W.I.P/version w.i.p/bin/managers/CombatManager.class differ
+diff --git a/VERSION W.I.P/version w.i.p/bin/managers/MonsterManager.class b/VERSION W.I.P/version w.i.p/bin/managers/MonsterManager.class
+index 978d06e..61535aa 100644
+Binary files a/VERSION W.I.P/version w.i.p/bin/managers/MonsterManager.class and b/VERSION W.I.P/version w.i.p/bin/managers/MonsterManager.class differ
+diff --git a/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class b/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class
+new file mode 100644
+index 0000000..07bc574
+Binary files /dev/null and b/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class differ
+diff --git a/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class b/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class
+index 61332f5..5345f65 100644
+Binary files a/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class and b/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class differ
+diff --git a/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java b/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java
+index c968277..03779e4 100644
+--- a/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java	
++++ b/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java	
+@@ -1,11 +1,13 @@
+ package mapRelated;
+ 
++import monsterRelated.Entity;
++
+ public class MapSpotCalculator {
+ 
+ 	
+ 	
+ 	//Finds closest diagonal spots towards player
+-	public int[] closestSpotDiagonal(BasicMap map, int [] player,Entity entity , int[] newPosition)
++	public static int[] closestSpotDiagonal(BasicMap map, int [] player,Entity entity , int[] newPosition)
+ 	{
+ 		int x = entity.getPosition()[0];
+ 		int y = entity.getPosition()[1];
+@@ -13,7 +15,7 @@ public class MapSpotCalculator {
+ 		int newX = newPosition[0];
+ 		int newY = newPosition[1];
+ 		
+-		int[] foundPosition;
++		int[] foundPosition = new int[] {-1,-1};
+ 		
+ 		if (y > player[1])
+ 			newY = y - BasicMap.TILESIZE;
+@@ -42,7 +44,7 @@ public class MapSpotCalculator {
+ 				{
+ 			foundPosition =  new int[] {newX, y};
+ 				x = newX;
+-				}		
++				}	
+ 		
+ 		return foundPosition;
+ 	}
+diff --git a/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java b/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java
+index abc1978..76a3878 100644
+--- a/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java	
++++ b/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java	
+@@ -2,6 +2,7 @@ package monsterRelated;
+ 
+ 
+ import mapRelated.BasicMap;
++import mapRelated.MapSpotCalculator;
+ 
+ import org.newdawn.slick.Animation;
+ import org.newdawn.slick.Graphics;
+@@ -214,9 +215,9 @@ public class BasicMonster extends Entity{
+ 		}
+ 		else if (y!= player[1]&& x!= player[0])
+ 		{
+-			closestSpotDiagonal(player,newX, newY);
+-				
+-		    }
++			int[] newPosition = MapSpotCalculator.closestSpotDiagonal(map, player, this, new int[] {newX,newY});
++			updatePosition(newPosition[0],newPosition[1]);
++		}
+ 	}	
+ 	
+ 	
+
+
+Commit: 2d869f9 
+Date: 2017-10-12 11:40:55 -0600 
+Message: Extracted find closestSpotHorizontal. All tests in BasicMonster for findClosestSpotHorizontal passed
+ 
+======================================
+
+diff --git a/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class b/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class
+index 07bc574..240f071 100644
+Binary files a/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class and b/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class differ
+diff --git a/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class b/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class
+index 5345f65..215d5f1 100644
+Binary files a/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class and b/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class differ
+diff --git a/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java b/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java
+index 03779e4..46d5786 100644
+--- a/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java	
++++ b/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java	
+@@ -49,6 +49,24 @@ public class MapSpotCalculator {
+ 		return foundPosition;
+ 	}
+ 
+-	
+-	
++	//Finds closest horizontal spots towards player
++	public static int[] closestSpotHorizontal(BasicMap map, int [] player,Entity entity , int[] newPosition) 
++	{
++			int[] foundPosition = new int[] {-1,-1};
++		
++			int x = entity.getPosition()[0];
++			int y = entity.getPosition()[1];
++			
++			int newX = newPosition[0];
++			int newY = newPosition[1];
++			if (player[1] > y)
++				newY = y + BasicMap.TILESIZE;
++			else
++				newY = y - BasicMap.TILESIZE;
++			
++			if (!entity.isTaken(x,newY)&&!map.hasCollision(x,newY))
++				foundPosition = new int[]{x,newY};
++			
++			return foundPosition;
++	}
+ }
+diff --git a/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java b/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java
+index 76a3878..ebc8c7b 100644
+--- a/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java	
++++ b/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java	
+@@ -206,7 +206,8 @@ public class BasicMonster extends Entity{
+ 		int newX = 0;
+ 		int newY = 0;
+ 		if (x == player[0]&& y!= player[1]){
+-				closestSpotHorizontal (player, newX, newY);
++			int[] newPosition = MapSpotCalculator.closestSpotHorizontal(map, player, this, new int[] {newX,newY});
++			updatePosition(newPosition[0],newPosition[1]);				
+ 			}
+ 			
+ 		else if (y == player[1]&& x != player[0])
+@@ -223,19 +224,6 @@ public class BasicMonster extends Entity{
+ 	
+ 	
+ 
+-	//Finds closest horizontal spots towards player
+-	private void closestSpotHorizontal(int [] player, int newX, int newY){
+-		if (player[1] > y)
+-			newY = y + BasicMap.TILESIZE;
+-		else
+-			newY = y - BasicMap.TILESIZE;
+-		
+-		if (!isTaken(x,newY)&&!map.hasCollision(x,newY))
+-			{		
+-			updatePosition(x,newY);
+-			y = newY;
+-			}
+-	}
+ 	
+ 	
+ 
+
+
+Commit: da4ed66 
+Date: 2017-10-12 11:49:43 -0600 
+Message: Finished extracting closestSpotVertical. All tests passed
+ 
+======================================
+
+diff --git a/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class b/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class
+index 240f071..2fe47e3 100644
+Binary files a/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class and b/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class differ
+diff --git a/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class b/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class
+index 215d5f1..5682fa7 100644
+Binary files a/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class and b/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class differ
+diff --git a/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java b/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java
+index 46d5786..9471cfc 100644
+--- a/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java	
++++ b/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java	
+@@ -69,4 +69,27 @@ public class MapSpotCalculator {
+ 			
+ 			return foundPosition;
+ 	}
++	
++	//Finds closest vertical spots towards player
++	public static int[] closestSpotVertical(BasicMap map, int [] player,Entity entity , int[] newPosition) {
++		int[] foundPosition = new int[] {-1,-1};
++	
++		int x = entity.getPosition()[0];
++		int y = entity.getPosition()[1];
++		
++		int newX = newPosition[0];
++		int newY = newPosition[1];
++		
++		if (player[0] > x)
++			newX = x + BasicMap.TILESIZE;
++		else
++			newX = x - BasicMap.TILESIZE;
++		
++		if (!entity.isTaken(newX,y)&&!map.hasCollision(newX, y))
++			{
++			foundPosition = new int[]{newX,y};
++			}
++		return foundPosition;
++	}
++
+ }
+diff --git a/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java b/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java
+index ebc8c7b..d65f621 100644
+--- a/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java	
++++ b/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java	
+@@ -177,7 +177,7 @@ public class BasicMonster extends Entity{
+ 			updatePosition(newX1,y);
+ 			x = newX1;
+ 			
+-			}
++		}
+ 		//move leftwards
+ 		else if (direction == 'L' &&!isTaken(newX2,y)){
+ 				if (map.hasCollision(newX2, y))
+@@ -199,7 +199,6 @@ public class BasicMonster extends Entity{
+ 		counter++;
+ 	}
+ 	
+-		
+ 	//Used to find closestSpot near the player
+ 	public void findClosestSpot(int[] player)
+ 	{
+@@ -209,41 +208,21 @@ public class BasicMonster extends Entity{
+ 			int[] newPosition = MapSpotCalculator.closestSpotHorizontal(map, player, this, new int[] {newX,newY});
+ 			updatePosition(newPosition[0],newPosition[1]);				
+ 			}
+-			
+ 		else if (y == player[1]&& x != player[0])
+ 		{
+-			closestSpotVertical(player,newX, newY);
++			int[] newPosition = MapSpotCalculator.closestSpotVertical(map, player, this, new int[] {newX,newY});
++			updatePosition(newPosition[0],newPosition[1]);				
+ 		}
+ 		else if (y!= player[1]&& x!= player[0])
+ 		{
+ 			int[] newPosition = MapSpotCalculator.closestSpotDiagonal(map, player, this, new int[] {newX,newY});
+ 			updatePosition(newPosition[0],newPosition[1]);
+ 		}
+-	}	
+-	
+-	
+-	
++	}			
+ 
+ 	
+ 	
+ 
+-	//Finds closest vertical spots towards player
+-	private void closestSpotVertical(int [] player, int newX, int newY){
+-		
+-		if (player[0] > x)
+-			newX = x + BasicMap.TILESIZE;
+-		else
+-			newX = x - BasicMap.TILESIZE;
+-		
+-		if (!isTaken(newX,y)&&!map.hasCollision(newX, y))
+-			{
+-			updatePosition(newX,y);
+-			x = newX;
+-			}
+-	}
+-	
+-	
+-
+ }
+ 
+ 	
+
+
+Commit: 0ee6bcc 
+Date: 2017-10-12 11:55:37 -0600 
+Message: Removed Parameter Method Used
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java b/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java
+index 9471cfc..4b06ae4 100644
+--- a/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java	
++++ b/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java	
+@@ -7,13 +7,13 @@ public class MapSpotCalculator {
+ 	
+ 	
+ 	//Finds closest diagonal spots towards player
+-	public static int[] closestSpotDiagonal(BasicMap map, int [] player,Entity entity , int[] newPosition)
++	public static int[] closestSpotDiagonal(BasicMap map, int [] player,Entity entity)
+ 	{
+ 		int x = entity.getPosition()[0];
+ 		int y = entity.getPosition()[1];
+ 		
+-		int newX = newPosition[0];
+-		int newY = newPosition[1];
++		int newX = 0;
++		int newY = 0;
+ 		
+ 		int[] foundPosition = new int[] {-1,-1};
+ 		
+@@ -50,15 +50,15 @@ public class MapSpotCalculator {
+ 	}
+ 
+ 	//Finds closest horizontal spots towards player
+-	public static int[] closestSpotHorizontal(BasicMap map, int [] player,Entity entity , int[] newPosition) 
++	public static int[] closestSpotHorizontal(BasicMap map, int [] player,Entity entity) 
+ 	{
+ 			int[] foundPosition = new int[] {-1,-1};
+ 		
+ 			int x = entity.getPosition()[0];
+ 			int y = entity.getPosition()[1];
+ 			
+-			int newX = newPosition[0];
+-			int newY = newPosition[1];
++			int newX = 0;
++			int newY = 0;
+ 			if (player[1] > y)
+ 				newY = y + BasicMap.TILESIZE;
+ 			else
+@@ -71,14 +71,14 @@ public class MapSpotCalculator {
+ 	}
+ 	
+ 	//Finds closest vertical spots towards player
+-	public static int[] closestSpotVertical(BasicMap map, int [] player,Entity entity , int[] newPosition) {
++	public static int[] closestSpotVertical(BasicMap map, int [] player,Entity entity) {
+ 		int[] foundPosition = new int[] {-1,-1};
+ 	
+ 		int x = entity.getPosition()[0];
+ 		int y = entity.getPosition()[1];
+ 		
+-		int newX = newPosition[0];
+-		int newY = newPosition[1];
++		int newX = 0;
++		int newY = 0;
+ 		
+ 		if (player[0] > x)
+ 			newX = x + BasicMap.TILESIZE;
+
+
+Commit: 4973342 
+Date: 2017-10-12 11:57:17 -0600 
+Message: Removed Unused variables
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java b/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java
+index 4b06ae4..fb073f3 100644
+--- a/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java	
++++ b/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java	
+@@ -3,8 +3,6 @@ package mapRelated;
+ import monsterRelated.Entity;
+ 
+ public class MapSpotCalculator {
+-
+-	
+ 	
+ 	//Finds closest diagonal spots towards player
+ 	public static int[] closestSpotDiagonal(BasicMap map, int [] player,Entity entity)
+@@ -57,7 +55,6 @@ public class MapSpotCalculator {
+ 			int x = entity.getPosition()[0];
+ 			int y = entity.getPosition()[1];
+ 			
+-			int newX = 0;
+ 			int newY = 0;
+ 			if (player[1] > y)
+ 				newY = y + BasicMap.TILESIZE;
+@@ -78,7 +75,6 @@ public class MapSpotCalculator {
+ 		int y = entity.getPosition()[1];
+ 		
+ 		int newX = 0;
+-		int newY = 0;
+ 		
+ 		if (player[0] > x)
+ 			newX = x + BasicMap.TILESIZE;
+
+
+Commit: 343666c 
+Date: 2017-10-12 11:58:04 -0600 
+Message: All tests pass
+ 
+======================================
+
+diff --git a/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class b/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class
+index 2fe47e3..04f229e 100644
+Binary files a/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class and b/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class differ
+diff --git a/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class b/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class
+index 5682fa7..a594613 100644
+Binary files a/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class and b/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class differ
+diff --git a/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java b/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java
+index d65f621..7ad0dcb 100644
+--- a/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java	
++++ b/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java	
+@@ -202,20 +202,18 @@ public class BasicMonster extends Entity{
+ 	//Used to find closestSpot near the player
+ 	public void findClosestSpot(int[] player)
+ 	{
+-		int newX = 0;
+-		int newY = 0;
+ 		if (x == player[0]&& y!= player[1]){
+-			int[] newPosition = MapSpotCalculator.closestSpotHorizontal(map, player, this, new int[] {newX,newY});
++			int[] newPosition = MapSpotCalculator.closestSpotHorizontal(map, player, this);
+ 			updatePosition(newPosition[0],newPosition[1]);				
+ 			}
+ 		else if (y == player[1]&& x != player[0])
+ 		{
+-			int[] newPosition = MapSpotCalculator.closestSpotVertical(map, player, this, new int[] {newX,newY});
++			int[] newPosition = MapSpotCalculator.closestSpotVertical(map, player, this);
+ 			updatePosition(newPosition[0],newPosition[1]);				
+ 		}
+ 		else if (y!= player[1]&& x!= player[0])
+ 		{
+-			int[] newPosition = MapSpotCalculator.closestSpotDiagonal(map, player, this, new int[] {newX,newY});
++			int[] newPosition = MapSpotCalculator.closestSpotDiagonal(map, player, this);
+ 			updatePosition(newPosition[0],newPosition[1]);
+ 		}
+ 	}			
+
+
+Commit: 16d07e8 
+Date: 2017-10-12 12:02:09 -0600 
+Message: Extracted getClosestPosition
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java b/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java
+index fb073f3..b0dd154 100644
+--- a/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java	
++++ b/Version 1.1/NewestVersion/src/mapRelated/MapSpotCalculator.java	
+@@ -4,6 +4,34 @@ import monsterRelated.Entity;
+ 
+ public class MapSpotCalculator {
+ 	
++	public static int[] findClosestSpot(BasicMap map, int[] player, Entity entity)
++	{
++		int x = entity.getPosition()[0];
++		int y = entity.getPosition()[1];
++		
++		int newX = 0;
++		int newY = 0;
++		
++		int[] foundPosition = new int[] {-1,-1};
++
++		if (x == player[0]&& y!= player[1]){
++			int[] newPosition = MapSpotCalculator.closestSpotHorizontal(map, player, entity);
++			foundPosition = new int[] {newPosition[0],newPosition[1]};				
++			}
++		else if (y == player[1]&& x != player[0])
++		{
++			int[] newPosition = MapSpotCalculator.closestSpotVertical(map, player, entity);
++			foundPosition=new int[]{newPosition[0],newPosition[1]};				
++		}
++		else if (y!= player[1]&& x!= player[0])
++		{
++			int[] newPosition = MapSpotCalculator.closestSpotDiagonal(map, player, entity);
++			foundPosition=new int[]{newPosition[0],newPosition[1]};
++		}
++		return foundPosition;
++	}
++	
++	
+ 	//Finds closest diagonal spots towards player
+ 	public static int[] closestSpotDiagonal(BasicMap map, int [] player,Entity entity)
+ 	{
+diff --git a/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java b/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java
+index 7ad0dcb..7072ccb 100644
+--- a/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java	
++++ b/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java	
+@@ -202,7 +202,10 @@ public class BasicMonster extends Entity{
+ 	//Used to find closestSpot near the player
+ 	public void findClosestSpot(int[] player)
+ 	{
+-		if (x == player[0]&& y!= player[1]){
++		int[] newPosition = MapSpotCalculator.findClosestSpot(map, player, this);
++		updatePosition(newPosition[0],newPosition[1]);
++		
++	/*	if (x == player[0]&& y!= player[1]){
+ 			int[] newPosition = MapSpotCalculator.closestSpotHorizontal(map, player, this);
+ 			updatePosition(newPosition[0],newPosition[1]);				
+ 			}
+@@ -215,7 +218,7 @@ public class BasicMonster extends Entity{
+ 		{
+ 			int[] newPosition = MapSpotCalculator.closestSpotDiagonal(map, player, this);
+ 			updatePosition(newPosition[0],newPosition[1]);
+-		}
++		}*/
+ 	}			
+ 
+ 	
+
+
+Commit: 581789f 
+Date: 2017-10-12 12:02:24 -0600 
+Message: All tests pass
+ 
+======================================
+
+diff --git a/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class b/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class
+index 04f229e..97f9ea6 100644
+Binary files a/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class and b/VERSION W.I.P/version w.i.p/bin/mapRelated/MapSpotCalculator.class differ
+diff --git a/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class b/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class
+index a594613..aeb49be 100644
+Binary files a/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class and b/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class differ
+
+
+Commit: 7714189 
+Date: 2017-10-12 12:03:03 -0600 
+Message: Replacing original method with extracted method
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java b/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java
+index 7072ccb..00a00f3 100644
+--- a/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java	
++++ b/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java	
+@@ -205,20 +205,6 @@ public class BasicMonster extends Entity{
+ 		int[] newPosition = MapSpotCalculator.findClosestSpot(map, player, this);
+ 		updatePosition(newPosition[0],newPosition[1]);
+ 		
+-	/*	if (x == player[0]&& y!= player[1]){
+-			int[] newPosition = MapSpotCalculator.closestSpotHorizontal(map, player, this);
+-			updatePosition(newPosition[0],newPosition[1]);				
+-			}
+-		else if (y == player[1]&& x != player[0])
+-		{
+-			int[] newPosition = MapSpotCalculator.closestSpotVertical(map, player, this);
+-			updatePosition(newPosition[0],newPosition[1]);				
+-		}
+-		else if (y!= player[1]&& x!= player[0])
+-		{
+-			int[] newPosition = MapSpotCalculator.closestSpotDiagonal(map, player, this);
+-			updatePosition(newPosition[0],newPosition[1]);
+-		}*/
+ 	}			
+ 
+ 	
+
+
+Commit: 54800ba 
+Date: 2017-10-12 12:05:46 -0600 
+Message: All tests pass extraction
+ 
+======================================
+
+diff --git a/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class b/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class
+index aeb49be..74554ff 100644
+Binary files a/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class and b/VERSION W.I.P/version w.i.p/bin/monsterRelated/BasicMonster.class differ
+diff --git a/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java b/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java
+index 00a00f3..e1991f1 100644
+--- a/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java	
++++ b/Version 1.1/NewestVersion/src/monsterRelated/BasicMonster.java	
+@@ -136,7 +136,7 @@ public class BasicMonster extends Entity{
+ 		
+ 		isActiveState = search("P");
+ 		if (isActiveState || (isAttacked&&!isActiveState)){
+-			findClosestSpot(playerPosition);
++			updatePosition(MapSpotCalculator.findClosestSpot(map,playerPosition,this)[0], MapSpotCalculator.findClosestSpot(map,playerPosition,this)[1]);
+ 		}
+ 		else{
+ 			wander(playerPosition);
+@@ -198,16 +198,7 @@ public class BasicMonster extends Entity{
+ 	else
+ 		counter++;
+ 	}
+-	
+-	//Used to find closestSpot near the player
+-	public void findClosestSpot(int[] player)
+-	{
+-		int[] newPosition = MapSpotCalculator.findClosestSpot(map, player, this);
+-		updatePosition(newPosition[0],newPosition[1]);
+ 		
+-	}			
+-
+-	
+ 	
+ 
+ }
+
+
+Commit: 963727f 
+Date: 2017-10-12 12:12:33 -0600 
+Message: Moved Lazy Class 'ButtonAction' to inside BasicButton
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/inputRelated/BasicButton.java b/Version 1.1/NewestVersion/src/inputRelated/BasicButton.java
+index 6b787ac..4494e4a 100644
+--- a/Version 1.1/NewestVersion/src/inputRelated/BasicButton.java	
++++ b/Version 1.1/NewestVersion/src/inputRelated/BasicButton.java	
+@@ -52,8 +52,8 @@ public class BasicButton extends MouseOverArea {
+ 	}
+      
+     //Method to add actions to a button to perform
+-	public void add(ButtonAction action){
+-		actions.add(action);
++	public void add(BasicButton.ButtonAction buttonAction){
++		actions.add(buttonAction);
+ 	}
+ 	
+ 	//Disables button
+@@ -111,6 +111,12 @@ public class BasicButton extends MouseOverArea {
+ 	
+ 	//Gets the list of actions for the button
+     public List <ButtonAction>getActions(){return actions;}
++  
++    
++    //Source :https://evilzone.org/java/%28java-fames-tut%29-slick2d-buttons-buttons-buttons/
++    public interface ButtonAction {
++    	public void perform();
++    }
+ }
+ 	
+ 	
+diff --git a/Version 1.1/NewestVersion/src/inputRelated/ButtonAction.java b/Version 1.1/NewestVersion/src/inputRelated/ButtonAction.java
+index 0083640..2d20a32 100644
+--- a/Version 1.1/NewestVersion/src/inputRelated/ButtonAction.java	
++++ b/Version 1.1/NewestVersion/src/inputRelated/ButtonAction.java	
+@@ -1,9 +1,4 @@
+ package inputRelated;
+ 
+ 
+-//Source :https://evilzone.org/java/%28java-fames-tut%29-slick2d-buttons-buttons-buttons/
+-public interface ButtonAction {
+-	public void perform();
+ 
+-
+-}
+diff --git a/Version 1.1/NewestVersion/src/inputRelated/EndGameButtons.java b/Version 1.1/NewestVersion/src/inputRelated/EndGameButtons.java
+index 9995a91..0520984 100644
+--- a/Version 1.1/NewestVersion/src/inputRelated/EndGameButtons.java	
++++ b/Version 1.1/NewestVersion/src/inputRelated/EndGameButtons.java	
+@@ -46,14 +46,14 @@ public class EndGameButtons {
+ 		quitGameButton.setMouseOverImage(mouseOverQuitGame);
+ 		
+ 		//Creates an anon class for the button's action.
+-		newGameButton.add(new ButtonAction(){ 
++		newGameButton.add(new BasicButton.ButtonAction(){ 
+ 			public void perform(){
+ 			sbg.enterState(GameScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));	
+ 			}
+ 			});
+ 		
+ 		//Creates an anon class for the button's action.
+-		quitGameButton.add(new ButtonAction(){ 
++		quitGameButton.add(new BasicButton.ButtonAction(){ 
+ 			public void perform(){
+ 				//Delete game/Over write old game here
+ 				((GameContainer)gc).exit();	
+diff --git a/Version 1.1/NewestVersion/src/inputRelated/MainMenuButtons.java b/Version 1.1/NewestVersion/src/inputRelated/MainMenuButtons.java
+index 91c9760..b67c76a 100644
+--- a/Version 1.1/NewestVersion/src/inputRelated/MainMenuButtons.java	
++++ b/Version 1.1/NewestVersion/src/inputRelated/MainMenuButtons.java	
+@@ -66,7 +66,7 @@ public class MainMenuButtons {
+ 		loadGameButton.setMouseOverImage(new Image("res/interface/continueMouseOver.png"));
+ 	}	
+ 	//Creates an anon class for the button's action.
+-	newGameButton.add(new ButtonAction(){ 
++	newGameButton.add(new BasicButton.ButtonAction(){ 
+ 		public void perform(){
+ 		sbg.enterState(TransitionScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));	
+ 		}
+@@ -74,7 +74,7 @@ public class MainMenuButtons {
+ 	
+ 	
+ 	//Creates an anon class for the button's action.
+-	loadGameButton.add(new ButtonAction(){ 
++	loadGameButton.add(new BasicButton.ButtonAction(){ 
+ 		public void perform(){
+ 		if (savedGameExists){
+ 			GameScreen.setLoadedGame(true);
+diff --git a/Version 1.1/NewestVersion/src/inputRelated/SlideOutMenu.java b/Version 1.1/NewestVersion/src/inputRelated/SlideOutMenu.java
+index 0ab58e9..690caa4 100644
+--- a/Version 1.1/NewestVersion/src/inputRelated/SlideOutMenu.java	
++++ b/Version 1.1/NewestVersion/src/inputRelated/SlideOutMenu.java	
+@@ -47,7 +47,7 @@ public class SlideOutMenu extends MouseOverArea{
+ 	    		stateID, new Image ("res/interface/saveExit.png"), new Image ("res/interface/saveExit.png"));
+ 	    
+ 	    exitGameButton.setMouseOverImage(new Image("res/interface/saveExitMouseOver.png"));
+-		exitGameButton.add(new ButtonAction(){
++		exitGameButton.add(new BasicButton.ButtonAction(){
+ 			public void perform(){
+ 				((GameContainer)gc).exit();	
+ 			}	
+diff --git a/Version 1.1/NewestVersion/src/managers/MonsterManager.java b/Version 1.1/NewestVersion/src/managers/MonsterManager.java
+index b23e495..8811653 100644
+--- a/Version 1.1/NewestVersion/src/managers/MonsterManager.java	
++++ b/Version 1.1/NewestVersion/src/managers/MonsterManager.java	
+@@ -231,7 +231,7 @@ public class MonsterManager {
+ 			if (newMonsterXPositions[i] == 0 && newMonsterYPositions[i] == 0)
+ 				break;
+ 			monster = new BasicMonster(currentMap, basicMonsterAnimation, basicMonsterImage, newMonsterXPositions[i], newMonsterYPositions[i]);
+-			monster.setHealthPoints(newMonsterHealths[i]);
++			monster.addHealthPoints(newMonsterHealths[i]);
+ 			monster.setPath(newMonsterXPositions[i], newMonsterXPositions[i]+3*BasicMap.TILESIZE);
+ 			newEntityArray[monster.getPosition()[0]/BasicMap.TILESIZE]
+ 			     	   [monster.getPosition()[1]/BasicMap.TILESIZE] = monster.getName();
+
+
+Commit: ed7a45e 
+Date: 2017-10-12 12:13:13 -0600 
+Message: Deleted uneeded ButtonAction.java file
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/inputRelated/ButtonAction.java b/Version 1.1/NewestVersion/src/inputRelated/ButtonAction.java
+deleted file mode 100644
+index 2d20a32..0000000
+--- a/Version 1.1/NewestVersion/src/inputRelated/ButtonAction.java	
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package inputRelated;
+-
+-
+-
+
+
+Commit: dc6666c 
+Date: 2017-10-12 12:16:13 -0600 
+Message: Fixing screenwidth/screenheight shotgun surgery problem. Created GameWindow Class
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/gameStates/GameWindowSettings.java b/Version 1.1/NewestVersion/src/gameStates/GameWindowSettings.java
+new file mode 100644
+index 0000000..5afdbd1
+--- /dev/null
++++ b/Version 1.1/NewestVersion/src/gameStates/GameWindowSettings.java	
+@@ -0,0 +1,12 @@
++package gameStates;
++
++public class GameWindowSettings {
++
++	private final int screenWidth = 1120;
++	private final int screenHeight = 800;
++	
++	public int getScreenWidth() {return screenWidth;}
++	public int getScreenHeight() {return screenHeight;}
++	
++	
++}
+
+
+Commit: a3f9830 
+Date: 2017-10-12 12:17:23 -0600 
+Message: changed extracted values to static
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/gameStates/GameWindowSettings.java b/Version 1.1/NewestVersion/src/gameStates/GameWindowSettings.java
+index 5afdbd1..0d482ea 100644
+--- a/Version 1.1/NewestVersion/src/gameStates/GameWindowSettings.java	
++++ b/Version 1.1/NewestVersion/src/gameStates/GameWindowSettings.java	
+@@ -2,11 +2,10 @@ package gameStates;
+ 
+ public class GameWindowSettings {
+ 
+-	private final int screenWidth = 1120;
+-	private final int screenHeight = 800;
+-	
+-	public int getScreenWidth() {return screenWidth;}
+-	public int getScreenHeight() {return screenHeight;}
++	private static final int screenWidth =1120;
++	private static final int screenHeight = 512;
+ 	
++	public static int getScreenWidth() {return screenWidth;}
++	public static int getScreenHeight() {return screenHeight;}
+ 	
+ }
+
+
+Commit: db6e365 
+Date: 2017-10-12 12:19:28 -0600 
+Message: Changed Ver2GameDriver screenwidth references to call GameWindowSettings class
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/gameStates/Ver2GameDriver.java b/Version 1.1/NewestVersion/src/gameStates/Ver2GameDriver.java
+index f537b4b..75aa4a6 100644
+--- a/Version 1.1/NewestVersion/src/gameStates/Ver2GameDriver.java	
++++ b/Version 1.1/NewestVersion/src/gameStates/Ver2GameDriver.java	
+@@ -14,8 +14,8 @@ public class Ver2GameDriver {
+ 		
+ 		//All the code below is how we get this game rolling and running.
+ 		
+-		final int screenWidth = 1120; // Set screen width to 35 tiles long (35*32px)
+-		final int screenHeight = 512; // Set screen height to 16 tile long (16*32px)
++		final int screenWidth = GameWindowSettings.getScreenWidth(); // Set screen width to 35 tiles long (35*32px)
++		final int screenHeight = GameWindowSettings.getScreenHeight(); // Set screen height to 16 tile long (16*32px)
+ 		
+ 			try
+ 			{
+
+
+Commit: 922474d 
+Date: 2017-10-12 19:42:47 -0600 
+Message: Changed MonsterManager screenwidth referneces to call GameWindowSettings class
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/managers/MonsterManager.java b/Version 1.1/NewestVersion/src/managers/MonsterManager.java
+index 8811653..084c68a 100644
+--- a/Version 1.1/NewestVersion/src/managers/MonsterManager.java	
++++ b/Version 1.1/NewestVersion/src/managers/MonsterManager.java	
+@@ -13,6 +13,8 @@ import org.newdawn.slick.Image;
+ import org.newdawn.slick.SlickException;
+ import org.newdawn.slick.SpriteSheet;
+ 
++import gameStates.GameWindowSettings;
++
+ /////////////////////////////////////////////////////////////
+ //Monster Manager                                          //
+ //Purpose: Manage Multiple Monsters in a level		       //
+@@ -27,9 +29,8 @@ public class MonsterManager {
+ 	private int level = 1;
+ 	private BasicMap currentMap;
+ 	private String[][] entityArray;
+-	private int screenWidth = 1120;
+-	private int screenHeight = 512;
+-	
++	private int screenWidth = GameWindowSettings.getScreenWidth();
++	private int screenHeight = GameWindowSettings.getScreenHeight();
+ 	
+ 	
+
+Commit: 03500d5 
+Date: 2017-10-12 21:03:11 -0600 
+Message: Refactored Entity.java screenheight/width
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/monsterRelated/Entity.java b/Version 1.1/NewestVersion/src/monsterRelated/Entity.java
+index e4e09f0..67e5d76 100644
+--- a/Version 1.1/NewestVersion/src/monsterRelated/Entity.java	
++++ b/Version 1.1/NewestVersion/src/monsterRelated/Entity.java	
+@@ -171,8 +171,6 @@ public class Entity {
+ 	}	
+ 	
+ 	public void setName(String name){this.name = name;}
+-
+-
+ }
+ 	
+ 
+
+
+Commit: 9215db4 
+Date: 2017-10-12 21:08:42 -0600 
+Message: Refactored GameWindow To derive its information from basicMap
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/gameStates/GameWindowSettings.java b/Version 1.1/NewestVersion/src/gameStates/GameWindowSettings.java
+index 0d482ea..9be5ea1 100644
+--- a/Version 1.1/NewestVersion/src/gameStates/GameWindowSettings.java	
++++ b/Version 1.1/NewestVersion/src/gameStates/GameWindowSettings.java	
+@@ -1,11 +1,15 @@
+ package gameStates;
+ 
++import mapRelated.BasicMap;
++
+ public class GameWindowSettings {
+ 
+-	private static final int screenWidth =1120;
+-	private static final int screenHeight = 512;
++	private static final int screenWidth = BasicMap.TILESIZE*BasicMap.widthByTiles;
++	private static final int screenHeight = BasicMap.TILESIZE*BasicMap.heightByTiles;
+ 	
+ 	public static int getScreenWidth() {return screenWidth;}
+ 	public static int getScreenHeight() {return screenHeight;}
+ 	
++	
++	
+ }
+
+
+Commit: ccfedf2 
+Date: 2017-10-12 21:11:59 -0600 
+Message: Made Game window an inline class of basic map
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/mapRelated/BasicMap.java b/Version 1.1/NewestVersion/src/mapRelated/BasicMap.java
+index 97214da..aab9af3 100644
+--- a/Version 1.1/NewestVersion/src/mapRelated/BasicMap.java	
++++ b/Version 1.1/NewestVersion/src/mapRelated/BasicMap.java	
+@@ -10,6 +10,9 @@ import org.newdawn.slick.tiled.TiledMap;
+ //Limit: Limited to Tiled Program Loading										//
+ //////////////////////////////////////////////////////////////////////////////////
+ 
++
++
++
+ public class BasicMap
+ {
+ 	private TiledMap map;
+@@ -19,6 +22,8 @@ public class BasicMap
+ 	public static final int heightByTiles = 16;
+ 	public static final int TILESIZE = 32;
+ 	
++	
++	
+ 	////////////FOR TESTS ONLY//////////////
+ 	////////////////////////////////////////
+ 	public BasicMap(char [][] newArray){
+@@ -129,4 +134,15 @@ public class BasicMap
+     else
+     	return false;
+ 	}
++
++	public static class GameWindowSettings{
++		private static final int screenWidth = TILESIZE*widthByTiles;
++		private static final int screenHeight = TILESIZE*heightByTiles;
++		
++		public static int getScreenWidth() {return screenWidth;}
++		public static int getScreenHeight() {return screenHeight;}
++		
++		
++	}
++
+ }
+
+
+Commit: 5ef9d58 
+Date: 2017-10-12 21:17:56 -0600 
+Message: Created Classes to start shortening Long Class player.java
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java
+new file mode 100644
+index 0000000..28691b3
+--- /dev/null
++++ b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
+@@ -0,0 +1,5 @@
++package playerRelated;
++
++public class PlayerMovement {
++
++}
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/PlayerStatus.java b/Version 1.1/NewestVersion/src/playerRelated/PlayerStatus.java
+new file mode 100644
+index 0000000..89139e2
+--- /dev/null
++++ b/Version 1.1/NewestVersion/src/playerRelated/PlayerStatus.java	
+@@ -0,0 +1,5 @@
++package playerRelated;
++
++public class PlayerStatus {
++
++}
+
+
+Commit: e63b315 
+Date: 2017-10-12 22:33:19 -0600 
+Message: Extracted level up and using original code to call old code. Had to move variables over. Resolved most conflicts before further extraction.
+  
+======================================
+ 	//Location of entity
+ 	public Entity (int x,int y){
+@@ -125,6 +125,7 @@ public class Entity {
+ 	public int getHealthPoints(){return healthPoints;}
+ 	public int getMaxHealthPoints() {return maxHealthPoints;}
+ 	
++	public void setMaxHealthPoints(int healthPoints) { if (healthPoints > 0) {maxHealthPoints = healthPoints;}}
+ 	
+ 	
+ 	
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/Player.java b/Version 1.1/NewestVersion/src/playerRelated/Player.java
+index ddd8e85..3f216eb 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/Player.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/Player.java	
+@@ -24,26 +24,21 @@ public class Player extends Entity{
+ 	//Used for stair case movement 
+ 	private boolean onStairs;
+ 	
+-	//Variables used for Combat and related aspects
+-	private int experiencePoints = 0;
+-	private int pointsNextLevel = 10;
+-	
+-	private int playerLevel = 1;
+-	private int criticalHitLimit= 30;
+-	private int missFactor = 10;
+-	
+ 	//Basic Sprite Variables
+ 	private SpriteSheet sheet;
+ 	private Animation currentSprite, up, down,left,right;
+ 
+ 	//Limited Vision Effect
+ 	private Image shadow;		
++
++	private PlayerStatus playerStats;
+ 	
+ 	////FOR TEST PURPOSES ONLY////
+ 	public Player (int x, int y){
+ 		super(x,y);
+ 		gc = null;
+ 		name = "P";
++		playerStats = new PlayerStatus(this);
+ 	}
+ 	
+ 	public Player (int x, int y, BasicMap map){
+@@ -51,6 +46,7 @@ public class Player extends Entity{
+ 		this.map = map;
+ 		gc = null;
+ 		name = "P";
++		playerStats = new PlayerStatus(this);
+ 	}
+ 		
+ 	public void mockKeyBoard(char c){
+@@ -423,36 +419,23 @@ public class Player extends Entity{
+ 	
+ 	//Method used when the player levels up
+ 	private boolean levelUp(){
+-		
+-		if (experiencePoints >= pointsNextLevel){
+-			playerLevel++;
+-			
+-			//Increase Maximum Health & Heal Up Completely
+-			maxHealthPoints += 50;
+-			healthPoints = maxHealthPoints;
+-			criticalHitLimit += 5;
+-			if (missFactor > 5)
+-				missFactor -= 1;
+-
+-			//Decrease Experience Points used up
+-			//Increase amount needed to next level
+-			experiencePoints = experiencePoints-pointsNextLevel;
+-			pointsNextLevel *= 2;
+-			return true;
+-			}
+-		return false;
++		return playerStats. levelUp();
+ 	}
+ 
+ 		
+-	public int getCurrentLevel(){return playerLevel;}
++	public int getCurrentLevel(){return playerStats.getPlayerLevel();}
++	
++	public int getExperiencePoints(){return playerStats.getExperiencePoints();}
++	
++	public int getPointsNextLevel() {return playerStats.getPointsNextLevel();}
+ 	
+-	public int getExperiencePoints(){return experiencePoints;}
+ 	
+-	public int getPointsNextLevel() {return pointsNextLevel;}
+ ///////////METHODS DEALING WITH COMBAT///////////////////	
+ 	
+ 	private void attack(int monsterX, int monsterY){
+-	CombatManager.attackLoop(this,criticalHitLimit, missFactor, monsterX, monsterY);	
++		int criticalHitLimit = playerStats.getCriticaHitLimit();
++		int missFactor = playerStats.getMissFactor();
++		CombatManager.attackLoop(this,criticalHitLimit, missFactor, monsterX, monsterY);	
+ 	}
+ 	
+ 	
+@@ -464,22 +447,16 @@ public class Player extends Entity{
+ 
+ 	///Methods dealing loading////
+ 	public void loadStats(int newLevel, int newExp, int newHealth)
+-		{
+-		playerLevel = newLevel;
+-		experiencePoints = newExp;
+-		pointsNextLevel = 10*(2*(newLevel));
+-		maxHealthPoints = 30 + 50*(newLevel-1);
+-		healthPoints = newHealth;
+-		criticalHitLimit = 30+5*(newLevel-1);	
+-		missFactor = 10 - 5*(newLevel-1);
+-		}
++	{
++			playerStats = new PlayerStatus(this,newLevel, newExp, newHealth);
++	}
+ 		
+ 		
+-		public void setPosition(int newX, int newY)
+-		{
++	public void setPosition(int newX, int newY)
++	{
+ 			x = newX;
+ 			y = newY;
+-		}
++	}
+ 	
+ }
+ 
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java
+index 28691b3..90b3e8b 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
+@@ -2,4 +2,5 @@ package playerRelated;
+ 
+ public class PlayerMovement {
+ 
++
+ }
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/PlayerStatus.java b/Version 1.1/NewestVersion/src/playerRelated/PlayerStatus.java
+index 89139e2..99b615c 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/PlayerStatus.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/PlayerStatus.java	
+@@ -2,4 +2,62 @@ package playerRelated;
+ 
+ public class PlayerStatus {
+ 
++	
++	//Variables used for Combat and related aspects
++	private int experiencePoints = 0;
++	private int pointsNextLevel = 10;
++	
++	private int playerLevel = 1;
++	private int criticalHitLimit= 30;
++	private int missFactor = 10;
++
++	private Player player;
++		public PlayerStatus(Player p)
++		{
++			player =p;
++		}
++		
++		public PlayerStatus(Player p,int newLevel, int newExp, int newHealth)
++		{
++			playerLevel = newLevel;
++			experiencePoints = newExp;
++			pointsNextLevel = 10*(2*(newLevel));
++			player.setMaxHealthPoints (30 + 50*(newLevel-1));
++			player.addHealthPoints(newHealth-player.getHealthPoints());
++			criticalHitLimit = 30+5*(newLevel-1);	
++			missFactor = 10 - 5*(newLevel-1);
++		}
++	
++    	//Method used when the player levels up
++		public boolean levelUp(){
++			
++			if (experiencePoints >= pointsNextLevel){
++				
++				playerLevel++;
++				
++				//Increase Maximum Health & Heal Up Completely
++				
++				int increaseMaxHealth = player.getMaxHealthPoints() + 50;
++				player.setMaxHealthPoints(increaseMaxHealth);
++				player.addHealthPoints(increaseMaxHealth- player.getHealthPoints());
++				criticalHitLimit += 5;
++				if (missFactor > 5)
++					missFactor -= 1;
++
++				//Decrease Experience Points used up
++				//Increase amount needed to next level
++				experiencePoints = experiencePoints-pointsNextLevel;
++				pointsNextLevel *= 2;
++				return true;
++				}
++			return false;
++		}
++		
++		public int getCriticaHitLimit() {return criticalHitLimit;}
++		public int getMissFactor() {return missFactor;}
++		public int getPlayerLevel() {return playerLevel;}
++
++		public int getExperiencePoints() {return experiencePoints;}
++		public int getPointsNextLevel() {return pointsNextLevel;}
++
+ }
+
+
+Commit: b83fe81 
+Date: 2017-10-12 22:38:30 -0600 
+Message: Tested Extracted Methods after minor extraction bug fixes
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/Player.java b/Version 1.1/NewestVersion/src/playerRelated/Player.java
+index 3f216eb..574af33 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/Player.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/Player.java	
+@@ -403,18 +403,7 @@ public class Player extends Entity{
+ 	
+ ///////////METHOD DEALING WITH LEVELING UP////////////////////
+ 	public String addExperiencePoints(int points){
+-		if (points <0)
+-			return "Can't gain negative EXP";
+-		
+-		//Add points given
+-		experiencePoints += points;
+-		if (levelUp())
+-		{
+-			GameScreenAssets.queueTextLog.add("Woohoo! Player has leveled Up!");
+-	//		SoundManager.playSoundEffect("res/sound/SFX/Level Up Ding.wav");
+-			return "Player has leveled up";
+-		}
+-		return null;
++		return addExperiencePoints(points);
+ 	}
+ 	
+ 	//Method used when the player levels up
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/PlayerStatus.java b/Version 1.1/NewestVersion/src/playerRelated/PlayerStatus.java
+index 99b615c..747380e 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/PlayerStatus.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/PlayerStatus.java	
+@@ -1,5 +1,7 @@
+ package playerRelated;
+ 
++import gameStates.GameScreenAssets;
++
+ public class PlayerStatus {
+ 
+ 	
+@@ -27,6 +29,21 @@ public class PlayerStatus {
+ 			criticalHitLimit = 30+5*(newLevel-1);	
+ 			missFactor = 10 - 5*(newLevel-1);
+ 		}
++		
++		public String addExperiencePoints(int points){
++			if (points <0)
++				return "Can't gain negative EXP";
++			
++			//Add points given
++			experiencePoints += points;
++			if (levelUp())
++			{
++				GameScreenAssets.queueTextLog.add("Woohoo! Player has leveled Up!");
++		//		SoundManager.playSoundEffect("res/sound/SFX/Level Up Ding.wav");
++				return "Player has leveled up";
++			}
++			return null;
++		}
+ 	
+     	//Method used when the player levels up
+ 		public boolean levelUp(){
+
+
+Commit: 8c11853 
+Date: 2017-10-12 22:44:34 -0600 
+Message: Removed all player stats methods except for linking ref to player status class and updated Test Methods
+ 
+======================================
+
+index 574af33..d62fa59 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/Player.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/Player.java	
+@@ -402,21 +402,7 @@ public class Player extends Entity{
+ 				}
+ 	
+ ///////////METHOD DEALING WITH LEVELING UP////////////////////
+-	public String addExperiencePoints(int points){
+-		return addExperiencePoints(points);
+-	}
+-	
+-	//Method used when the player levels up
+-	private boolean levelUp(){
+-		return playerStats. levelUp();
+-	}
+-
+-		
+-	public int getCurrentLevel(){return playerStats.getPlayerLevel();}
+-	
+-	public int getExperiencePoints(){return playerStats.getExperiencePoints();}
+-	
+-	public int getPointsNextLevel() {return playerStats.getPointsNextLevel();}
++	public PlayerStatus getPlayerStatus() {return playerStats;}
+ 	
+ 	
+ ///////////METHODS DEALING WITH COMBAT///////////////////	
+diff --git a/Version 1.1/NewestVersion/src/testRelated/PlayerTest.java b/Version 1.1/NewestVersion/src/testRelated/PlayerTest.java
+index 345adc7..761ce8a 100644
+--- a/Version 1.1/NewestVersion/src/testRelated/PlayerTest.java	
++++ b/Version 1.1/NewestVersion/src/testRelated/PlayerTest.java	
+@@ -8,6 +8,7 @@ import mapRelated.BasicMap;
+ import org.junit.Test;
+ 
+ import playerRelated.Player;
++import playerRelated.PlayerStatus;
+ 
+ public class PlayerTest {
+ 
+@@ -16,20 +17,21 @@ public class PlayerTest {
+ 	@Test
+ 	public void testExperiencePoints(){
+ 		Player player = new Player (10, 10);
+-		player.addExperiencePoints(10);
+-		assertEquals(0, player.getExperiencePoints());
+-		assertEquals(20,player.getPointsNextLevel());
+-		player.addExperiencePoints(20);
+-		assertEquals(40,player.getPointsNextLevel());
+-		player.addExperiencePoints(40);
+-		assertEquals(80,player.getPointsNextLevel());
+-		player.addExperiencePoints(80);
+-		assertEquals(160,player.getPointsNextLevel());
+-		player.addExperiencePoints(160);
+-		assertEquals(320,player.getPointsNextLevel());	
+-		player.addExperiencePoints(320);
+-		assertEquals(640,player.getPointsNextLevel());	
+-		assertEquals(7, player.getCurrentLevel());
++		PlayerStatus playerStats = player.getPlayerStatus(); 
++		playerStats.addExperiencePoints(10);
++		assertEquals(0, playerStats.getExperiencePoints());
++		assertEquals(20,playerStats.getPointsNextLevel());
++		playerStats.addExperiencePoints(20);
++		assertEquals(40,playerStats.getPointsNextLevel());
++		playerStats.addExperiencePoints(40);
++		assertEquals(80,playerStats.getPointsNextLevel());
++		playerStats.addExperiencePoints(80);
++		assertEquals(160,playerStats.getPointsNextLevel());
++		playerStats.addExperiencePoints(160);
++		assertEquals(320,playerStats.getPointsNextLevel());	
++		playerStats.addExperiencePoints(320);
++		assertEquals(640,playerStats.getPointsNextLevel());	
++		assertEquals(7, playerStats.getPlayerLevel());
+ 		
+ 	}
+ 
+@@ -37,19 +39,22 @@ public class PlayerTest {
+ 	public void testNegativeExperiencePoints(){
+ 		//Arrange
+ 		Player player = new Player (10,10);		
+-		assertEquals("Can't gain negative EXP",player.addExperiencePoints(-100));
++		PlayerStatus playerStats = player.getPlayerStatus(); 
++		assertEquals("Can't gain negative EXP",playerStats.addExperiencePoints(-100));
+ 	}
+ 	@Test
+ 	public void test_NoLevelUp() {
+ 		Player player = new Player(10,10);
+-		assertEquals(null, player.addExperiencePoints(1));
++		PlayerStatus playerStats = player.getPlayerStatus(); 
++		assertEquals(null,playerStats.addExperiencePoints(1));
+ 	}
+ 	
+ 	
+ 	@Test 
+ 	public void testPlayerLevelUp(){
+ 		Player player = new Player (10,10);		
+-		assertEquals("Player has leveled up",player.addExperiencePoints(2000));
++		PlayerStatus playerStats = player.getPlayerStatus(); 
++		assertEquals("Player has leveled up",playerStats.addExperiencePoints(2000));
+ 	}
+ 	
+ 	@Test
+
+
+Commit: 7bea36b 
+Date: 2017-10-12 22:47:41 -0600 
+Message: Updated Player references in other classes to refer to player status instead
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/gameStates/GameScreenAssets.java b/Version 1.1/NewestVersion/src/gameStates/GameScreenAssets.java
+index b3677f7..a0baa77 100644
+--- a/Version 1.1/NewestVersion/src/gameStates/GameScreenAssets.java	
++++ b/Version 1.1/NewestVersion/src/gameStates/GameScreenAssets.java	
+@@ -96,8 +96,8 @@ public class GameScreenAssets {
+         //Draw Experience Bar
+         g.setColor(Color.white);
+ 	    g.drawString("EXP", 80, 480);
+-	    g.drawString(""+player.getExperiencePoints()+"/"+player.getPointsNextLevel(), 420, 480);
+-	    Rectangle expBar = new Rectangle(110, 480, 300*player.getExperiencePoints()/player.getPointsNextLevel(), 20);
++	    g.drawString(""+player.getPlayerStatus().getExperiencePoints()+"/"+player.getPlayerStatus().getPointsNextLevel(), 420, 480);
++	    Rectangle expBar = new Rectangle(110, 480, 300*player.getPlayerStatus().getExperiencePoints()/player.getPlayerStatus().getPointsNextLevel(), 20);
+         GradientFill fillGreen = new GradientFill(110, 0, new Color(90, 255, 20),
+                                              480 + 300, 0, new Color(40, 180, 40));
+         g.setColor(Color.darkGray);
+diff --git a/Version 1.1/NewestVersion/src/inputRelated/SavingGame.java b/Version 1.1/NewestVersion/src/inputRelated/SavingGame.java
+index 9425991..9bcae83 100644
+--- a/Version 1.1/NewestVersion/src/inputRelated/SavingGame.java	
++++ b/Version 1.1/NewestVersion/src/inputRelated/SavingGame.java	
+@@ -10,12 +10,14 @@ import java.util.LinkedList;
+ import managers.MonsterManager;
+ import monsterRelated.BasicMonster;
+ import playerRelated.Player;
++import playerRelated.PlayerStatus;
+ 
+ public class SavingGame {
+ 		
+ 	public static void SaveGame(GameScreenAssets gsa, Player player, MonsterManager monsterManage){
+ 		try
+ 		{
++			PlayerStatus playerStatus = player.getPlayerStatus();
+ 			FileWriter fw = new FileWriter("save.txt");
+ 			PrintWriter pw = new PrintWriter(fw);
+ 			//First Write Floor number. Newline.
+@@ -24,9 +26,9 @@ public class SavingGame {
+ 			pw.println(player.getPosition()[0]);
+ 			pw.println(player.getPosition()[1]);
+ 			//Player level
+-			pw.println(player.getCurrentLevel());
++			pw.println(playerStatus.getPlayerLevel());
+ 			//Player experience points. new line
+-			pw.println(player.getExperiencePoints());
++			pw.println(playerStatus.getExperiencePoints());
+ 			//Player health points. new line.
+ 			pw.println(player.getHealthPoints());
+ 			//Start loop for saving monster info
+diff --git a/Version 1.1/NewestVersion/src/managers/CombatManager.java b/Version 1.1/NewestVersion/src/managers/CombatManager.java
+index 23724fc..6e6b1ce 100644
+--- a/Version 1.1/NewestVersion/src/managers/CombatManager.java	
++++ b/Version 1.1/NewestVersion/src/managers/CombatManager.java	
+@@ -113,7 +113,7 @@ public class CombatManager {
+ 	private static void monsterDies(Player player, BasicMonster currentFoe){
+ 		GameScreenAssets.queueTextLog.addFirst("You've Killed the monster!");
+ 		SoundManager.playSoundEffect("res/sound/SFX/MonsterDie.wav");
+-		player.addExperiencePoints(currentFoe.getExpPointGain());
++		player.getPlayerStatus().addExperiencePoints(currentFoe.getExpPointGain());
+ 		battleHappening = false;
+ 		monsterList.remove(currentFoe);
+ 	
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/Player.java b/Version 1.1/NewestVersion/src/playerRelated/Player.java
+index d62fa59..c18efa0 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/Player.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/Player.java	
+@@ -401,7 +401,6 @@ public class Player extends Entity{
+ 			
+ 				}
+ 	
+-///////////METHOD DEALING WITH LEVELING UP////////////////////
+ 	public PlayerStatus getPlayerStatus() {return playerStats;}
+ 	
+ 	
+
+
+Commit: 2b8d4db 
+Date: 2017-10-12 23:05:17 -0600 
+Message: Updated Player References
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/gameStates/GameScreenAssets.java b/Version 1.1/NewestVersion/src/gameStates/GameScreenAssets.java
+index a0baa77..a75668f 100644
+--- a/Version 1.1/NewestVersion/src/gameStates/GameScreenAssets.java	
++++ b/Version 1.1/NewestVersion/src/gameStates/GameScreenAssets.java	
+@@ -78,7 +78,7 @@ public class GameScreenAssets {
+ 
+ 	    //Draw Player Level
+ 	    g.setColor(Color.yellow);
+-	    g.drawString("Lvl: "+player.getCurrentLevel(),10, 450);
++	    g.drawString("Lvl: "+player.getPlayerStatus().getPlayerLevel(),10, 450);
+ 	    
+ 	    g.setColor(Color.white);
+ 	    ///Draw Health Bar
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/Player.java b/Version 1.1/NewestVersion/src/playerRelated/Player.java
+index c18efa0..43b1ab3 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/Player.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/Player.java	
+@@ -32,6 +32,7 @@ public class Player extends Entity{
+ 	private Image shadow;		
+ 
+ 	private PlayerStatus playerStats;
++	private PlayerMovement playerMovement;
+ 	
+ 	////FOR TEST PURPOSES ONLY////
+ 	public Player (int x, int y){
+@@ -39,6 +40,7 @@ public class Player extends Entity{
+ 		gc = null;
+ 		name = "P";
+ 		playerStats = new PlayerStatus(this);
++		playerMovement = new PlayerMovement();
+ 	}
+ 	
+ 	public Player (int x, int y, BasicMap map){
+@@ -47,6 +49,7 @@ public class Player extends Entity{
+ 		gc = null;
+ 		name = "P";
+ 		playerStats = new PlayerStatus(this);
++		playerMovement = new PlayerMovement();
+ 	}
+ 		
+ 	public void mockKeyBoard(char c){
+@@ -217,24 +220,7 @@ public class Player extends Entity{
+ ////////////METHODS DEALING WITH MOVEMENT//////////////////////
+ 	private void moveDiagonalUpLeft(){
+ 			 currentSprite = left;
+-			int newX = x-BasicMap.TILESIZE;
+-			int newY = y-BasicMap.TILESIZE;
+-			if (isTaken(newX, newY))
+-				attack(newX,newY);
+-			else if (!(map.hasCollision(newX, newY)))
+-				{
+-				updatePosition(newX,newY);
+-				x = newX;
+-				y = newY;
+-				
+-				if (map.isStairs(x, y)){
+-					onStairs = true;
+-					}
+-				if (map.isWin(x, y))
+-					{
+-					GameScreen.setWin(true);
+-					}
+-				}
++			 playerMovement.moveDiagonalUpLeft(this, map);
+ 		 }
+ 	
+ 	
+@@ -401,12 +387,18 @@ public class Player extends Entity{
+ 			
+ 				}
+ 	
++	///Methods dealing with Player Status////
+ 	public PlayerStatus getPlayerStatus() {return playerStats;}
+-	
++
++	public void loadStats(int newLevel, int newExp, int newHealth)
++	{
++		playerStats = new PlayerStatus(this,newLevel, newExp, newHealth);
++	}
++			
+ 	
+ ///////////METHODS DEALING WITH COMBAT///////////////////	
+ 	
+-	private void attack(int monsterX, int monsterY){
++	void attack(int monsterX, int monsterY){
+ 		int criticalHitLimit = playerStats.getCriticaHitLimit();
+ 		int missFactor = playerStats.getMissFactor();
+ 		CombatManager.attackLoop(this,criticalHitLimit, missFactor, monsterX, monsterY);	
+@@ -418,13 +410,7 @@ public class Player extends Entity{
+ 	public boolean getOnStairs(){return onStairs;}
+ 	
+ 	public void setOnStairs(boolean var){onStairs = var;}
+-
+-	///Methods dealing loading////
+-	public void loadStats(int newLevel, int newExp, int newHealth)
+-	{
+-			playerStats = new PlayerStatus(this,newLevel, newExp, newHealth);
+-	}
+-		
++	
+ 		
+ 	public void setPosition(int newX, int newY)
+ 	{
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java
+index 90b3e8b..8bc0c0e 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
+@@ -1,6 +1,35 @@
+ package playerRelated;
+ 
++import gameStates.GameScreen;
++import mapRelated.BasicMap;
++
+ public class PlayerMovement {
+ 
++	
++	public void moveDiagonalUpLeft(Player player,BasicMap map){
++		int x = player.getPosition()[0];
++		int y = player.getPosition()[1];
++		
++		int newX = x-BasicMap.TILESIZE;
++		int newY = y-BasicMap.TILESIZE;
++		if (player.isTaken(newX, newY))
++			player.attack(newX,newY);
++		else if (!(map.hasCollision(newX, newY)))
++			{
++			player.updatePosition(newX,newY);
++			x = newX;
++			y = newY;
++			
++			if (map.isStairs(x, y)){
++				player.setOnStairs(true);
++				}
++			if (map.isWin(x, y))
++				{
++				GameScreen.setWin(true);
++				}
++			}
++	 }
++
++
+ 
+ }
+
+
+Commit: 031e4cd 
+Date: 2017-10-12 23:11:47 -0600 
+Message: Extracted moveUp
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/Player.java b/Version 1.1/NewestVersion/src/playerRelated/Player.java
+index 43b1ab3..5245972 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/Player.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/Player.java	
+@@ -219,29 +219,15 @@ public class Player extends Entity{
+ 	
+ ////////////METHODS DEALING WITH MOVEMENT//////////////////////
+ 	private void moveDiagonalUpLeft(){
+-			 currentSprite = left;
++		    //Update Sprite
++   			 currentSprite = left;
+ 			 playerMovement.moveDiagonalUpLeft(this, map);
+ 		 }
+ 	
+ 	
+ 	private void moveUp(){
+ 			currentSprite = up;
+-			int newY = y - BasicMap.TILESIZE;
+-			if (isTaken(x,newY))
+-				attack(x, newY);
+-			else if (!(map.hasCollision(x, newY))){
+-				updatePosition(x,newY);
+-				y = newY;
+-				if (map.isStairs(x, y)){
+-					onStairs = true;
+-					}
+-				if (map.isWin(x, y))
+-				{
+-				GameScreen.setWin(true);
+-				}
+-			
+-			}
+-			
++			playerMovement.moveUp(this, map);
+ 		}
+ 		
+ 		
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java
+index 8bc0c0e..bfba6a9 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
+@@ -29,6 +29,30 @@ public class PlayerMovement {
+ 				}
+ 			}
+ 	 }
++	
++
++	public void moveUp(Player player,BasicMap map){
++		int x = player.getPosition()[0];
++		int y = player.getPosition()[1];
++		
++		int newY = y - BasicMap.TILESIZE;
++		
++		if (player.isTaken(x,newY))
++			player.attack(x, newY);
++		else if (!(map.hasCollision(x, newY))){
++			player.updatePosition(x,newY);
++			y = newY;
++			if (map.isStairs(x, y)){
++				player.setOnStairs(true);
++				}
++			if (map.isWin(x, y))
++			{
++			GameScreen.setWin(true);
++			}		
++			}
++			
++	}
++
+ 
+ 
+ 
+
+
+Commit: b313119 
+Date: 2017-10-13 02:17:30 -0600 
+Message: Extracted Move nowhere, move left, move diagonal right
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/Player.java b/Version 1.1/NewestVersion/src/playerRelated/Player.java
+index 5245972..b9184c5 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/Player.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/Player.java	
+@@ -233,45 +233,12 @@ public class Player extends Entity{
+ 		
+ 	private void moveDiagonalUpRight(){
+ 			currentSprite = right;
+-			int newX = x + BasicMap.TILESIZE;
+-			int newY = y - BasicMap.TILESIZE;
+-			
+-			if (isTaken(newX, newY))
+-				attack(newX, newY);
+-			else if (!(map.hasCollision(newX, newY)))	
+-				{
+-					updatePosition(newX,newY);
+-					y = newY;
+-					x = newX;	
+-					if (map.isStairs(x, y)){
+-						onStairs = true;
+-						}
+-					if (map.isWin(x, y))
+-					{
+-					GameScreen.setWin(true);
+-					}
+-				
+-				}
++			playerMovement.moveUp(this,map);
+ 		}
+ 
+ 	private void moveLeft(){	
+ 			currentSprite = left;
+-			int newX = x-BasicMap.TILESIZE;
+-			if (isTaken(newX, y))
+-				attack(newX,y);
+-			else if (!(map.hasCollision(newX, y))){
+-				updatePosition(newX,y);
+-				x = newX;
+-				if (map.isStairs(x, y)){
+-					onStairs = true;
+-					}
+-				if (map.isWin(x, y))
+-				{
+-				GameScreen.setWin(true);
+-				}
+-			
+-			}
+-			
++			playerMovement.moveLeft(this,map);
+ 		}
+ 		
+ 	private void moveNowhere()
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java
+index bfba6a9..ddad229 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
+@@ -52,6 +52,71 @@ public class PlayerMovement {
+ 			}
+ 			
+ 	}
++	
++	public void moveDiagonalUpRight(Player player, BasicMap map){
++		
++		int x = player.getPosition()[0];
++		int y = player.getPosition()[1];
++		
++		int newX = x + BasicMap.TILESIZE;
++		int newY = y - BasicMap.TILESIZE;
++		
++		if (player.isTaken(newX, newY))
++			player.attack(newX, newY);
++		else if (!(map.hasCollision(newX, newY)))	
++			{
++				player.updatePosition(newX,newY);
++				y = newY;
++				x = newX;	
++				if (map.isStairs(x, y)){
++					player.setOnStairs(true);
++					}
++				if (map.isWin(x, y))
++				{
++				GameScreen.setWin(true);
++				}
++			
++			}
++	}
++	
++	public void moveLeft(Player player, BasicMap map){	
++		int x = player.getPosition()[0];
++		int y = player.getPosition()[1];
++	
++		int newX = x-BasicMap.TILESIZE;
++		if (player.isTaken(newX, y))
++			player.attack(newX,y);
++		else if (!(map.hasCollision(newX, y))){
++			player.updatePosition(newX,y);
++			x = newX;
++			if (map.isStairs(x, y)){
++				player.setOnStairs(true);
++						}
++			if (map.isWin(x, y))
++			{
++			GameScreen.setWin(true);
++			}
++		
++		}
++		
++	}
++
++
++	public void moveNowhere(Player player, BasicMap map)
++	{
++		int x = player.getPosition()[0];
++		int y = player.getPosition()[1];
++		if (map.isStairs(x, y)){
++			player.setOnStairs(true);
++		}
++		if (map.isWin(x, y))
++		{
++			GameScreen.setWin(true);
++		}
++
++	}
++
++
+ 
+ 
+ 
+
+
+Commit: 9dc49fd 
+Date: 2017-10-13 02:34:08 -0600 
+Message: Extracted rest of movement
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/Player.java b/Version 1.1/NewestVersion/src/playerRelated/Player.java
+index b9184c5..7003184 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/Player.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/Player.java	
+@@ -164,6 +164,11 @@ public class Player extends Entity{
+ 		//Input used to get keyboard controls
+ 		Input input = gc.getInput();
+ 		 
++///		int[] LeftKeys = new int[] {Input.KEY_NUMPAD7, Input.KEY_7,
++	///			Input.KEY_NUMPAD1,Input.KEY_J,
++		///		Input.KEY_LEFT,Input.KEY_U,Input.KEY_NUMPAD4};
++		
++		
+ 		//Diagonal Up Left
+ 		if (input.isKeyPressed(Input.KEY_NUMPAD7)||input.isKeyPressed(Input.KEY_7)){
+ 			 moveDiagonalUpLeft();
+@@ -199,7 +204,7 @@ public class Player extends Entity{
+ 			}
+ 		
+ 		//Diagonal Down Left
+-		else if (input.isKeyPressed(Input.KEY_NUMPAD1)||input.isKeyPressed(Input.KEY_J)){
++		else if (input.isKeyPressed(Input.KEY_NUMPAD1)||input.isKeyPressed(Input.KEY_J\)){
+ 				moveDiagonalDownLeft();
+ 				}
+ 		
+@@ -242,103 +247,32 @@ public class Player extends Entity{
+ 		}
+ 		
+ 	private void moveNowhere()
+-			{
++		{
+ 			currentSprite = down;
+-			if (map.isStairs(x, y)){
+-				onStairs = true;
+-				}
+-			if (map.isWin(x, y))
+-			{
+-			GameScreen.setWin(true);
+-			}
+-		
+-			}
++			playerMovement.moveNowhere(this, map);	
++		}
+ 		
+ 	private void moveRight(){
+ 			currentSprite = right;
+-			int newX = x + BasicMap.TILESIZE;
+-			if  (isTaken(newX, y))
+-				attack(newX,y);
+-			else if (!(map.hasCollision(newX, y))){
+-				updatePosition(newX,y);
+-				x = newX;
+-				if (map.isStairs(x, y)){
+-					onStairs = true;
+-					}
+-				if (map.isWin(x, y))
+-				{
+-				GameScreen.setWin(true);
+-				}
+-			
+-				}
+-			}	
++			playerMovement.moveRight(this, map);
++		}	
+ 		
+ 		
+ 	private void moveDiagonalDownLeft(){
+ 				currentSprite = left;
+-				int newX = x-BasicMap.TILESIZE;
+-				int newY = y +BasicMap.TILESIZE;
+-				if (isTaken(newX, newY))
+-					attack(newX, newY);
+-				else if (!(map.hasCollision(newX,  newY)))
+-					{
+-					updatePosition(newX,newY);
+-					x = newX;
+-					y = newY;
+-					if (map.isStairs(x, y)){
+-						onStairs = true;
+-						}
+-					if (map.isWin(x, y))
+-					{
+-					GameScreen.setWin(true);
+-					}
+-				
+-					}
++				playerMovement.moveDiagonalDownLeft(this, map);
+ 				}
+ 				
+ 	private void moveDown(){
+ 			currentSprite = down;
+-			int newY = y +BasicMap.TILESIZE;
+-			if (isTaken(x, newY))
+-				attack (x, newY);
+-			else if (!(map.hasCollision(x, newY))){
+-				updatePosition(x,newY);
+-				y = newY;
+-				if (map.isStairs(x, y)){
+-					onStairs = true;
+-					}
+-				if (map.isWin(x, y))
+-				{
+-				GameScreen.setWin(true);
+-				}
++			playerMovement.moveDiagonalDownLeft(this, map);
+ 			
+-				}
+-			
+-			}
++	}
+ 
+ 	private void moveDiagonalDownRight(){
+ 			currentSprite = right;
+-			int newX = x+BasicMap.TILESIZE;
+-			int newY = y+BasicMap.TILESIZE;
+-				if (isTaken(newX, newY)){
+-					attack(newX, newY);
+-				}
+-				else if (!(map.hasCollision(newX,newY)))
+-					{
+-					updatePosition(newX,newY);
+-					x = newX;
+-					y = newY;
+-					if (map.isStairs(x, y)){
+-						onStairs = true;
+-						}
+-					if (map.isWin(x, y))
+-					{
+-					GameScreen.setWin(true);
+-					}
+-				
+-					}
+-			
+-				}
++			playerMovement.moveDiagonalDownRight(this, map);
++	}
+ 	
+ 	///Methods dealing with Player Status////
+ 	public PlayerStatus getPlayerStatus() {return playerStats;}
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java
+index ddad229..b70c86c 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
+@@ -115,9 +115,96 @@ public class PlayerMovement {
+ 		}
+ 
+ 	}
++	
++	public void moveRight(Player player, BasicMap map){
++		int x = player.getPosition()[0];
++		int y = player.getPosition()[1];
++		int newX = x + BasicMap.TILESIZE;
++		if  (player.isTaken(newX, y))
++			player.attack(newX,y);
++		else if (!(map.hasCollision(newX, y))){
++				player.updatePosition(newX,y);
++			x = newX;
++			if (map.isStairs(x, y)){
++				player.setOnStairs(true);
++						}
++			if (map.isWin(x, y))
++			{
++			GameScreen.setWin(true);
++			}
++		
++			}
++		}	
++	
++	
++	public void moveDiagonalDownLeft(Player player, BasicMap map){
++		int x = player.getPosition()[0];
++		int y = player.getPosition()[1];
++		int newX = x-BasicMap.TILESIZE;
++		int newY = y +BasicMap.TILESIZE;
++		if (player.isTaken(newX, newY))
++			player.attack(newX, newY);
++		else if (!(map.hasCollision(newX,  newY)))
++			{
++			player.updatePosition(newX,newY);
++			x = newX;
++			y = newY;
++			if (map.isStairs(x, y)){
++				player.setOnStairs(true);
++				}
++			if (map.isWin(x, y))
++			{
++			GameScreen.setWin(true);
++			}
++		
++			}
++		}
++		
++public void moveDown(Player player, BasicMap map){
++	int x = player.getPosition()[0];
++	int y = player.getPosition()[1];
++    int newY = y +BasicMap.TILESIZE;
++	if (player.isTaken(x, newY))
++		player.attack (x, newY);
++	else if (!(map.hasCollision(x, newY))){
++		player.updatePosition(x,newY);
++		y = newY;
++		if (map.isStairs(x, y)){
++			player.setOnStairs(true);
++			}
++		if (map.isWin(x, y))
++		{
++		GameScreen.setWin(true);
++		}
++	
++		}
++	
++	}
+ 
+-
+-
++public void moveDiagonalDownRight(Player player, BasicMap map){
++	int x = player.getPosition()[0];
++	int y = player.getPosition()[1];
++	int newX = x+BasicMap.TILESIZE;
++	int newY = y+BasicMap.TILESIZE;
++		if (player.isTaken(newX, newY)){
++			player.attack(newX, newY);
++		}
++		else if (!(map.hasCollision(newX,newY)))
++			{
++			player.updatePosition(newX,newY);
++			x = newX;
++			y = newY;
++			if (map.isStairs(x, y)){
++				player.setOnStairs(true);
++				}
++			if (map.isWin(x, y))
++			{
++			GameScreen.setWin(true);
++			}
++		
++			}
++	
++		}
+ 
+ 
+ 
+
+
+Commit: 9d92fd0 
+Date: 2017-10-13 02:36:35 -0600 
+Message: All tests passed
+ 
+======================================
+
+index 7003184..9dce9fb 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/Player.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/Player.java	
+@@ -204,7 +204,7 @@ public class Player extends Entity{
+ 			}
+ 		
+ 		//Diagonal Down Left
+-		else if (input.isKeyPressed(Input.KEY_NUMPAD1)||input.isKeyPressed(Input.KEY_J\)){
++		else if (input.isKeyPressed(Input.KEY_NUMPAD1)||input.isKeyPressed(Input.KEY_J)){
+ 				moveDiagonalDownLeft();
+ 				}
+ 		
+@@ -238,7 +238,7 @@ public class Player extends Entity{
+ 		
+ 	private void moveDiagonalUpRight(){
+ 			currentSprite = right;
+-			playerMovement.moveUp(this,map);
++			playerMovement.moveDiagonalUpRight(this,map);
+ 		}
+ 
+ 	private void moveLeft(){	
+@@ -265,7 +265,7 @@ public class Player extends Entity{
+ 				
+ 	private void moveDown(){
+ 			currentSprite = down;
+-			playerMovement.moveDiagonalDownLeft(this, map);
++			playerMovement.moveDown(this, map);
+ 			
+ 	}
+ 
+
+
+Commit: 2a63b4f 
+Date: 2017-10-13 02:47:28 -0600 
+Message: Found that I could refactor out the mock keyboard used for only testing purposes out of the player code
+ 
+======================================
+
+diff --git a/VERSION W.I.P/version w.i.p/bin/testRelated/PlayerTest.class b/VERSION W.I.P/version w.i.p/bin/testRelated/PlayerTest.class
+index 12db5c9..990394a 100644
+Binary files a/VERSION W.I.P/version w.i.p/bin/testRelated/PlayerTest.class and b/VERSION W.I.P/version w.i.p/bin/testRelated/PlayerTest.class differ
+diff --git a/Version 1.1/NewestVersion/src/testRelated/PlayerTest.java b/Version 1.1/NewestVersion/src/testRelated/PlayerTest.java
+index 761ce8a..80d54a4 100644
+--- a/Version 1.1/NewestVersion/src/testRelated/PlayerTest.java	
++++ b/Version 1.1/NewestVersion/src/testRelated/PlayerTest.java	
+@@ -8,6 +8,7 @@ import mapRelated.BasicMap;
+ import org.junit.Test;
+ 
+ import playerRelated.Player;
++import playerRelated.PlayerMovement;
+ import playerRelated.PlayerStatus;
+ 
+ public class PlayerTest {
+@@ -56,6 +57,32 @@ public class PlayerTest {
+ 		PlayerStatus playerStats = player.getPlayerStatus(); 
+ 		assertEquals("Player has leveled up",playerStats.addExperiencePoints(2000));
+ 	}
++	@Test
++	public void testPlayerMovementMoveLeft()
++	{
++		String [][] testArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
++		char [][] testMap = new char [BasicMap.widthByTiles][BasicMap.heightByTiles];
++		
++		for (int i = 0; i < BasicMap.widthByTiles; i++)
++		{
++			for (int c = 0; c < BasicMap.heightByTiles; c++)
++			{
++				testArray[i][c] = " ";
++				testMap [i][c] = ' ';
++			}
++		}
++		BasicMap map = new BasicMap(testMap);
++		Player p = new Player(4*BasicMap.TILESIZE, 5*BasicMap.TILESIZE, map);
++		PlayerMovement movement = new PlayerMovement();
++		p.setEntityArray(testArray);
++		int [] expected = {3*BasicMap.TILESIZE, 5*BasicMap.TILESIZE};
++		int [] current = p.getPosition();
++		movement.moveLeft(p, map);
++		int [] after = p.getPosition();
++		assertArrayEquals(expected, p.getPosition());
++		
++	}
++	
+ 	
+ 	@Test
+ 	public void testPlayerMovement(){
+
+
+Commit: 56c7823 
+Date: 2017-10-13 03:00:38 -0600 
+Message: Got rid of mock keyboard that was used for testing
+ 
+======================================
+
+diff --git a/VERSION W.I.P/version w.i.p/bin/testRelated/PlayerTest.class b/VERSION W.I.P/version w.i.p/bin/testRelated/PlayerTest.class
+index 990394a..f7eed60 100644
+Binary files a/VERSION W.I.P/version w.i.p/bin/testRelated/PlayerTest.class and b/VERSION W.I.P/version w.i.p/bin/testRelated/PlayerTest.class differ
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/Player.java b/Version 1.1/NewestVersion/src/playerRelated/Player.java
+index 9dce9fb..0e8a85f 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/Player.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/Player.java	
+@@ -34,7 +34,7 @@ public class Player extends Entity{
+ 	private PlayerStatus playerStats;
+ 	private PlayerMovement playerMovement;
+ 	
+-	////FOR TEST PURPOSES ONLY////
++	////FOR TEST PURPOSES ONLY TO AVOID UI EXCEPTIONS////
+ 	public Player (int x, int y){
+ 		super(x,y);
+ 		gc = null;
+@@ -51,45 +51,7 @@ public class Player extends Entity{
+ 		playerStats = new PlayerStatus(this);
+ 		playerMovement = new PlayerMovement();
+ 	}
+-		
+-	public void mockKeyBoard(char c){
+-		switch(c) 
+-		{
+-		case 'u'://Up
+-			moveUp();
+-			break;
+-		case 'd'://Down
+-			moveDown();
+-			break;
+-		case 'l'://Left
+-			moveLeft();
+-			break;
+-		case 'r'://Right
+-			moveRight();
+-			break;
+-		case 'a'://Diagonal Up Left
+-			moveDiagonalUpLeft();
+-			break;
+-		case 'b'://Diagonal Up Right
+-			moveDiagonalUpRight();
+-			break;
+-		case 'c'://Diagonal Down Left
+-			moveDiagonalDownLeft();
+-			break;
+-		case 'f'://Diagonal Down Right
+-			moveDiagonalDownRight();
+-			break;
+-		case 'g':
+-			moveNowhere();
+-			break;
+-		default:
+-			break;
+-		}
+-		
+-		
+-	}
+-	
+-	
++			
+ 	////FOR TEST PURPOSES ONLY////
+ 	public Player(GameContainer gc, StateBasedGame sbg, BasicMap currentMap,int x, int y) throws SlickException{
+ 		//Constructor used to 
+diff --git a/Version 1.1/NewestVersion/src/testRelated/PlayerTest.java b/Version 1.1/NewestVersion/src/testRelated/PlayerTest.java
+index 80d54a4..1165a4b 100644
+--- a/Version 1.1/NewestVersion/src/testRelated/PlayerTest.java	
++++ b/Version 1.1/NewestVersion/src/testRelated/PlayerTest.java	
+@@ -57,6 +57,8 @@ public class PlayerTest {
+ 		PlayerStatus playerStats = player.getPlayerStatus(); 
+ 		assertEquals("Player has leveled up",playerStats.addExperiencePoints(2000));
+ 	}
++	
++	
+ 	@Test
+ 	public void testPlayerMovementMoveLeft()
+ 	{
+@@ -76,22 +78,15 @@ public class PlayerTest {
+ 		PlayerMovement movement = new PlayerMovement();
+ 		p.setEntityArray(testArray);
+ 		int [] expected = {3*BasicMap.TILESIZE, 5*BasicMap.TILESIZE};
+-		int [] current = p.getPosition();
+ 		movement.moveLeft(p, map);
+-		int [] after = p.getPosition();
+ 		assertArrayEquals(expected, p.getPosition());
+ 		
+ 	}
+ 	
+-	
++
+ 	@Test
+-	public void testPlayerMovement(){
+-		
+-		//Mock keyboard was call upon private method player movement
+-		//The private methods would've originally been called depending on input from the keyboard
+-		//In it's place characters have been used to individually call each method.
+-		//Reflections (Private Objects for Java) proved to carry too many complications than it was worth.
+-		
++	public void testPlayerMovementMoveRight()
++	{
+ 		String [][] testArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
+ 		char [][] testMap = new char [BasicMap.widthByTiles][BasicMap.heightByTiles];
+ 		
+@@ -105,61 +100,131 @@ public class PlayerTest {
+ 		}
+ 		BasicMap map = new BasicMap(testMap);
+ 		Player p = new Player(4*BasicMap.TILESIZE, 5*BasicMap.TILESIZE, map);
++		PlayerMovement movement = new PlayerMovement();
+ 		p.setEntityArray(testArray);
+-		int [] expected = {3*BasicMap.TILESIZE, 5*BasicMap.TILESIZE};
+-		p.mockKeyBoard('l');
+-		assertArrayEquals(expected, p.getPosition());
+-		p.mockKeyBoard('r');
+-		expected [0] = 4*BasicMap.TILESIZE;
+-		assertArrayEquals(expected, p.getPosition());
+-		expected [1] = 6*BasicMap.TILESIZE;
+-		p.mockKeyBoard('d');
+-		assertArrayEquals(expected, p.getPosition());
+-		expected [1] = 5*BasicMap.TILESIZE;
+-		p.mockKeyBoard('u');
++		int [] expected = {5*BasicMap.TILESIZE, 5*BasicMap.TILESIZE};
++		movement.moveRight(p, map);
+ 		assertArrayEquals(expected, p.getPosition());
++	}
++	
++	@Test
++	public void testPlayerMoveDiagonalDownRight()
++	{
++		String [][] testArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
++		char [][] testMap = new char [BasicMap.widthByTiles][BasicMap.heightByTiles];
+ 		
+-		p.mockKeyBoard('a');
+-		expected [0] -= BasicMap.TILESIZE;
+-		expected [1] -= BasicMap.TILESIZE;
++		for (int i = 0; i < BasicMap.widthByTiles; i++)
++		{
++			for (int c = 0; c < BasicMap.heightByTiles; c++)
++			{
++				testArray[i][c] = " ";
++				testMap [i][c] = ' ';
++			}
++		}
++		BasicMap map = new BasicMap(testMap);
++		Player p = new Player(4*BasicMap.TILESIZE, 5*BasicMap.TILESIZE, map);
++		PlayerMovement movement = new PlayerMovement();
++		p.setEntityArray(testArray);
++		int [] expected = {5*BasicMap.TILESIZE, 6*BasicMap.TILESIZE};
++		movement.moveDiagonalDownRight(p, map);
+ 		assertArrayEquals(expected, p.getPosition());
++	}
++	
++	
++	@Test
++	public void testPlayerMoveDiagonalUpLeft()
++	{
++		String [][] testArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
++		char [][] testMap = new char [BasicMap.widthByTiles][BasicMap.heightByTiles];
+ 		
+-		p.mockKeyBoard('b');
+-		expected [0] += BasicMap.TILESIZE;
+-		expected [1] -= BasicMap.TILESIZE;
++		for (int i = 0; i < BasicMap.widthByTiles; i++)
++		{
++			for (int c = 0; c < BasicMap.heightByTiles; c++)
++			{
++				testArray[i][c] = " ";
++				testMap [i][c] = ' ';
++			}
++		}
++		BasicMap map = new BasicMap(testMap);
++		Player p = new Player(4*BasicMap.TILESIZE, 5*BasicMap.TILESIZE, map);
++		PlayerMovement movement = new PlayerMovement();
++		p.setEntityArray(testArray);
++		int [] expected = {3*BasicMap.TILESIZE, 4*BasicMap.TILESIZE};
++		movement.moveDiagonalUpLeft(p, map);
+ 		assertArrayEquals(expected, p.getPosition());
++	}
++	
++	@Test
++	public void testPlayerMoveDiagonalDownLeft()
++	{
++		String [][] testArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
++		char [][] testMap = new char [BasicMap.widthByTiles][BasicMap.heightByTiles];
+ 		
+-		p.mockKeyBoard('c');
+-		expected [0] -= BasicMap.TILESIZE;
+-		expected [1] += BasicMap.TILESIZE;
++		for (int i = 0; i < BasicMap.widthByTiles; i++)
++		{
++			for (int c = 0; c < BasicMap.heightByTiles; c++)
++			{
++				testArray[i][c] = " ";
++				testMap [i][c] = ' ';
++			}
++		}
++		BasicMap map = new BasicMap(testMap);
++		Player p = new Player(4*BasicMap.TILESIZE, 5*BasicMap.TILESIZE, map);
++		PlayerMovement movement = new PlayerMovement();
++		p.setEntityArray(testArray);
++		int [] expected = {3*BasicMap.TILESIZE, 6*BasicMap.TILESIZE};
++		movement.moveDiagonalDownLeft(p, map);
+ 		assertArrayEquals(expected, p.getPosition());
++	}
++	
++	@Test
++	public void testPlayerMoveUp()
++	{
++		String [][] testArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
++		char [][] testMap = new char [BasicMap.widthByTiles][BasicMap.heightByTiles];
+ 		
+-		
+-		p.mockKeyBoard('f');
+-		expected [0] += BasicMap.TILESIZE;
+-		expected [1] += BasicMap.TILESIZE;
+-		
+-		assertArrayEquals(expected, p.getPosition());
+-		p.mockKeyBoard('y');
++		for (int i = 0; i < BasicMap.widthByTiles; i++)
++		{
++			for (int c = 0; c < BasicMap.heightByTiles; c++)
++			{
++				testArray[i][c] = " ";
++				testMap [i][c] = ' ';
++			}
++		}
++		BasicMap map = new BasicMap(testMap);
++		Player p = new Player(4*BasicMap.TILESIZE, 5*BasicMap.TILESIZE, map);
++		PlayerMovement movement = new PlayerMovement();
++		p.setEntityArray(testArray);
++		int [] expected = {4*BasicMap.TILESIZE, 4*BasicMap.TILESIZE};
++		movement.moveUp(p, map);
+ 		assertArrayEquals(expected, p.getPosition());
+-		p.mockKeyBoard('g');
+-		assertArrayEquals(expected, p.getPosition());		
+ 	}
+ 	
+-	/*
+ 	@Test
+-	public void testPlayerMoveUp() throws SecurityException, NoSuchMethodException, IllegalAccessException,InvocationTargetException{
+-		Player p = new Player(4*BasicMap.TILESIZE,5*BasicMap.TILESIZE);
+-
+-		Method privateUpMethod = Player.class.getDeclaredMethod("moveUp", String.class);
+-
+-		privateUpMethod.setAccessible(true);
+-
+-	    privateUpMethod.invoke(p, null);
+-
+-	}
+-	*/	
++	public void testPlayerMoveDown()
++	{
++		String [][] testArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
++		char [][] testMap = new char [BasicMap.widthByTiles][BasicMap.heightByTiles];
+ 		
++		for (int i = 0; i < BasicMap.widthByTiles; i++)
++		{
++			for (int c = 0; c < BasicMap.heightByTiles; c++)
++			{
++				testArray[i][c] = " ";
++				testMap [i][c] = ' ';
++			}
++		}
++		BasicMap map = new BasicMap(testMap);
++		Player p = new Player(4*BasicMap.TILESIZE, 5*BasicMap.TILESIZE, map);
++		PlayerMovement movement = new PlayerMovement();
++		p.setEntityArray(testArray);
++		int [] expected = {4*BasicMap.TILESIZE, 6*BasicMap.TILESIZE};
++		movement.moveDown(p, map);
++		assertArrayEquals(expected, p.getPosition());
++	}
++	
++	
++	
+ 		
+ }
+ 
+
+
+Commit: 5e96f3b 
+Date: 2017-10-13 03:22:46 -0600 
+Message: Removed all movement functionality from Player.java  and tested it
+ 
+======================================
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/Player.java b/Version 1.1/NewestVersion/src/playerRelated/Player.java
+index 0e8a85f..dd8ea8f 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/Player.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/Player.java	
+@@ -125,116 +125,38 @@ public class Player extends Entity{
+ 			}
+ 		//Input used to get keyboard controls
+ 		Input input = gc.getInput();
+-		 
+-///		int[] LeftKeys = new int[] {Input.KEY_NUMPAD7, Input.KEY_7,
+-	///			Input.KEY_NUMPAD1,Input.KEY_J,
+-		///		Input.KEY_LEFT,Input.KEY_U,Input.KEY_NUMPAD4};
+-		
+-		
+-		//Diagonal Up Left
+-		if (input.isKeyPressed(Input.KEY_NUMPAD7)||input.isKeyPressed(Input.KEY_7)){
+-			 moveDiagonalUpLeft();
++		playerMovement.movePlayer(this, map, input);
++		
++		//Player moves in a leftward direction.
++		if (input.isKeyPressed(Input.KEY_NUMPAD7)||input.isKeyPressed(Input.KEY_7)
++				||input.isKeyPressed(Input.KEY_LEFT)||input.isKeyPressed(Input.KEY_U)
++				||input.isKeyPressed(Input.KEY_NUMPAD4)||input.isKeyPressed(Input.KEY_NUMPAD1)
++				||input.isKeyPressed(Input.KEY_J)){
++			 	currentSprite = left;
+ 		 }
++		//Player Moves in a rightward direction
++		else if (input.isKeyPressed(Input.KEY_NUMPAD9)||input.isKeyPressed(Input.KEY_9)
++				||input.isKeyPressed(Input.KEY_RIGHT)||input.isKeyPressed(Input.KEY_O)
++				||input.isKeyPressed(Input.KEY_NUMPAD6)||input.isKeyPressed(Input.KEY_NUMPAD3)
++				||input.isKeyPressed(Input.KEY_L)){
++				currentSprite = right;
++		}
+ 		
+-		//Normal Up
++		//Player moves upwards
+ 		else if (input.isKeyPressed(Input.KEY_UP)||input.isKeyPressed(Input.KEY_8)
+ 				||input.isKeyPressed(Input.KEY_NUMPAD8)){
+-				moveUp();
+-		}
+-		
+-		//Diagonal Up Right
+-		else if (input.isKeyPressed(Input.KEY_NUMPAD9)||input.isKeyPressed(Input.KEY_9)){
+-				moveDiagonalUpRight();
++				currentSprite = up;
+ 		}
+-
+-		//Normal Left
+-		else if (input.isKeyPressed(Input.KEY_LEFT)||input.isKeyPressed(Input.KEY_U)
+-				||input.isKeyPressed(Input.KEY_NUMPAD4)){
+-				moveLeft();
+-		}
+-		
+-		//PASS TURN
+-		else if (input.isKeyPressed(Input.KEY_NUMPAD5)||input.isKeyPressed(Input.KEY_I))
+-			{
+-			moveNowhere();
+-			}
+ 		
+-		//Normal Right
+-		else if (input.isKeyPressed(Input.KEY_RIGHT)||input.isKeyPressed(Input.KEY_O)||
+-				input.isKeyPressed(Input.KEY_NUMPAD6)){
+-			moveRight();
+-			}
+-		
+-		//Diagonal Down Left
+-		else if (input.isKeyPressed(Input.KEY_NUMPAD1)||input.isKeyPressed(Input.KEY_J)){
+-				moveDiagonalDownLeft();
+-				}
+-		
+-		//Normal Down
++		//Player moves downwards or does not move at all
+ 		else if (input.isKeyPressed(Input.KEY_DOWN)||input.isKeyPressed(Input.KEY_K)||
+-				input.isKeyPressed(Input.KEY_NUMPAD2)){
+-			moveDown();
+-		}
+-
+-		//Diagonal Down Right
+-		else if (input.isKeyPressed(Input.KEY_NUMPAD3)||input.isKeyPressed(Input.KEY_L)){
+-			moveDiagonalDownRight();
+-		}
+-		 
+-	}
+-
+-	
+-////////////METHODS DEALING WITH MOVEMENT//////////////////////
+-	private void moveDiagonalUpLeft(){
+-		    //Update Sprite
+-   			 currentSprite = left;
+-			 playerMovement.moveDiagonalUpLeft(this, map);
+-		 }
+-	
+-	
+-	private void moveUp(){
+-			currentSprite = up;
+-			playerMovement.moveUp(this, map);
+-		}
+-		
+-		
+-	private void moveDiagonalUpRight(){
+-			currentSprite = right;
+-			playerMovement.moveDiagonalUpRight(this,map);
+-		}
+-
+-	private void moveLeft(){	
+-			currentSprite = left;
+-			playerMovement.moveLeft(this,map);
+-		}
+-		
+-	private void moveNowhere()
+-		{
++				input.isKeyPressed(Input.KEY_NUMPAD2)||input.isKeyPressed(Input.KEY_NUMPAD5)
++				||input.isKeyPressed(Input.KEY_I)){
+ 			currentSprite = down;
+-			playerMovement.moveNowhere(this, map);	
+ 		}
+-		
+-	private void moveRight(){
+-			currentSprite = right;
+-			playerMovement.moveRight(this, map);
+-		}	
+-		
+-		
+-	private void moveDiagonalDownLeft(){
+-				currentSprite = left;
+-				playerMovement.moveDiagonalDownLeft(this, map);
+-				}
+-				
+-	private void moveDown(){
+-			currentSprite = down;
+-			playerMovement.moveDown(this, map);
+-			
++ 
+ 	}
+ 
+-	private void moveDiagonalDownRight(){
+-			currentSprite = right;
+-			playerMovement.moveDiagonalDownRight(this, map);
+-	}
+ 	
+ 	///Methods dealing with Player Status////
+ 	public PlayerStatus getPlayerStatus() {return playerStats;}
+@@ -266,6 +188,5 @@ public class Player extends Entity{
+ 			x = newX;
+ 			y = newY;
+ 	}
+-	
+ }
+ 
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java
+index b70c86c..93ea305 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
+@@ -1,11 +1,67 @@
+ package playerRelated;
+ 
++import org.newdawn.slick.Input;
++
+ import gameStates.GameScreen;
+ import mapRelated.BasicMap;
+ 
+ public class PlayerMovement {
+ 
+ 	
++	public void movePlayer(Player player, BasicMap map, Input input)
++	{
++		//Diagonal Up Left
++		if (input.isKeyPressed(Input.KEY_NUMPAD7)||input.isKeyPressed(Input.KEY_7)){
++			 moveDiagonalUpLeft(player,map);
++		 }
++		
++		//Normal Up
++		else if (input.isKeyPressed(Input.KEY_UP)||input.isKeyPressed(Input.KEY_8)
++				||input.isKeyPressed(Input.KEY_NUMPAD8)){
++				moveUp(player,map);
++		}
++		
++		//Diagonal Up Right
++		else if (input.isKeyPressed(Input.KEY_NUMPAD9)||input.isKeyPressed(Input.KEY_9)){
++				moveDiagonalUpRight(player,map);
++		}
++
++		//Normal Left
++		else if (input.isKeyPressed(Input.KEY_LEFT)||input.isKeyPressed(Input.KEY_U)
++				||input.isKeyPressed(Input.KEY_NUMPAD4)){
++				moveLeft(player,map);
++		}
++		
++		//PASS TURN
++		else if (input.isKeyPressed(Input.KEY_NUMPAD5)||input.isKeyPressed(Input.KEY_I))
++			{
++			moveNowhere(player,map);
++			}
++		
++		//Normal Right
++		else if (input.isKeyPressed(Input.KEY_RIGHT)||input.isKeyPressed(Input.KEY_O)||
++				input.isKeyPressed(Input.KEY_NUMPAD6)){
++			moveRight(player,map);
++			}
++		
++		//Diagonal Down Left
++		else if (input.isKeyPressed(Input.KEY_NUMPAD1)||input.isKeyPressed(Input.KEY_J)){
++				moveDiagonalDownLeft(player,map);
++				}
++		
++		//Normal Down
++		else if (input.isKeyPressed(Input.KEY_DOWN)||input.isKeyPressed(Input.KEY_K)||
++				input.isKeyPressed(Input.KEY_NUMPAD2)){
++			moveDown(player,map);
++		}
++
++		//Diagonal Down Right
++		else if (input.isKeyPressed(Input.KEY_NUMPAD3)||input.isKeyPressed(Input.KEY_L)){
++			moveDiagonalDownRight(player,map);
++		}
++
++	}
++	
+ 	public void moveDiagonalUpLeft(Player player,BasicMap map){
+ 		int x = player.getPosition()[0];
+ 		int y = player.getPosition()[1];
+
+
+Commit: e2e50d4 
+Date: 2017-10-13 03:40:13 -0600 
+Message: Extracted Duplicated Code and created new method
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java
+index 93ea305..5ec3f60 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
+@@ -86,6 +86,21 @@ public class PlayerMovement {
+ 			}
+ 	 }
+ 	
++	private void movePlayerToPos(int x, int y, Player player, BasicMap map)
++	{
++		if (player.isTaken(x,y))
++			player.attack(x, y);
++		else if (!(map.hasCollision(x, y))){
++			player.updatePosition(x,y);
++			if (map.isStairs(x, y)){
++				player.setOnStairs(true);
++				}
++			if (map.isWin(x, y))
++			{
++			GameScreen.setWin(true);
++			}		
++			}
++	}
+ 
+ 	public void moveUp(Player player,BasicMap map){
+ 		int x = player.getPosition()[0];
+
+
+Commit: d10e909 
+Date: 2017-10-13 03:41:55 -0600 
+Message: Replaced original code with extracted method call in moveDiagonalUpRight
+ 
+======================================
+
+diff --git a/VERSION W.I.P/version w.i.p/bin/playerRelated/PlayerMovement.class b/VERSION W.I.P/version w.i.p/bin/playerRelated/PlayerMovement.class
+index aa503d9..7414b05 100644
+Binary files a/VERSION W.I.P/version w.i.p/bin/playerRelated/PlayerMovement.class and b/VERSION W.I.P/version w.i.p/bin/playerRelated/PlayerMovement.class differ
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java
+index 5ec3f60..949d8ca 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
+@@ -68,22 +68,7 @@ public class PlayerMovement {
+ 		
+ 		int newX = x-BasicMap.TILESIZE;
+ 		int newY = y-BasicMap.TILESIZE;
+-		if (player.isTaken(newX, newY))
+-			player.attack(newX,newY);
+-		else if (!(map.hasCollision(newX, newY)))
+-			{
+-			player.updatePosition(newX,newY);
+-			x = newX;
+-			y = newY;
+-			
+-			if (map.isStairs(x, y)){
+-				player.setOnStairs(true);
+-				}
+-			if (map.isWin(x, y))
+-				{
+-				GameScreen.setWin(true);
+-				}
+-			}
++		movePlayerToPos(newX, newY,player,map);
+ 	 }
+ 	
+ 	private void movePlayerToPos(int x, int y, Player player, BasicMap map)
+@@ -99,7 +84,7 @@ public class PlayerMovement {
+ 			{
+ 			GameScreen.setWin(true);
+ 			}		
+-			}
++		}
+ 	}
+ 
+ 	public void moveUp(Player player,BasicMap map){
+
+
+Commit: afe672f 
+Date: 2017-10-13 03:46:26 -0600 
+Message: Replaced original code with extracted method call in the rest of the move methods
+ 
+======================================
+
+diff --git a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java
+index 949d8ca..a27aafa 100644
+--- a/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
++++ b/Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java	
+@@ -93,20 +93,7 @@ public class PlayerMovement {
+ 		
+ 		int newY = y - BasicMap.TILESIZE;
+ 		
+-		if (player.isTaken(x,newY))
+-			player.attack(x, newY);
+-		else if (!(map.hasCollision(x, newY))){
+-			player.updatePosition(x,newY);
+-			y = newY;
+-			if (map.isStairs(x, y)){
+-				player.setOnStairs(true);
+-				}
+-			if (map.isWin(x, y))
+-			{
+-			GameScreen.setWin(true);
+-			}		
+-			}
+-			
++		movePlayerToPos(x,newY, player,map);		
+ 	}
+ 	
+ 	public void moveDiagonalUpRight(Player player, BasicMap map){
+@@ -117,22 +104,7 @@ public class PlayerMovement {
+ 		int newX = x + BasicMap.TILESIZE;
+ 		int newY = y - BasicMap.TILESIZE;
+ 		
+-		if (player.isTaken(newX, newY))
+-			player.attack(newX, newY);
+-		else if (!(map.hasCollision(newX, newY)))	
+-			{
+-				player.updatePosition(newX,newY);
+-				y = newY;
+-				x = newX;	
+-				if (map.isStairs(x, y)){
+-					player.setOnStairs(true);
+-					}
+-				if (map.isWin(x, y))
+-				{
+-				GameScreen.setWin(true);
+-				}
+-			
+-			}
++		movePlayerToPos(newX, newY, player,map);
+ 	}
+ 	
+ 	public void moveLeft(Player player, BasicMap map){	
+@@ -140,20 +112,7 @@ public class PlayerMovement {
+ 		int y = player.getPosition()[1];
+ 	
+ 		int newX = x-BasicMap.TILESIZE;
+-		if (player.isTaken(newX, y))
+-			player.attack(newX,y);
+-		else if (!(map.hasCollision(newX, y))){
+-			player.updatePosition(newX,y);
+-			x = newX;
+-			if (map.isStairs(x, y)){
+-				player.setOnStairs(true);
+-						}
+-			if (map.isWin(x, y))
+-			{
+-			GameScreen.setWin(true);
+-			}
+-		
+-		}
++		movePlayerToPos(newX, y, player,map);
+ 		
+ 	}
+ 
+@@ -162,35 +121,15 @@ public class PlayerMovement {
+ 	{
+ 		int x = player.getPosition()[0];
+ 		int y = player.getPosition()[1];
+-		if (map.isStairs(x, y)){
+-			player.setOnStairs(true);
+-		}
+-		if (map.isWin(x, y))
+-		{
+-			GameScreen.setWin(true);
+-		}
+-
++		movePlayerToPos(x, y, player,map);
+ 	}
+ 	
+ 	public void moveRight(Player player, BasicMap map){
+ 		int x = player.getPosition()[0];
+ 		int y = player.getPosition()[1];
+ 		int newX = x + BasicMap.TILESIZE;
+-		if  (player.isTaken(newX, y))
+-			player.attack(newX,y);
+-		else if (!(map.hasCollision(newX, y))){
+-				player.updatePosition(newX,y);
+-			x = newX;
+-			if (map.isStairs(x, y)){
+-				player.setOnStairs(true);
+-						}
+-			if (map.isWin(x, y))
+-			{
+-			GameScreen.setWin(true);
+-			}
+-		
+-			}
+-		}	
++		movePlayerToPos(newX, y, player,map);
++	}	
+ 	
+ 	
+ 	public void moveDiagonalDownLeft(Player player, BasicMap map){
+@@ -198,69 +137,23 @@ public class PlayerMovement {
+ 		int y = player.getPosition()[1];
+ 		int newX = x-BasicMap.TILESIZE;
+ 		int newY = y +BasicMap.TILESIZE;
+-		if (player.isTaken(newX, newY))
+-			player.attack(newX, newY);
+-		else if (!(map.hasCollision(newX,  newY)))
+-			{
+-			player.updatePosition(newX,newY);
+-			x = newX;
+-			y = newY;
+-			if (map.isStairs(x, y)){
+-				player.setOnStairs(true);
+-				}
+-			if (map.isWin(x, y))
+-			{
+-			GameScreen.setWin(true);
+-			}
+-		
+-			}
+-		}
++		movePlayerToPos(newX, newY, player,map);
++	}
+ 		
+-public void moveDown(Player player, BasicMap map){
+-	int x = player.getPosition()[0];
+-	int y = player.getPosition()[1];
+-    int newY = y +BasicMap.TILESIZE;
+-	if (player.isTaken(x, newY))
+-		player.attack (x, newY);
+-	else if (!(map.hasCollision(x, newY))){
+-		player.updatePosition(x,newY);
+-		y = newY;
+-		if (map.isStairs(x, y)){
+-			player.setOnStairs(true);
+-			}
+-		if (map.isWin(x, y))
+-		{
+-		GameScreen.setWin(true);
+-		}
+-	
+-		}
+-	
++	public void moveDown(Player player, BasicMap map){
++		int x = player.getPosition()[0];
++		int y = player.getPosition()[1];
++		int newY = y +BasicMap.TILESIZE;
++		movePlayerToPos(x, newY, player,map);
+ 	}
+ 
+-public void moveDiagonalDownRight(Player player, BasicMap map){
+-	int x = player.getPosition()[0];
+-	int y = player.getPosition()[1];
+-	int newX = x+BasicMap.TILESIZE;
+-	int newY = y+BasicMap.TILESIZE;
+-		if (player.isTaken(newX, newY)){
+-			player.attack(newX, newY);
+-		}
+-		else if (!(map.hasCollision(newX,newY)))
+-			{
+-			player.updatePosition(newX,newY);
+-			x = newX;
+-			y = newY;
+-			if (map.isStairs(x, y)){
+-				player.setOnStairs(true);
+-				}
+-			if (map.isWin(x, y))
+-			{
+-			GameScreen.setWin(true);
+-			}
+-		
+-			}
+-	
+-		}
++	public void moveDiagonalDownRight(Player player, BasicMap map){
++		int x = player.getPosition()[0];
++		int y = player.getPosition()[1];
++		int newX = x+BasicMap.TILESIZE;
++		int newY = y+BasicMap.TILESIZE;
++		movePlayerToPos(newX, newY, player,map);
++	}
+ 
+ 
+ 

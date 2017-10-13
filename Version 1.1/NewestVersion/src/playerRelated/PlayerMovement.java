@@ -6,7 +6,6 @@ import gameStates.GameScreen;
 import mapRelated.BasicMap;
 
 public class PlayerMovement {
-
 	
 	public void movePlayer(Player player, BasicMap map, Input input)
 	{

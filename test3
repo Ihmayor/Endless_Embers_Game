@@ -1,0 +1,93 @@
+commit afe672f5a3ade3010b2ef0cff5e8b82ed1d32a4d
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 03:46:26 2017 -0600
+
+    Replaced original code with extracted method call in the rest of the move methods
+
+M	VERSION W.I.P/version w.i.p/bin/playerRelated/PlayerMovement.class
+M	Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java
+
+commit d10e909304e29d35c503a5b4cb64a5f89e2461f1
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 03:41:55 2017 -0600
+
+    Replaced original code with extracted method call in moveDiagonalUpRight
+
+M	VERSION W.I.P/version w.i.p/bin/playerRelated/PlayerMovement.class
+M	Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java
+
+commit e2e50d41e3f87b52926a5613b707a53600e353da
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 03:40:13 2017 -0600
+
+    Extracted Duplicated Code and created new method
+
+M	Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java
+
+commit 5e96f3b461a9591151a534eea9498e3460f18ac6
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 03:22:46 2017 -0600
+
+    Removed all movement functionality from Player.java  and tested it
+
+M	VERSION W.I.P/version w.i.p/bin/playerRelated/Player.class
+M	VERSION W.I.P/version w.i.p/bin/playerRelated/PlayerMovement.class
+M	VERSION W.I.P/version w.i.p/bin/testRelated/PlayerTest.class
+M	Version 1.1/NewestVersion/src/playerRelated/Player.java
+M	Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java
+
+commit 56c78235d0734fac91c1ef048c5a5295601cf44f
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 03:00:38 2017 -0600
+
+    Got rid of mock keyboard that was used for testing
+
+M	VERSION W.I.P/version w.i.p/bin/testRelated/PlayerTest.class
+M	Version 1.1/NewestVersion/src/playerRelated/Player.java
+M	Version 1.1/NewestVersion/src/testRelated/PlayerTest.java
+
+commit 2a63b4fd6054ff1376eb459c37292a1dfcf842cf
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 02:47:28 2017 -0600
+
+    Found that I could refactor out the mock keyboard used for only testing purposes out of the player code
+
+M	VERSION W.I.P/version w.i.p/bin/testRelated/PlayerTest.class
+M	Version 1.1/NewestVersion/src/testRelated/PlayerTest.java
+
+commit 9d92fd093f5fa7bf338f19f2fcfc8a2bf68e6433
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 02:36:35 2017 -0600
+
+    All tests passed
+
+M	VERSION W.I.P/version w.i.p/bin/playerRelated/Player.class
+M	VERSION W.I.P/version w.i.p/bin/playerRelated/PlayerMovement.class
+M	Version 1.1/NewestVersion/src/playerRelated/Player.java
+
+commit 9dc49fdc6b4685ad62735ff825a9f67384e11d4d
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 02:34:08 2017 -0600
+
+    Extracted rest of movement
+
+M	Version 1.1/NewestVersion/src/playerRelated/Player.java
+M	Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java
+
+commit b313119d4550390247e17da076de5c52da8b06d7
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 02:17:30 2017 -0600
+
+    Extracted Move nowhere, move left, move diagonal right
+
+M	Version 1.1/NewestVersion/src/playerRelated/Player.java
+M	Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java
+
+commit 031e4cdc61545cdec909087a17134dbdbd1567ef
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 23:11:47 2017 -0600
+
+    Extracted moveUp
+
+M	Version 1.1/NewestVersion/src/playerRelated/Player.java
+M	Version 1.1/NewestVersion/src/playerRelated/PlayerMovement.java

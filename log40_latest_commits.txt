@@ -1,0 +1,240 @@
+commit afe672f5a3ade3010b2ef0cff5e8b82ed1d32a4d
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 03:46:26 2017 -0600
+
+    Replaced original code with extracted method call in the rest of the move methods
+
+commit d10e909304e29d35c503a5b4cb64a5f89e2461f1
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 03:41:55 2017 -0600
+
+    Replaced original code with extracted method call in moveDiagonalUpRight
+
+commit e2e50d41e3f87b52926a5613b707a53600e353da
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 03:40:13 2017 -0600
+
+    Extracted Duplicated Code and created new method
+
+commit 5e96f3b461a9591151a534eea9498e3460f18ac6
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 03:22:46 2017 -0600
+
+    Removed all movement functionality from Player.java  and tested it
+
+commit 56c78235d0734fac91c1ef048c5a5295601cf44f
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 03:00:38 2017 -0600
+
+    Got rid of mock keyboard that was used for testing
+
+commit 2a63b4fd6054ff1376eb459c37292a1dfcf842cf
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 02:47:28 2017 -0600
+
+    Found that I could refactor out the mock keyboard used for only testing purposes out of the player code
+
+commit 9d92fd093f5fa7bf338f19f2fcfc8a2bf68e6433
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 02:36:35 2017 -0600
+
+    All tests passed
+
+commit 9dc49fdc6b4685ad62735ff825a9f67384e11d4d
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 02:34:08 2017 -0600
+
+    Extracted rest of movement
+
+commit b313119d4550390247e17da076de5c52da8b06d7
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Fri Oct 13 02:17:30 2017 -0600
+
+    Extracted Move nowhere, move left, move diagonal right
+
+commit 031e4cdc61545cdec909087a17134dbdbd1567ef
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 23:11:47 2017 -0600
+
+    Extracted moveUp
+
+commit 2b8d4dbbef4e83c44449cc35732894c6f1e7082d
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 23:05:17 2017 -0600
+
+    Updated Player References
+
+commit 7bea36b2ca6bfdada80465f426de4d8e7a7ee35f
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 22:47:41 2017 -0600
+
+    Updated Player references in other classes to refer to player status instead
+
+commit 8c11853bf440fff23960aa79448cf9be802a49d9
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 22:44:34 2017 -0600
+
+    Removed all player stats methods except for linking ref to player status class and updated Test Methods
+
+commit b83fe819054307734db4a3a8833079dec32c629c
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 22:38:30 2017 -0600
+
+    Tested Extracted Methods after minor extraction bug fixes
+
+commit e63b315b7e9a3902329b5280bc0034dfa734e883
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 22:33:19 2017 -0600
+
+    Extracted level up and using original code to call old code. Had to move variables over. Resolved most conflicts before further extraction.
+
+commit 6052ee78cfc439ae5121d9cdb255b927dfcb6958
+Merge: 5ef9d58 8351e7e
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 21:28:44 2017 -0600
+
+    WIP on Refactoring501: 5ef9d58 Created Classes to start shortening Long Class player.java
+
+commit 8351e7ebf66c65c8e8135cc7e06a6f6244ca658d
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 21:28:43 2017 -0600
+
+    index on Refactoring501: 5ef9d58 Created Classes to start shortening Long Class player.java
+
+commit 5ef9d58fa41f4aeb7430cf1b040b3f1add0a398e
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 21:17:56 2017 -0600
+
+    Created Classes to start shortening Long Class player.java
+
+commit ccfedf22bea5308a6b81fa4997e12e9f33540943
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 21:11:59 2017 -0600
+
+    Made Game window an inline class of basic map
+
+commit 9215db4dfaff54a8728ddcfb36510c7b1a6a3187
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 21:08:42 2017 -0600
+
+    Refactored GameWindow To derive its information from basicMap
+
+commit 03500d54c53a3d597057ef288d1e418c871b2c26
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 21:03:11 2017 -0600
+
+    Refactored Entity.java screenheight/width
+
+commit 5744247f116754398bc8d38b8520994d5462a7ca
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 20:53:38 2017 -0600
+
+    Conflicting code clean up in adjacent project
+
+commit 922474dc46ad412f02602268654bdbe2a98c0c86
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 19:42:47 2017 -0600
+
+    Changed MonsterManager screenwidth referneces to call GameWindowSettings class
+
+commit db6e36527213c130d625ece3f925df82fe3efc10
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 12:19:28 2017 -0600
+
+    Changed Ver2GameDriver screenwidth references to call GameWindowSettings class
+
+commit a3f983074c22c6297ad96afcf3eaded236a9ee1b
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 12:17:23 2017 -0600
+
+    changed extracted values to static
+
+commit dc6666c2c666a16e51d3d852f9c751aca4c7200b
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 12:16:13 2017 -0600
+
+    Fixing screenwidth/screenheight shotgun surgery problem. Created GameWindow Class
+
+commit ed7a45e3729eeec4a5426880e15299835f245587
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 12:13:13 2017 -0600
+
+    Deleted uneeded ButtonAction.java file
+
+commit 963727fa410ee04fd5ce1fbf929379fea9a02942
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 12:12:33 2017 -0600
+
+    Moved Lazy Class 'ButtonAction' to inside BasicButton
+
+commit 54800babdc840a5147df239298f47aac976e282f
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 12:05:46 2017 -0600
+
+    All tests pass extraction
+
+commit 771418902122a50914220634c85a2be293e58647
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 12:03:03 2017 -0600
+
+    Replacing original method with extracted method
+
+commit 581789ff2e90ccf589fe17d9154c81faf4317e4c
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 12:02:24 2017 -0600
+
+    All tests pass
+
+commit 16d07e8e01dbc240b093afd36474fd056fe77242
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 12:02:09 2017 -0600
+
+    Extracted getClosestPosition
+
+commit 343666c5d7510c72ddf783f85f6a9beafdb582db
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 11:58:04 2017 -0600
+
+    All tests pass
+
+commit 49733421625e4a0029627e010571744cab9dc0b7
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 11:57:17 2017 -0600
+
+    Removed Unused variables
+
+commit 0ee6bccb35be8975aa54e2a8bf44cac768e64d24
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 11:55:37 2017 -0600
+
+    Removed Parameter Method Used
+
+commit da4ed66c434c7db5be7193cc271dcd07cfb0dc67
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 11:49:43 2017 -0600
+
+    Finished extracting closestSpotVertical. All tests passed
+
+commit 2d869f97e76c2bbbfe3697f325bbd504ebe70826
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 11:40:55 2017 -0600
+
+    Extracted find closestSpotHorizontal. All tests in BasicMonster for findClosestSpotHorizontal passed
+
+commit 0dca5d402157b425f2b32341e01d45c8f0e38903
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 11:35:44 2017 -0600
+
+    All tests in BasicMonster find diagonal passed
+
+commit dff0bb106bbc79d18e2503e10c144319f886c166
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 11:31:35 2017 -0600
+
+    Ran into difficult bug. To optimize time. Refactoring Basic Monster Method Map Calculations first. Started moving findClosestSpotDiagonal
+
+commit 7b0f4424a58742bde312201930a917bd313ea498
+Author: Irene Mayor <ihmayor@ucalgary.ca>
+Date:   Thu Oct 12 08:45:04 2017 -0600
+
+    Temporarily Move code to a different project to resolve unmatching junit build paths, went back to orignal project after resolution to test code. Changes is the same as last commit
