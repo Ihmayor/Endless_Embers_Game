@@ -1,5 +1,6 @@
 package monsterRelated;
 
+import gameStates.GameWindowSettings;
 import mapRelated.BasicMap;
 
 public class Entity {
@@ -22,8 +23,8 @@ public class Entity {
 	//Map entity stands upon currently
 	protected BasicMap map;
 	
-	private final int screenWidth = 1120;
-	private final int screenHeight = 512;
+	private final int screenWidth = GameWindowSettings.getScreenWidth();
+	private final int screenHeight = GameWindowSettings.getScreenHeight();
 	
 	//Location of entity
 	public Entity (int x,int y){
@@ -170,5 +171,8 @@ public class Entity {
 	}	
 	
 	public void setName(String name){this.name = name;}
-	
+
+
 }
+	
+
