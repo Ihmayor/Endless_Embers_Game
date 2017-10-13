@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
+import mapRelated.BasicMap;
+
 //Driver Used to run the game
 //Contains Main Method
 public class Ver2GameDriver {	
@@ -14,8 +16,8 @@ public class Ver2GameDriver {
 		
 		//All the code below is how we get this game rolling and running.
 		
-		final int screenWidth = GameWindowSettings.getScreenWidth(); // Set screen width to 35 tiles long (35*32px)
-		final int screenHeight = GameWindowSettings.getScreenHeight(); // Set screen height to 16 tile long (16*32px)
+		final int screenWidth = BasicMap.GameWindowSettings.getScreenWidth(); // Set screen width to 35 tiles long (35*32px)
+		final int screenHeight =BasicMap.GameWindowSettings.getScreenHeight(); // Set screen height to 16 tile long (16*32px)
 		
 			try
 			{

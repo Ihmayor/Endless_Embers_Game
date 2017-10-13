@@ -24,26 +24,21 @@ public class Player extends Entity{
 	//Used for stair case movement 
 	private boolean onStairs;
 	
-	//Variables used for Combat and related aspects
-	private int experiencePoints = 0;
-	private int pointsNextLevel = 10;
-	
-	private int playerLevel = 1;
-	private int criticalHitLimit= 30;
-	private int missFactor = 10;
-	
 	//Basic Sprite Variables
 	private SpriteSheet sheet;
 	private Animation currentSprite, up, down,left,right;
 
 	//Limited Vision Effect
 	private Image shadow;		
+
+	private PlayerStatus playerStats;
 	
 	////FOR TEST PURPOSES ONLY////
 	public Player (int x, int y){
 		super(x,y);
 		gc = null;
 		name = "P";
+		playerStats = new PlayerStatus(this);
 	}
 	
 	public Player (int x, int y, BasicMap map){
@@ -51,6 +46,7 @@ public class Player extends Entity{
 		this.map = map;
 		gc = null;
 		name = "P";
+		playerStats = new PlayerStatus(this);
 	}
 		
 	public void mockKeyBoard(char c){
@@ -423,36 +419,23 @@ public class Player extends Entity{
 	
 	//Method used when the player levels up
 	private boolean levelUp(){
-		
-		if (experiencePoints >= pointsNextLevel){
-			playerLevel++;
-			
-			//Increase Maximum Health & Heal Up Completely
-			maxHealthPoints += 50;
-			healthPoints = maxHealthPoints;
-			criticalHitLimit += 5;
-			if (missFactor > 5)
-				missFactor -= 1;
-
-			//Decrease Experience Points used up
-			//Increase amount needed to next level
-			experiencePoints = experiencePoints-pointsNextLevel;
-			pointsNextLevel *= 2;
-			return true;
-			}
-		return false;
+		return playerStats. levelUp();
 	}
 
 		
-	public int getCurrentLevel(){return playerLevel;}
+	public int getCurrentLevel(){return playerStats.getPlayerLevel();}
 	
-	public int getExperiencePoints(){return experiencePoints;}
+	public int getExperiencePoints(){return playerStats.getExperiencePoints();}
 	
-	public int getPointsNextLevel() {return pointsNextLevel;}
+	public int getPointsNextLevel() {return playerStats.getPointsNextLevel();}
+	
+	
 ///////////METHODS DEALING WITH COMBAT///////////////////	
 	
 	private void attack(int monsterX, int monsterY){
-	CombatManager.attackLoop(this,criticalHitLimit, missFactor, monsterX, monsterY);	
+		int criticalHitLimit = playerStats.getCriticaHitLimit();
+		int missFactor = playerStats.getMissFactor();
+		CombatManager.attackLoop(this,criticalHitLimit, missFactor, monsterX, monsterY);	
 	}
 	
 	
@@ -464,22 +447,16 @@ public class Player extends Entity{
 
 	///Methods dealing loading////
 	public void loadStats(int newLevel, int newExp, int newHealth)
-		{
-		playerLevel = newLevel;
-		experiencePoints = newExp;
-		pointsNextLevel = 10*(2*(newLevel));
-		maxHealthPoints = 30 + 50*(newLevel-1);
-		healthPoints = newHealth;
-		criticalHitLimit = 30+5*(newLevel-1);	
-		missFactor = 10 - 5*(newLevel-1);
-		}
+	{
+			playerStats = new PlayerStatus(this,newLevel, newExp, newHealth);
+	}
 		
 		
-		public void setPosition(int newX, int newY)
-		{
+	public void setPosition(int newX, int newY)
+	{
 			x = newX;
 			y = newY;
-		}
+	}
 	
 }
 

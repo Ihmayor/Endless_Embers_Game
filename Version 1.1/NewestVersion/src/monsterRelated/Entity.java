@@ -23,8 +23,8 @@ public class Entity {
 	//Map entity stands upon currently
 	protected BasicMap map;
 	
-	private final int screenWidth = GameWindowSettings.getScreenWidth();
-	private final int screenHeight = GameWindowSettings.getScreenHeight();
+	private final int screenWidth = BasicMap.GameWindowSettings.getScreenWidth();
+	private final int screenHeight = BasicMap.GameWindowSettings.getScreenHeight();
 	
 	//Location of entity
 	public Entity (int x,int y){
@@ -125,6 +125,7 @@ public class Entity {
 	public int getHealthPoints(){return healthPoints;}
 	public int getMaxHealthPoints() {return maxHealthPoints;}
 	
+	public void setMaxHealthPoints(int healthPoints) { if (healthPoints > 0) {maxHealthPoints = healthPoints;}}
 	
 	
 	

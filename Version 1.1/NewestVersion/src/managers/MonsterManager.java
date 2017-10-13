@@ -29,8 +29,8 @@ public class MonsterManager {
 	private int level = 1;
 	private BasicMap currentMap;
 	private String[][] entityArray;
-	private int screenWidth = GameWindowSettings.getScreenWidth();
-	private int screenHeight = GameWindowSettings.getScreenHeight();
+	private int screenWidth = BasicMap.GameWindowSettings.getScreenWidth();
+	private int screenHeight = BasicMap.GameWindowSettings.getScreenHeight();
 	
 	
 	//Monster Type1
