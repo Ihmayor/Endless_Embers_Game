@@ -8,6 +8,7 @@ import mapRelated.BasicMap;
 import org.junit.Test;
 
 import playerRelated.Player;
+import playerRelated.PlayerMovement;
 import playerRelated.PlayerStatus;
 
 public class PlayerTest {
@@ -56,6 +57,32 @@ public class PlayerTest {
 		PlayerStatus playerStats = player.getPlayerStatus(); 
 		assertEquals("Player has leveled up",playerStats.addExperiencePoints(2000));
 	}
+	@Test
+	public void testPlayerMovementMoveLeft()
+	{
+		String [][] testArray = new String [BasicMap.widthByTiles][BasicMap.heightByTiles];
+		char [][] testMap = new char [BasicMap.widthByTiles][BasicMap.heightByTiles];
+		
+		for (int i = 0; i < BasicMap.widthByTiles; i++)
+		{
+			for (int c = 0; c < BasicMap.heightByTiles; c++)
+			{
+				testArray[i][c] = " ";
+				testMap [i][c] = ' ';
+			}
+		}
+		BasicMap map = new BasicMap(testMap);
+		Player p = new Player(4*BasicMap.TILESIZE, 5*BasicMap.TILESIZE, map);
+		PlayerMovement movement = new PlayerMovement();
+		p.setEntityArray(testArray);
+		int [] expected = {3*BasicMap.TILESIZE, 5*BasicMap.TILESIZE};
+		int [] current = p.getPosition();
+		movement.moveLeft(p, map);
+		int [] after = p.getPosition();
+		assertArrayEquals(expected, p.getPosition());
+		
+	}
+	
 	
 	@Test
 	public void testPlayerMovement(){
