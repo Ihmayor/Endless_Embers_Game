@@ -10,6 +10,9 @@ import org.newdawn.slick.tiled.TiledMap;
 //Limit: Limited to Tiled Program Loading										//
 //////////////////////////////////////////////////////////////////////////////////
 
+
+
+
 public class BasicMap
 {
 	private TiledMap map;
@@ -18,6 +21,8 @@ public class BasicMap
 	public static final int widthByTiles = 35;
 	public static final int heightByTiles = 16;
 	public static final int TILESIZE = 32;
+	
+	
 	
 	////////////FOR TESTS ONLY//////////////
 	////////////////////////////////////////
@@ -129,4 +134,15 @@ public class BasicMap
     else
     	return false;
 	}
+
+	public static class GameWindowSettings{
+		private static final int screenWidth = TILESIZE*widthByTiles;
+		private static final int screenHeight = TILESIZE*heightByTiles;
+		
+		public static int getScreenWidth() {return screenWidth;}
+		public static int getScreenHeight() {return screenHeight;}
+		
+		
+	}
+
 }
