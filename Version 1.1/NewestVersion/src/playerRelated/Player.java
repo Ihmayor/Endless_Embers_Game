@@ -164,6 +164,11 @@ public class Player extends Entity{
 		//Input used to get keyboard controls
 		Input input = gc.getInput();
 		 
+///		int[] LeftKeys = new int[] {Input.KEY_NUMPAD7, Input.KEY_7,
+	///			Input.KEY_NUMPAD1,Input.KEY_J,
+		///		Input.KEY_LEFT,Input.KEY_U,Input.KEY_NUMPAD4};
+		
+		
 		//Diagonal Up Left
 		if (input.isKeyPressed(Input.KEY_NUMPAD7)||input.isKeyPressed(Input.KEY_7)){
 			 moveDiagonalUpLeft();
@@ -199,7 +204,7 @@ public class Player extends Entity{
 			}
 		
 		//Diagonal Down Left
-		else if (input.isKeyPressed(Input.KEY_NUMPAD1)||input.isKeyPressed(Input.KEY_J)){
+		else if (input.isKeyPressed(Input.KEY_NUMPAD1)||input.isKeyPressed(Input.KEY_J\)){
 				moveDiagonalDownLeft();
 				}
 		
@@ -242,103 +247,32 @@ public class Player extends Entity{
 		}
 		
 	private void moveNowhere()
-			{
+		{
 			currentSprite = down;
-			if (map.isStairs(x, y)){
-				onStairs = true;
-				}
-			if (map.isWin(x, y))
-			{
-			GameScreen.setWin(true);
-			}
-		
-			}
+			playerMovement.moveNowhere(this, map);	
+		}
 		
 	private void moveRight(){
 			currentSprite = right;
-			int newX = x + BasicMap.TILESIZE;
-			if  (isTaken(newX, y))
-				attack(newX,y);
-			else if (!(map.hasCollision(newX, y))){
-				updatePosition(newX,y);
-				x = newX;
-				if (map.isStairs(x, y)){
-					onStairs = true;
-					}
-				if (map.isWin(x, y))
-				{
-				GameScreen.setWin(true);
-				}
-			
-				}
-			}	
+			playerMovement.moveRight(this, map);
+		}	
 		
 		
 	private void moveDiagonalDownLeft(){
 				currentSprite = left;
-				int newX = x-BasicMap.TILESIZE;
-				int newY = y +BasicMap.TILESIZE;
-				if (isTaken(newX, newY))
-					attack(newX, newY);
-				else if (!(map.hasCollision(newX,  newY)))
-					{
-					updatePosition(newX,newY);
-					x = newX;
-					y = newY;
-					if (map.isStairs(x, y)){
-						onStairs = true;
-						}
-					if (map.isWin(x, y))
-					{
-					GameScreen.setWin(true);
-					}
-				
-					}
+				playerMovement.moveDiagonalDownLeft(this, map);
 				}
 				
 	private void moveDown(){
 			currentSprite = down;
-			int newY = y +BasicMap.TILESIZE;
-			if (isTaken(x, newY))
-				attack (x, newY);
-			else if (!(map.hasCollision(x, newY))){
-				updatePosition(x,newY);
-				y = newY;
-				if (map.isStairs(x, y)){
-					onStairs = true;
-					}
-				if (map.isWin(x, y))
-				{
-				GameScreen.setWin(true);
-				}
+			playerMovement.moveDiagonalDownLeft(this, map);
 			
-				}
-			
-			}
+	}
 
 	private void moveDiagonalDownRight(){
 			currentSprite = right;
-			int newX = x+BasicMap.TILESIZE;
-			int newY = y+BasicMap.TILESIZE;
-				if (isTaken(newX, newY)){
-					attack(newX, newY);
-				}
-				else if (!(map.hasCollision(newX,newY)))
-					{
-					updatePosition(newX,newY);
-					x = newX;
-					y = newY;
-					if (map.isStairs(x, y)){
-						onStairs = true;
-						}
-					if (map.isWin(x, y))
-					{
-					GameScreen.setWin(true);
-					}
-				
-					}
-			
-				}
+			playerMovement.moveDiagonalDownRight(this, map);
+	}
 	
 	///Methods dealing with Player Status////
 	public PlayerStatus getPlayerStatus() {return playerStats;}
