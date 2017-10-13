@@ -32,6 +32,7 @@ public class Player extends Entity{
 	private Image shadow;		
 
 	private PlayerStatus playerStats;
+	private PlayerMovement playerMovement;
 	
 	////FOR TEST PURPOSES ONLY////
 	public Player (int x, int y){
@@ -39,6 +40,7 @@ public class Player extends Entity{
 		gc = null;
 		name = "P";
 		playerStats = new PlayerStatus(this);
+		playerMovement = new PlayerMovement();
 	}
 	
 	public Player (int x, int y, BasicMap map){
@@ -47,6 +49,7 @@ public class Player extends Entity{
 		gc = null;
 		name = "P";
 		playerStats = new PlayerStatus(this);
+		playerMovement = new PlayerMovement();
 	}
 		
 	public void mockKeyBoard(char c){
@@ -217,24 +220,7 @@ public class Player extends Entity{
 ////////////METHODS DEALING WITH MOVEMENT//////////////////////
 	private void moveDiagonalUpLeft(){
 			 currentSprite = left;
-			int newX = x-BasicMap.TILESIZE;
-			int newY = y-BasicMap.TILESIZE;
-			if (isTaken(newX, newY))
-				attack(newX,newY);
-			else if (!(map.hasCollision(newX, newY)))
-				{
-				updatePosition(newX,newY);
-				x = newX;
-				y = newY;
-				
-				if (map.isStairs(x, y)){
-					onStairs = true;
-					}
-				if (map.isWin(x, y))
-					{
-					GameScreen.setWin(true);
-					}
-				}
+			 playerMovement.moveDiagonalUpLeft(this, map);
 		 }
 	
 	
@@ -401,12 +387,18 @@ public class Player extends Entity{
 			
 				}
 	
+	///Methods dealing with Player Status////
 	public PlayerStatus getPlayerStatus() {return playerStats;}
-	
+
+	public void loadStats(int newLevel, int newExp, int newHealth)
+	{
+		playerStats = new PlayerStatus(this,newLevel, newExp, newHealth);
+	}
+			
 	
 ///////////METHODS DEALING WITH COMBAT///////////////////	
 	
-	private void attack(int monsterX, int monsterY){
+	void attack(int monsterX, int monsterY){
 		int criticalHitLimit = playerStats.getCriticaHitLimit();
 		int missFactor = playerStats.getMissFactor();
 		CombatManager.attackLoop(this,criticalHitLimit, missFactor, monsterX, monsterY);	
@@ -418,13 +410,7 @@ public class Player extends Entity{
 	public boolean getOnStairs(){return onStairs;}
 	
 	public void setOnStairs(boolean var){onStairs = var;}
-
-	///Methods dealing loading////
-	public void loadStats(int newLevel, int newExp, int newHealth)
-	{
-			playerStats = new PlayerStatus(this,newLevel, newExp, newHealth);
-	}
-		
+	
 		
 	public void setPosition(int newX, int newY)
 	{

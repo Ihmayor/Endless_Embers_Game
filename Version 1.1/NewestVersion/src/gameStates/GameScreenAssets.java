@@ -78,7 +78,7 @@ public class GameScreenAssets {
 
 	    //Draw Player Level
 	    g.setColor(Color.yellow);
-	    g.drawString("Lvl: "+player.getCurrentLevel(),10, 450);
+	    g.drawString("Lvl: "+player.getPlayerStatus().getPlayerLevel(),10, 450);
 	    
 	    g.setColor(Color.white);
 	    ///Draw Health Bar
