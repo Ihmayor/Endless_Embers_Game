@@ -68,22 +68,7 @@ public class PlayerMovement {
 		
 		int newX = x-BasicMap.TILESIZE;
 		int newY = y-BasicMap.TILESIZE;
-		if (player.isTaken(newX, newY))
-			player.attack(newX,newY);
-		else if (!(map.hasCollision(newX, newY)))
-			{
-			player.updatePosition(newX,newY);
-			x = newX;
-			y = newY;
-			
-			if (map.isStairs(x, y)){
-				player.setOnStairs(true);
-				}
-			if (map.isWin(x, y))
-				{
-				GameScreen.setWin(true);
-				}
-			}
+		movePlayerToPos(newX, newY,player,map);
 	 }
 	
 	private void movePlayerToPos(int x, int y, Player player, BasicMap map)
@@ -99,7 +84,7 @@ public class PlayerMovement {
 			{
 			GameScreen.setWin(true);
 			}		
-			}
+		}
 	}
 
 	public void moveUp(Player player,BasicMap map){
