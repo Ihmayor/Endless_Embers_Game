@@ -204,7 +204,7 @@ public class Player extends Entity{
 			}
 		
 		//Diagonal Down Left
-		else if (input.isKeyPressed(Input.KEY_NUMPAD1)||input.isKeyPressed(Input.KEY_J\)){
+		else if (input.isKeyPressed(Input.KEY_NUMPAD1)||input.isKeyPressed(Input.KEY_J)){
 				moveDiagonalDownLeft();
 				}
 		
@@ -238,7 +238,7 @@ public class Player extends Entity{
 		
 	private void moveDiagonalUpRight(){
 			currentSprite = right;
-			playerMovement.moveUp(this,map);
+			playerMovement.moveDiagonalUpRight(this,map);
 		}
 
 	private void moveLeft(){	
@@ -265,7 +265,7 @@ public class Player extends Entity{
 				
 	private void moveDown(){
 			currentSprite = down;
-			playerMovement.moveDiagonalDownLeft(this, map);
+			playerMovement.moveDown(this, map);
 			
 	}
 
