@@ -219,29 +219,15 @@ public class Player extends Entity{
 	
 ////////////METHODS DEALING WITH MOVEMENT//////////////////////
 	private void moveDiagonalUpLeft(){
-			 currentSprite = left;
+		    //Update Sprite
+   			 currentSprite = left;
 			 playerMovement.moveDiagonalUpLeft(this, map);
 		 }
 	
 	
 	private void moveUp(){
 			currentSprite = up;
-			int newY = y - BasicMap.TILESIZE;
-			if (isTaken(x,newY))
-				attack(x, newY);
-			else if (!(map.hasCollision(x, newY))){
-				updatePosition(x,newY);
-				y = newY;
-				if (map.isStairs(x, y)){
-					onStairs = true;
-					}
-				if (map.isWin(x, y))
-				{
-				GameScreen.setWin(true);
-				}
-			
-			}
-			
+			playerMovement.moveUp(this, map);
 		}
 		
 		

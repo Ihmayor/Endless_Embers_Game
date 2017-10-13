@@ -29,6 +29,30 @@ public class PlayerMovement {
 				}
 			}
 	 }
+	
+
+	public void moveUp(Player player,BasicMap map){
+		int x = player.getPosition()[0];
+		int y = player.getPosition()[1];
+		
+		int newY = y - BasicMap.TILESIZE;
+		
+		if (player.isTaken(x,newY))
+			player.attack(x, newY);
+		else if (!(map.hasCollision(x, newY))){
+			player.updatePosition(x,newY);
+			y = newY;
+			if (map.isStairs(x, y)){
+				player.setOnStairs(true);
+				}
+			if (map.isWin(x, y))
+			{
+			GameScreen.setWin(true);
+			}		
+			}
+			
+	}
+
 
 
 
