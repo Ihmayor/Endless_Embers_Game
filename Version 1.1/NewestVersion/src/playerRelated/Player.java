@@ -125,116 +125,38 @@ public class Player extends Entity{
 			}
 		//Input used to get keyboard controls
 		Input input = gc.getInput();
-		 
-///		int[] LeftKeys = new int[] {Input.KEY_NUMPAD7, Input.KEY_7,
-	///			Input.KEY_NUMPAD1,Input.KEY_J,
-		///		Input.KEY_LEFT,Input.KEY_U,Input.KEY_NUMPAD4};
+		playerMovement.movePlayer(this, map, input);
 		
-		
-		//Diagonal Up Left
-		if (input.isKeyPressed(Input.KEY_NUMPAD7)||input.isKeyPressed(Input.KEY_7)){
-			 moveDiagonalUpLeft();
+		//Player moves in a leftward direction.
+		if (input.isKeyPressed(Input.KEY_NUMPAD7)||input.isKeyPressed(Input.KEY_7)
+				||input.isKeyPressed(Input.KEY_LEFT)||input.isKeyPressed(Input.KEY_U)
+				||input.isKeyPressed(Input.KEY_NUMPAD4)||input.isKeyPressed(Input.KEY_NUMPAD1)
+				||input.isKeyPressed(Input.KEY_J)){
+			 	currentSprite = left;
 		 }
+		//Player Moves in a rightward direction
+		else if (input.isKeyPressed(Input.KEY_NUMPAD9)||input.isKeyPressed(Input.KEY_9)
+				||input.isKeyPressed(Input.KEY_RIGHT)||input.isKeyPressed(Input.KEY_O)
+				||input.isKeyPressed(Input.KEY_NUMPAD6)||input.isKeyPressed(Input.KEY_NUMPAD3)
+				||input.isKeyPressed(Input.KEY_L)){
+				currentSprite = right;
+		}
 		
-		//Normal Up
+		//Player moves upwards
 		else if (input.isKeyPressed(Input.KEY_UP)||input.isKeyPressed(Input.KEY_8)
 				||input.isKeyPressed(Input.KEY_NUMPAD8)){
-				moveUp();
+				currentSprite = up;
 		}
 		
-		//Diagonal Up Right
-		else if (input.isKeyPressed(Input.KEY_NUMPAD9)||input.isKeyPressed(Input.KEY_9)){
-				moveDiagonalUpRight();
-		}
-
-		//Normal Left
-		else if (input.isKeyPressed(Input.KEY_LEFT)||input.isKeyPressed(Input.KEY_U)
-				||input.isKeyPressed(Input.KEY_NUMPAD4)){
-				moveLeft();
-		}
-		
-		//PASS TURN
-		else if (input.isKeyPressed(Input.KEY_NUMPAD5)||input.isKeyPressed(Input.KEY_I))
-			{
-			moveNowhere();
-			}
-		
-		//Normal Right
-		else if (input.isKeyPressed(Input.KEY_RIGHT)||input.isKeyPressed(Input.KEY_O)||
-				input.isKeyPressed(Input.KEY_NUMPAD6)){
-			moveRight();
-			}
-		
-		//Diagonal Down Left
-		else if (input.isKeyPressed(Input.KEY_NUMPAD1)||input.isKeyPressed(Input.KEY_J)){
-				moveDiagonalDownLeft();
-				}
-		
-		//Normal Down
+		//Player moves downwards or does not move at all
 		else if (input.isKeyPressed(Input.KEY_DOWN)||input.isKeyPressed(Input.KEY_K)||
-				input.isKeyPressed(Input.KEY_NUMPAD2)){
-			moveDown();
-		}
-
-		//Diagonal Down Right
-		else if (input.isKeyPressed(Input.KEY_NUMPAD3)||input.isKeyPressed(Input.KEY_L)){
-			moveDiagonalDownRight();
-		}
-		 
-	}
-
-	
-////////////METHODS DEALING WITH MOVEMENT//////////////////////
-	private void moveDiagonalUpLeft(){
-		    //Update Sprite
-   			 currentSprite = left;
-			 playerMovement.moveDiagonalUpLeft(this, map);
-		 }
-	
-	
-	private void moveUp(){
-			currentSprite = up;
-			playerMovement.moveUp(this, map);
-		}
-		
-		
-	private void moveDiagonalUpRight(){
-			currentSprite = right;
-			playerMovement.moveDiagonalUpRight(this,map);
-		}
-
-	private void moveLeft(){	
-			currentSprite = left;
-			playerMovement.moveLeft(this,map);
-		}
-		
-	private void moveNowhere()
-		{
+				input.isKeyPressed(Input.KEY_NUMPAD2)||input.isKeyPressed(Input.KEY_NUMPAD5)
+				||input.isKeyPressed(Input.KEY_I)){
 			currentSprite = down;
-			playerMovement.moveNowhere(this, map);	
 		}
-		
-	private void moveRight(){
-			currentSprite = right;
-			playerMovement.moveRight(this, map);
-		}	
-		
-		
-	private void moveDiagonalDownLeft(){
-				currentSprite = left;
-				playerMovement.moveDiagonalDownLeft(this, map);
-				}
-				
-	private void moveDown(){
-			currentSprite = down;
-			playerMovement.moveDown(this, map);
-			
+ 
 	}
 
-	private void moveDiagonalDownRight(){
-			currentSprite = right;
-			playerMovement.moveDiagonalDownRight(this, map);
-	}
 	
 	///Methods dealing with Player Status////
 	public PlayerStatus getPlayerStatus() {return playerStats;}
@@ -266,6 +188,5 @@ public class Player extends Entity{
 			x = newX;
 			y = newY;
 	}
-	
 }
 
